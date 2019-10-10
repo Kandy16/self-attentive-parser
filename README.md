@@ -10,7 +10,7 @@ A high-accuracy parser with models for 11 languages, implemented in Python. Base
 5. [Reproducing Experiments](#reproducing-experiments)
 6. [Citation](#citation)
 7. [Credits](#credits)
-8. [Docker] (#Docker)
+8. [Docker](#Docker)
 
 If you are primarily interested in training your own parsing models, skip to the [Training](#training) section of this README.
 
