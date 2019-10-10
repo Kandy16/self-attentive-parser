@@ -181,7 +181,7 @@ def tree_from_str(treebank, strip_top=True, strip_spmrl_features=True):
     return trees[0]
 
 def load_trees(path, strip_top=True, strip_spmrl_features=True):
-    with open(path) as infile:
+    with open(path, encoding="utf-8") as infile:
         treebank = infile.read()
 
     # Features bounded by `##` may contain spaces, so if we strip the features
@@ -242,7 +242,7 @@ def load_trees(path, strip_top=True, strip_spmrl_features=True):
     return trees
 
 def load_silver_trees_single(path):
-    with gzip.open(path, mode='rt') as f:
+    with gzip.open(path, mode='rt', encoding="utf-8") as f:
         linenum = 0
         for line in f:
             linenum += 1
