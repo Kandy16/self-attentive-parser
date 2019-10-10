@@ -259,35 +259,47 @@ The code in this repository and portions of this README are based on https://git
 
 ## Docker
 
-The following are the pre-requisites to be installed before using the image.
+The following are the pre-requisites to be installed before using the image:
+```
 Nvidia-driver : v396.54
 Cuda driver : V9.2.148
+```
 
-The following link is used to setup docker utility and the whole pc to run this image.
+The following link is used to setup docker utility and the whole pc to run this image:
+```
 https://collabnix.com/introducing-new-docker-cli-api-support-for-nvidia-gpus-under-docker-engine-19-03-0-beta-release/
 https://xcat-docs.readthedocs.io/en/stable/advanced/gpu/nvidia/verify_cuda_install.html (to check cuda installation works or not)
 https://medium.com/developer-space/how-to-change-docker-data-folder-configuration-33d372669056 (incase you wanted to change default docker image folder)
+```
 
 A Docker image is pushed inside Dockerhub under kandy16/self-attentive-parser:kandy-pc_v1
-sudo docker pull kandy16/self-attentive-parser:kandy-pc_v1
+```sh
+$ sudo docker pull kandy16/self-attentive-parser:kandy-pc_v1
+```
 
-If a new image need to be built then use Dockerfile. Because of the above requirements, pytorch/pytorch:0.4.1-cuda9-cudnn7-runtime image from Docker hub has been used in Dockerfile. If there is a need to use latest versions then please choose appropriate.
-sudo docker build --network=host --tag=self-attentive-parser:kandy-pc_v1 .
+If a new image need to be built then use Dockerfile. Because of the above requirements, 'pytorch/pytorch:0.4.1-cuda9-cudnn7-runtime' image from Docker hub has been used in Dockerfile. If there is a need to use latest versions then please choose appropriate.
+```sh
+$ sudo docker build --network=host --tag=self-attentive-parser:kandy-pc_v1 .
 (Use any name in the place of ’self-attentive-parser:kandy-pc_v1’)
+```
 
 It is mandatory to get into docker container in interactive mode. 
-sudo docker run -v /media/kandy/hdd/master-thesis/constituency-parsing/self-attentive-parser/repository/:/app/models1 -it self-attentive-parser:kandy-pc_v1 sh
--v - used to mount host directory into container. It is of format host_directory:container_directory. Use absolute path for both the directories
--it - puts in container in interactive mode 
-sh - the shell that it puts
-
+```sh
+$ sudo docker run -v /media/kandy/hdd/master-thesis/constituency-parsing/self-attentive-parser/repository/:/app/models1 -it self-attentive-parser:kandy-pc_v1 sh
+  -v - used to mount host directory into container. It is of format host_directory:container_directory. Use absolute path for both the directories
+  -it - puts in container in interactive mode 
+  sh - the shell that it puts
+```
 if the image used from docker hub then instead of 'self-attentive-parser:kandy-pc_v1', 'kandy16/self-attentive-parser:kandy-pc_v1' should be used. Use a different name as per your need. We use volume mount -v because we need to store the trained model in host directory otherwise it will not be persistent. 
 
 Inside the container, get in the app directory (this is the default working directory), run the following commands
-python src/main.py train --train-path "data/penn-tree-bank/02-21.10way.clean" --dev-path "data/penn-tree-bank/22.auto.clean" --use-words --use-chars-lstm --model-path-base "/app/models1/base_lstm_wordemb" --batch-size 16 
-
-here /app/models1 directory used which is mapped to a host directory. Use appropriate switches to configure the model accoridngly. 
+```sh
+$ python src/main.py train --train-path "data/penn-tree-bank/02-21.10way.clean" --dev-path "data/penn-tree-bank/22.auto.clean" --use-words --use-chars-lstm --model-path-base "/app/models1/base_lstm_wordemb" --batch-size 16 
+```
+Here /app/models1 directory used which is mapped to a host directory. Use appropriate switches to configure the model accoridngly. 
 --use-words --use-chars-lstm - makes sure that char lstm and word embeddings are used and trained accordingly.
 
 The following command is used to test the performance of a trained model
-python src/main.py test --model-path-base /app/models1/base_lstm_wordemb_dev=92.26.pt --test-path data/penn-tree-bank/23.auto.clean 
+```sh
+$ python src/main.py test --model-path-base /app/models1/base_lstm_wordemb_dev=92.26.pt --test-path data/penn-tree-bank/23.auto.clean 
+```
