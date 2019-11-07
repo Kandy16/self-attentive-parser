@@ -286,22 +286,23 @@ $ sudo docker build --network=host --tag=self-attentive-parser:kandy-pc_v1 .
 
 It is mandatory to get into docker container in interactive mode. 
 ```sh
-$ sudo docker run -v /media/kandy/hdd/master-thesis/constituency-parsing/self-attentive-parser/repository/:/app/models1 -it self-attentive-parser:kandy-pc_v1 sh
+$ sudo docker run -it --rm -v /media/kandy/hdd/master-thesis/constituency-parsing/self-attentive-parser/repository/:/app/models1 self-attentive-parser:kandy-pc_v1 sh
   
   -v - used to mount host directory into container. It is of format host_directory:container_directory. Use absolute path for both the directories
   -it - puts in container in interactive mode 
+--rm - remove the image after finished running
   sh - the shell that it puts
 ```
 if the image used from docker hub then instead of 'self-attentive-parser:kandy-pc_v1', 'kandy16/self-attentive-parser:kandy-pc_v1' should be used. Use a different name as per your need. We use volume mount -v because we need to store the trained model in host directory otherwise it will not be persistent. 
 
 Inside the container, get in the app directory (this is the default working directory), run the following commands
 ```sh
-$ python src/main.py train --train-path "data/penn-tree-bank/02-21.10way.clean" --dev-path "data/penn-tree-bank/22.auto.clean" --use-words --model-path-base "/app/models1/base_lstm_wordemb" --batch-size 16 
+$ python src/main.py train --train-path "data/penn-tree-bank/02-21.10way.clean" --dev-path "data/penn-tree-bank/22.auto.clean" --use-words --model-path-base "/app/models1/base_lstm_wordemb" --batch-size 16 --eval-batch-size 16
 ```
 Here /app/models1 directory used which is mapped to a host directory. Use appropriate switches to configure the model accoridngly. 
 --use-words - makes sure that char lstm and word embeddings are used and trained accordingly.
 
 The following command is used to test the performance of a trained model
 ```sh
-$ python src/main.py test --model-path-base /app/models1/base_lstm_wordemb_dev=92.26.pt --test-path data/penn-tree-bank/23.auto.clean 
+$ python src/main.py test --model-path-base /app/models1/base_lstm_wordemb_dev=92.26.pt --test-path data/penn-tree-bank/23.auto.clean --result-path /app/models1/result --eval-batch-size 16
 ```
