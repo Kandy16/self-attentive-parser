@@ -261,7 +261,6 @@ The code in this repository and portions of this README are based on https://git
 
 The following are the pre-requisites to be installed before using the image:
 ```
-Nvidia-driver : v396.54
 Cuda driver : V9.2.148
 ```
 
@@ -278,14 +277,17 @@ $ sudo docker pull kandy16/self-attentive-parser:kandy-pc_v1
 ```
 
 If a new image need to be built then use Dockerfile. Because of the above requirements, 'pytorch/pytorch:0.4.1-cuda9-cudnn7-runtime' image from Docker hub has been used in Dockerfile. If there is a need to use latest versions then please choose appropriate.
+Pull this repository and get into EVALB folder and run command 'make' to build executable. If 'make' utilitiy is not there then open the 'Makefile' and use gcc commands.
 ```sh
 $ sudo docker build --network=host --tag=self-attentive-parser:kandy-pc_v1 .
+
 (Use any name in the place of ’self-attentive-parser:kandy-pc_v1’)
 ```
 
 It is mandatory to get into docker container in interactive mode. 
 ```sh
 $ sudo docker run -v /media/kandy/hdd/master-thesis/constituency-parsing/self-attentive-parser/repository/:/app/models1 -it self-attentive-parser:kandy-pc_v1 sh
+  
   -v - used to mount host directory into container. It is of format host_directory:container_directory. Use absolute path for both the directories
   -it - puts in container in interactive mode 
   sh - the shell that it puts
@@ -294,10 +296,10 @@ if the image used from docker hub then instead of 'self-attentive-parser:kandy-p
 
 Inside the container, get in the app directory (this is the default working directory), run the following commands
 ```sh
-$ python src/main.py train --train-path "data/penn-tree-bank/02-21.10way.clean" --dev-path "data/penn-tree-bank/22.auto.clean" --use-words --use-chars-lstm --model-path-base "/app/models1/base_lstm_wordemb" --batch-size 16 
+$ python src/main.py train --train-path "data/penn-tree-bank/02-21.10way.clean" --dev-path "data/penn-tree-bank/22.auto.clean" --use-words --model-path-base "/app/models1/base_lstm_wordemb" --batch-size 16 
 ```
 Here /app/models1 directory used which is mapped to a host directory. Use appropriate switches to configure the model accoridngly. 
---use-words --use-chars-lstm - makes sure that char lstm and word embeddings are used and trained accordingly.
+--use-words - makes sure that char lstm and word embeddings are used and trained accordingly.
 
 The following command is used to test the performance of a trained model
 ```sh

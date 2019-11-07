@@ -22,7 +22,7 @@ class FScore(object):
             return "(Recall={:.2f}, Precision={:.2f}, FScore={:.2f}, CompleteMatch={:.2f})".format(
                 self.recall, self.precision, self.fscore, self.complete_match)
 
-def evalb(evalb_dir, gold_trees, predicted_trees, ref_gold_path=None):
+def evalb(evalb_dir, gold_trees, predicted_trees, ref_gold_path=None,only_evaluation=False, result_path=None):
     assert os.path.exists(evalb_dir)
     evalb_program_path = os.path.join(evalb_dir, "evalb")
     evalb_spmrl_program_path = os.path.join(evalb_dir, "evalb_spmrl")
@@ -48,10 +48,19 @@ def evalb(evalb_dir, gold_trees, predicted_trees, ref_gold_path=None):
             gold_leaf.word == predicted_leaf.word
             for gold_leaf, predicted_leaf in zip(gold_leaves, predicted_leaves))
 
-    temp_dir = tempfile.TemporaryDirectory(prefix="evalb-")
-    gold_path = os.path.join(temp_dir.name, "gold.txt")
-    predicted_path = os.path.join(temp_dir.name, "predicted.txt")
-    output_path = os.path.join(temp_dir.name, "output.txt")
+    if only_evaluation:
+        #result_path = os.path.join(evalb_dir, "result")
+        if not os.path.exists(result_path):
+            os.makedirs(result_path)
+        temp_dir = result_path
+        gold_path = os.path.join(temp_dir, "gold.txt")
+        predicted_path = os.path.join(temp_dir, "predicted.txt")
+        output_path = os.path.join(temp_dir, "output.txt")
+    else:
+        temp_dir = tempfile.TemporaryDirectory(prefix="evalb-")
+        gold_path = os.path.join(temp_dir.name, "gold.txt")
+        predicted_path = os.path.join(temp_dir.name, "predicted.txt")
+        output_path = os.path.join(temp_dir.name, "output.txt")
 
     with open(gold_path, "w", encoding="utf-8") as outfile:
         if ref_gold_path is None:
@@ -104,7 +113,10 @@ def evalb(evalb_dir, gold_trees, predicted_trees, ref_gold_path=None):
         fscore.precision == 0.0)
 
     if success:
-        temp_dir.cleanup()
+        if not only_evaluation:
+            temp_dir.cleanup()
+        else:
+            print("Result stored in {}".format(temp_dir))
     else:
         print("Error reading EVALB results.")
         print("Gold path: {}".format(gold_path))

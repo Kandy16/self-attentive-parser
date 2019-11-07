@@ -78,6 +78,9 @@ def make_hparams():
         morpho_emb_dropout=0.2,
         timing_dropout=0.0,
         char_lstm_input_dropout=0.2,
+
+        elmo_options_path="data/elmo_2x4096_512_2048cnn_2xhighway_options.json",
+        elmo_weights_path="data/elmo_2x4096_512_2048cnn_2xhighway_weights.hdf5",
         elmo_dropout=0.5, # Note that this semi-stacks with morpho_emb_dropout!
 
         bert_model="bert-base-uncased",
@@ -205,7 +208,7 @@ def run_train(args, hparams):
             word_vocab,
             label_vocab,
             char_vocab,
-            hparams,
+            hparams
         )
 
     print("Initializing optimizer...")
@@ -289,7 +292,7 @@ def run_train(args, hparams):
             torch.save({
                 'spec': parser.spec,
                 'state_dict': parser.state_dict(),
-                'trainer' : trainer.state_dict(),
+                'trainer': trainer.state_dict(),
                 }, best_dev_model_path + ".pt")
 
     for epoch in itertools.count(start=1):
@@ -393,7 +396,7 @@ def run_test(args):
         print("Comparing with raw trees from", args.test_path_raw)
         ref_gold_path = args.test_path_raw
 
-    test_fscore = evaluate.evalb(args.evalb_dir, test_treebank, test_predicted, ref_gold_path=ref_gold_path)
+    test_fscore = evaluate.evalb(args.evalb_dir, test_treebank, test_predicted, ref_gold_path=ref_gold_path, only_evaluation=True, result_path=args.result_path)
 
     print(
         "test-fscore {} "
@@ -578,6 +581,7 @@ def main():
     subparser = subparsers.add_parser("test")
     subparser.set_defaults(callback=run_test)
     subparser.add_argument("--model-path-base", required=True)
+    subparser.add_argument("--result-path", required=True)
     subparser.add_argument("--evalb-dir", default="EVALB/")
     subparser.add_argument("--test-path", default="data/23.auto.clean")
     subparser.add_argument("--test-path-raw", type=str)

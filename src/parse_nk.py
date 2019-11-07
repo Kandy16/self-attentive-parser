@@ -631,7 +631,7 @@ class NKChartParser(nn.Module):
             word_vocab,
             label_vocab,
             char_vocab,
-            hparams,
+            hparams
     ):
         super().__init__()
         self.spec = locals()
@@ -690,8 +690,10 @@ class NKChartParser(nn.Module):
             assert not hparams.use_bert, "use_elmo and use_bert are mutually exclusive"
             assert not hparams.use_bert_only, "use_elmo and use_bert_only are mutually exclusive"
             self.elmo = get_elmo_class()(
-                options_file="data/elmo_2x4096_512_2048cnn_2xhighway_options.json",
-                weight_file="data/elmo_2x4096_512_2048cnn_2xhighway_weights.hdf5",
+                #options_file="data/elmo_2x4096_512_2048cnn_2xhighway_options.json", #args.elmo_options_path,
+                #weight_file="data/elmo_2x4096_512_2048cnn_2xhighway_weights.hdf5", #args.elmo_weights_path,
+                options_file=hparams.elmo_options_path,
+                weight_file=hparams.elmo_weights_path,
                 num_output_representations=1,
                 requires_grad=False,
                 do_layer_norm=False,
