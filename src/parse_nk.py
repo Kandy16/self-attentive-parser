@@ -783,6 +783,8 @@ class NKChartParser(nn.Module):
     def from_spec(cls, spec, model):
         spec = spec.copy()
         hparams = spec['hparams']
+        if(not isinstance(hparams,dict)):
+            hparams = hparams.to_dict()
         if 'use_chars_concat' in hparams and hparams['use_chars_concat']:
             raise NotImplementedError("Support for use_chars_concat has been removed")
         if 'sentence_max_len' not in hparams:
@@ -801,6 +803,17 @@ class NKChartParser(nn.Module):
             hparams['bert_transliterate'] = ""
 
         spec['hparams'] = nkutil.HParams(**hparams)
+        if("self" in spec):
+            spec.pop("self")
+        if("__class__" in spec):
+            spec.pop("__class__")
+        if ("num_embeddings_map" in spec):
+            spec.pop("num_embeddings_map")
+        if ("emb_dropouts_map" in spec):
+            spec.pop("emb_dropouts_map")
+        if ("d_elmo_annotations" in spec):
+            spec.pop("d_elmo_annotations")
+
         res = cls(**spec)
         if use_cuda:
             res.cpu()
