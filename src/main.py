@@ -322,7 +322,12 @@ def run_train(args, hparams):
                 batch_loss_value += loss_value
                 if loss_value > 0:
                     loss.backward()
+
+                # Remove memory from PC and Cuda
                 del loss
+                if(torch.cuda.is_available()):
+                    torch.cuda.empty_cache()
+
                 total_processed += len(subbatch_trees)
                 current_processed += len(subbatch_trees)
 
@@ -330,29 +335,48 @@ def run_train(args, hparams):
 
             trainer.step()
 
-            print(
-                "epoch {:,} "
-                "batch {:,}/{:,} "
-                "processed {:,} "
-                "batch-loss {:.4f} "
-                "grad-norm {:.4f} "
-                "epoch-elapsed {} "
-                "total-elapsed {}".format(
-                    epoch,
-                    start_index // args.batch_size + 1,
-                    int(np.ceil(len(train_parse) / args.batch_size)),
-                    total_processed,
-                    batch_loss_value,
-                    grad_norm,
-                    format_elapsed(epoch_start_time),
-                    format_elapsed(start_time),
+            if epoch == 1:
+                print(
+                    "epoch {:,} "
+                    "batch {:,}/{:,} "
+                    "processed {:,} "
+                    "batch-loss {:.4f} "
+                    "grad-norm {:.4f} "
+                    "epoch-elapsed {} "
+                    "total-elapsed {}".format(
+                        epoch,
+                        start_index // args.batch_size + 1,
+                        int(np.ceil(len(train_parse) / args.batch_size)),
+                        total_processed,
+                        batch_loss_value,
+                        grad_norm,
+                        format_elapsed(epoch_start_time),
+                        format_elapsed(start_time),
+                    )
                 )
-            )
 
             if current_processed >= check_every:
                 current_processed -= check_every
                 check_dev()
 
+                print(
+                    "epoch {:,} "
+                    "batch {:,}/{:,} "
+                    "processed {:,} "
+                    "batch-loss {:.4f} "
+                    "grad-norm {:.4f} "
+                    "epoch-elapsed {} "
+                    "total-elapsed {}".format(
+                        epoch,
+                        start_index // args.batch_size + 1,
+                        int(np.ceil(len(train_parse) / args.batch_size)),
+                        total_processed,
+                        batch_loss_value,
+                        grad_norm,
+                        format_elapsed(epoch_start_time),
+                        format_elapsed(start_time),
+                    )
+                )
         # adjust learning rate at the end of an epoch
         if (total_processed // args.batch_size + 1) > hparams.learning_rate_warmup_steps:
             scheduler.step(best_dev_fscore)

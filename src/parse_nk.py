@@ -10,7 +10,7 @@ use_cuda = torch.cuda.is_available()
 if use_cuda:
     torch_t = torch.cuda
     def from_numpy(ndarray):
-        return torch.from_numpy(ndarray).pin_memory().cuda(async=True)
+        return torch.from_numpy(ndarray).pin_memory().cuda(non_blocking=True)
 else:
     print("Not using CUDA!")
     torch_t = torch
@@ -186,6 +186,7 @@ class ScaledDotProductAttention(nn.Module):
                     'with Attention logit tensor shape ' \
                     '{}.'.format(attn_mask.size(), attn.size())
 
+            attn_mask = attn_mask.type(torch.bool)
             attn.data.masked_fill_(attn_mask, -float('inf'))
 
         attn = self.softmax(attn)
@@ -309,7 +310,7 @@ class MultiHeadAttention(nn.Module):
             k_padded.view(-1, len_padded, d_k),
             v_padded.view(-1, len_padded, d_v),
             invalid_mask.unsqueeze(1).expand(mb_size, len_padded, len_padded).repeat(n_head, 1, 1),
-            (~invalid_mask).repeat(n_head, 1),
+            (invalid_mask.new_ones(invalid_mask.shape) - invalid_mask).repeat(n_head, 1),
             )
 
     def combine_v(self, outputs):
@@ -350,6 +351,8 @@ class MultiHeadAttention(nn.Module):
             q_padded, k_padded, v_padded,
             attn_mask=attn_mask,
             )
+
+        output_mask = output_mask.type(torch.bool)
         outputs = outputs_padded[output_mask]
         outputs = self.combine_v(outputs)
 
@@ -699,6 +702,7 @@ class NKChartParser(nn.Module):
                 do_layer_norm=False,
                 keep_sentence_boundaries=True,
                 dropout=hparams.elmo_dropout,
+                #scalar_mix_parameters=[1, -9e10, -9e10],
                 )
             d_elmo_annotations = 1024
 
@@ -958,8 +962,9 @@ class NKChartParser(nn.Module):
             elmo_out = self.elmo.forward(char_idxs_encoder)
             elmo_rep0 = elmo_out['elmo_representations'][0]
             elmo_mask = elmo_out['mask']
+            elmo_mask = elmo_mask.type(torch.bool)
 
-            elmo_annotations_packed = elmo_rep0[elmo_mask.byte()].view(packed_len, -1)
+            elmo_annotations_packed = elmo_rep0[elmo_mask].view(packed_len, -1)
 
             # Apply projection to match dimensionality
             extra_content_annotations = self.project_elmo(elmo_annotations_packed)
