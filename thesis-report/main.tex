@@ -105,6 +105,7 @@ Jurafsky et al. \parencite{Jurafsky2008} in their 'Speech and Language processin
 In this thesis, we will apply state of the art techniques to perform constituent parsing on German dataset released by University of Tübingen.
 
 % ----------------------------------------------------------------------------
+\pagebreak
 \section{Related work}
 
 % FIND PAPERS FOR FOLLOWING
@@ -126,7 +127,7 @@ Probabilistic context free grammars (PCFG) contains a probability score assigned
 The head word of a phrase gives a good representation of the phrase structure and meaning. 
 PCFG parsing methods gives only 73 percent F1 score. Lexicalization of PCFG will create more rules pertaining to specific cases and the probability scores can be trained for each production rule. This indeed improves accuracy of parsing using Charniak method. But it increases production rules exponentially which results in sparseness. Kelin and Manning found that lexicalized PCFG does not capture lexical selection between content words but just basic grammatical features like verb form, verbal auxiliary, finiteness etc. This kind of splitting can be done horizontally while binarizing the tree and vertically by parent annotation \parencite{Gaddy2018}. It achieved 85.7percent F1 score and does not lead to too many production rules but at the same time captures the essence of context. Untill now the rules of grammar was handwritten which were picked carefully by experts. Petrov and Klein came up with a unsupervised ML approach which use base categories and learns subcategorizing and splitting using treebank data. They used expectation maximization (EM) algorithm, like Forward-Backward for HMMs but constrained by tree structure. 
 
-On the other hand, neural networks have been raising and becoming a prominent architecture to build machine learning (ML) systems. They were giving state of the art results for many NLP applications. they are also used to develop a better alternative for representation of words or other features of text. 
+On the other hand, neural networks have been raising and becoming a prominent architecture to build machine learning (ML) systems. They were giving state of the art results for many NLP applications. They are also used to develop a better alternative for representation of words or other features of text. 
 
 % Recursive neural network
 The constituent parsing of a given sentence involves outputting a tree which is fundamentally made of recursive structures of branches or merges of words or phrases. Socher et al. [\parencite*{RichardSocher2011}, \parencite*{Socher}, \parencite*{Sochera}] implemented a neural network based parsing which is specialized in learning recursive structures in a sentence and simultaneously learning compositional vectors for phrases. Their work achieved an accuracy of 90.4 F1 score and it is 20 percent faster than stanford factored parser. The system involves two bottom up parsing; the first parsing done by a base Probabilistic Context Free Grammar(PCFG) parser using CKY dynamic programming and select 200 best parses; the second pass is done by their best recursive neural network model with expensive matrix calculations on those 200 best results. 
@@ -140,11 +141,12 @@ The constituent parsing of a given sentence involves outputting a tree which is 
 Stern et al. \parencite*{Stern2017} implemented a minimum span neural network based constituency parser and achieved an accuracy of 91.79 F1 score on Penn Treebank dataset. They used an encoder-decoder architecture where in the encoder converts the input into a different reprsentation with context information and the decoder uses this augmented information to build the tree and get trained to become better. Bi-directional LSTM modules were used to encode the words in a sentence. This encoding gives out two vectors for each word containing the sentential context from left and right direction. This encoded output is used by two independent scoring systems; one to label the span and the other to choose the split. Their research work involved experimenting the above computed encoded output with chart-based bottom up and greedy top down parsing. Surprisingly the results of using top down with run time complexity O(n2) is as good as using bottom up approach where in a global optimized tree is chosen with run time complexity O(n3). The bottom up parsing was making decisions at every stage with the already computed values for whole tree beneath; whereas the top down parsing can refer to only local information. These results credit the ability of Bidirectional LSTM modules in capturing a lot of complex relations among words in a sentence. By using rich and expressive word vector representations, the encoding and decoding architectures are made simpler. 
 
 %Encoder - self attention module
-Kitaev et al. \parencite*{Kitaev2019} also implemented a encoder-decoder based neural network architecture for constituency parsing and they achieved state of the art accuracy of 95.13 F1 score on Penn Treebank dataset. Their parser also outperforms all the previous parsers on 8 of the 9 languages in SPMRL dataset. In this,, instead of LSTM modules, Attention modules \parencite*{Vaswani2017} are used. Attention modules are better in expressing how two sentences or inputs are relevant to each other by expressing them in a matrix with columns and rows as words/components of sentences/inputs of each. At the same time, attention modules can also be applied to a sentence itself to express which part of sentence is dependent on which other words. These capture the relationships of words in a sentence among themselves. Several self-attention modules are used in combination to encode the information and context in each sentence. The use of attention makes explicit the manner in which information is propagated between different locations in the sentence. A chart based decoder implemented by Stern et al \parencite*{Stern2017}. is used along with the modifications from Gaddy et al \parencite*{Gaddy2018}. They also found that positional information plays an very important role in parsing and inclusion of ELMo(Embeddings from Language Models) improved their accuracy by 3 percent. 
+Kitaev et al. \parencite*{Kitaev2019} also implemented a encoder-decoder based neural network architecture for constituency parsing and they achieved state of the art accuracy of 95.13 F1 score on Penn Treebank dataset. Their parser also outperforms all the previous parsers on 8 of the 9 languages in SPMRL dataset. In this,, instead of LSTM modules, Attention modules \parencite*{Vaswani2017} are used. Attention modules are better in expressing how two sentences or inputs are relevant to each other by expressing them in a matrix with columns and rows as words/components of sentences/inputs of each. At the same time, attention modules can also be applied to a sentence itself to express which part of sentence is dependent on which other words. These capture the relationships of words in a sentence among themselves. Several self-attention modules are used in combination to encode the information and context in each sentence. The use of attention makes explicit the manner in which information is propagated between different locations in the sentence. A chart based decoder implemented by Stern et al. \parencite*{Stern2017} is used along with the modifications from Gaddy et al \parencite*{Gaddy2018}. They also found that positional information plays an very important role in parsing and inclusion of ELMo(Embeddings from Language Models) improved their accuracy by 3 percent. 
 
 %Decoder - chartbased, greedy or beam search. top down and bottom up
 
 % ----------------------------------------------------------------------------
+\pagebreak
 \section{Background Study}
 In this thesis, we develop a neural network based constituent parser for german dataset released by Tübingen. The required information to understand different components of the proposed system is explained briefly in this section. 
 
@@ -324,26 +326,24 @@ The mentioned approaches take only Wikipedia sentence as an input. This can be e
 \subsection{Self Attention}
 
 
+\pagebreak
 \section{Approach}  
 
-In this thesis, we develop a neural network based constituent parser for german dataset released by Tübingen.
+In this thesis work, deep learning techniques are used to develop constituent parser for german language. This section explains in detail about the architecture used and different components included in it. In this approach, the german dataset released by by Tübingen is used to train the model effectively.
 
 \subsection{Research Questions}
 
 Through this work, the research questions that would be addressed are:
 \begin{enumerate}
-\item  How well the self attention modules encode sentence which can be used to parse sentences of Tübingen dataset effectively.
-\item An analysis on what features the techinique captures very well and what it does not?
+\item How well the self attention based modules of neural network are effective in capturing constituency grammar of german language? 
+\item How efficient the model can be improved by using only the tree dataset? This means no other external data directly or indirectly will be utilised. 
+\item How efficient the model can be improved using Transfer learning which involves pre-trained deep learning systems using external data such as German Wikipedia?
+\item What components of ELMo are useful for building an efficient model? ELMo uses combination of three layers of its output data by computing a weighted sum of each layer. The research also involves in figuring out which layer or what combination of layers output is pertinent to this particular task of developing consituent parser.
 \end{enumerate}
 
 \subsection{Model}
 
-Model - general architecture
-Different kinds of context
-Represent input + context
-detailed model architecture (type of RNN, type of attention mechanism)
-
- A general architecture of the proposed system is as shown in figure \ref{fig:broad_architecture}
+The models are highly inspired from the works of Kitaev et al. \parencite*{Kitaev2019}, which involves an encoder-decoder architecture as shown in figure \ref{fig:broad_architecture}:
 
 \begin{figure}[htpb]
     \centering
@@ -355,161 +355,213 @@ detailed model architecture (type of RNN, type of attention mechanism)
     \label{fig:broad_architecture}
 \end{figure}
 
-The reason behind using context input is that the RNN system would be better equipped with information to make a decision whether it is a true or fake news. And also that, the problem of fake news classification can be seen as a Natural Language Inference \parencite{Parikh2016} problem, which is about finding entailment or contradictory relationship between two sentences such as hypothesis and premise. Here, the context input is the premise and sentence input is the hypothesis. If there is an entailment between sentence input and context then it is true news otherwise false.
+The input to this system is a german sentence and the output is a predicted syntax tree of that particular sentence. The encoder takes in input sentence and does processing to convert it into a convenient, rich and versatile representation. This representation embodies information for each word with sub-word patterns as well as the context of the whole sentence. The encoded output is then fed into a decoder which outputs syntax tree. The building of syntax tree is seen as a continuous iteration of merging of certain subsequent words or merges that already happened in hierarchy. The decoder method involves steps to figure out what combination of merges are the best to build a good syntax tree.
+
+The training of deep learning system involves a objective function to compare the prediction against golden output to allow fine tuning of different components of model using backward propagation of gradients of error. In this context, the predicted best possible syntax tree is compared against the golden tree and the parameters involved in the encoder section is updated accordingly to yield the best syntax tree next time. 
+
+There are many ways by which the encoder and decoder components can be modeled. But in this approach, the encoder and decoder components are fixed and only the representation of sentences is varied to a certain degree. The encoder module is inspired from a state of art transformer neural network which predominantly uses self-attention modules, whereas the decoder module uses CKY approach to build the syntax tree. Sentences are represented using character embeddings and different word embeddings. In addition to words, position information of words are also used separately. The system does not use any other pre-processed information such as Parts Of Speech (POS) obtained by external tagger system as in old parsing methods.
+
+\subsubsection{Encoder}
+
+The purpose of the encoder, in this context, is to represent a sentence into a rich format which encompasses the sub-word patterns as well as the overall context of a sentence. This is achieved through a multi-layered, multi-head attention modules backed up with feed-forward networks as shown in the figure \ref{fig:encoder_module}
 
 \begin{figure}[htpb]
     \centering
-    \includegraphics[width=\textwidth,height=8cm,keepaspectratio=true]
+    \includegraphics[width=\textwidth,height=15cm,keepaspectratio=true]
     {encoder.png}
     \caption{
-        Broad Architecture
+        Encoder module
     }
-    \label{fig:broad_architecture}
+    \label{fig:encoder_module}
 \end{figure}
 
-There are many ways by which context input can be modeled and inputted to the systems. \color{red}Extracting the context as relevant to sentence input can be challenging and a suitable information retrieval method will be selected for it.\color{black}
+The input to this system is passed through 8 identical layers made up of multi-head self-attention mechanism modules sequentially. The output of the first layer is passed as input to the second layer. At each layer, the representation of a sentence is expected to improve gradually. A Multi-head attention uses 8 single heads, whereas each one allows every word in a sentence to gather information from one word in the same sentence. This brings out a matrix of information regarding what words attend to or obtain information from what other words in a sentence. This is applied not only to words but also to positions separately. Kitaev et al. \parencite*{Kitaev2019} shown in their work that separating words and positions for building constituent parser improved the results by 0.5 F1 score. And also that, position attention contributes more than content attention by 18 F1 score. Hence the position attention is used separately. 
+
+The output of Multi-head attention module is then passed to Layer Normalization by mixing with residual component of input. The Normalization of intermediate result along with objective function will help the gradient based optimizer to arrive the best values quickly. A Feed-forward network at this juncture helps to look for patterns among the multiple attention representation of words in a sentence and also to map the intermediate result dimension space to be compatible with inputs and outputs of each layer.  
+
+The dimensionality of representation, inputs and outputs of each layer are the same. A total of 1024 neurons are used to represent and it is split half and used by word and position related functions respectively. 
+
+
+The figure \ref{fig:single_attention_head} shows the outline of what happens inside a single attention head:
 
 \begin{figure}[htpb]
     \centering
-    \includegraphics[width=\textwidth,height=8cm,keepaspectratio=true]
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
+    {single-head-attention.png}
+    \caption{
+        Single attention head
+    }
+    \label{fig:single_attention_head}
+\end{figure}
+
+
+Each word or position representation is transformed into 3 vectors such as key $(k_t)$,  value $(v_t)$ and query $(q_t)$ with lesser dimensions $(d_k)$. This is done by using separate trainable parameters for word and position representation as well as for the above three entities. For example, the parameters for key transformation for both word and position representation are $W^{c}_K$ and $W^{p}_K$ respectively.
+
+The attention of a word i to a word j in a sentence is then calculated as 
+$ p(i\rightarrow{}j) \propto exp(\dfrac{q^{(c)}_i.k^{(c)}_j}{sqrt(d_k)}) $. In words, it is essentially a normalized dot product of respective query and key vectors. The weighted average of all values to form a average vector $\hat{v}_i = \sum_k p(i\rightarrow{}k)v_k$ represents the new value vector for word i which includes all the attention that it has on all the words in the sentence. 
+
+The following set of equations reveal overall functionality of single attention head in mathematical terms. The query, key and value vectors are computed by respective weight parameters against the word representation. The output of this is a vector for each and every word. A matrix containing all the vectors concatenated represents the overall sentence and they are shown as $Q_p$, $K_p$, and $V_p$ respectively. The softmax function models the probability distribution of the dot product of query and key matrix. The dot product with value matrix computes the weighted average and it is transformed by $W^{(c)}_O$ matrix to align with other output dimensions.
+\begin{align*}
+q^{(c)}_t = W^{(c)}_Q c_t, k^{(c)}_t = W^{(c)}_K c_t, v^{(c)}_t = W^{(c)}_V c_t \\
+SingleHead(C) = \left[softmax\left(\dfrac{Q_cK^T_c}{\sqrt{d_k}}\right) V_c\right] W^{(c)}_O \\
+where\ Q_c = C{}W^{(c)}_Q; K_c = C{}W^{(c)}_K; V_c = C{}W^{(c)}_V  
+\end{align*}
+
+Similarly for position representation, the following equations convey single head functionality. Different set of trainable parameters are used to get the final output.
+\begin{align*}
+SingleHead(P) = \left[softmax\left(\dfrac{Q_pK^T_p}{\sqrt{d_k}}\right) V_p\right] W^{(p)}_O \\
+where\ Q_p = P{}W^{(p)}_Q; K_p = P{}W^{(p)}_K; V_p = P{}W^{(p)}_V
+\end{align*}
+
+The output of single attention head is concatenated as shown in the figure \ref{fig:multi_head_attention_module}
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
     {multi-head-attention.png}
     \caption{
-        Broad Architecture
+        Mult-head attention module
     }
-    \label{fig:broad_architecture}
+    \label{fig:multi_head_attention_module}
 \end{figure}
 
-\begin{enumerate}
-\item The context can be empty. The system would be trained to understand Wikipedia and use this information alone to make a decision.
-\item Top 10 Wikipedia articles relevant to the sentence will be passed as context input. The Wikipedia articles will be long and so will increase the size of context input. The system may face long distance dependency issues and a suitable hyper-parameter selection is critical. Since both the sentence and context input are text from Wikipedia, the system might find it easy to align one with respect to other and find patterns among them. 
-\item Nearly 100 triples of knowledge graph will be passed as context input. Resource Description Framework (RDF) triples of DBPedia can be used. Extracting such information from DBPedia will be relatively easier. The structure of context input will be simple and straightforward and the length of context input will be shorter than using Wikipedia articles.  
-\item Information such as parts of speech, named entity and dependency graph of a sentence will be passed as context input. These metadata will bring more clarity about the sentence structure, which will help the system to extract patterns efficiently. 
-\end{enumerate}
+The concatenated output fed through feed-forward to derive the patterns across multiple attentions in a sentence. These are then fed to Layer Normalization block as shown in the figure \ref{fig:encoder_module}.
 
-A detailed architecture of an advanced RNN system is shown in the figure \ref{fig:detailed_architecture}. The sentence input and context input will be encoded into a rich and convenient representation separately. Bidirectional RNNs can be used which will take a sequential input and convert it into a matrix. The number of rows of the matrix will be equal to number of tokens in a sentence and number of columns can be controlled. Each row in the matrix will represent a token with sentential context. Both the sentence and context representation are then combined to form an efficient common representation. The arbitrariness of both sentence and context representation will be controlled and converted into a representation of fixed length. Attention modules can be used which will figure out how much attention needs to be given to both the representations to produce a common representation. It usually takes two matrices and outputs a fixed vector. But the attention mechanism can be a pure reduction process, where it takes only one matrix and converts into a fixed vector. This can be used when the context input is empty. The predictor takes in a fixed vector as input and predicts which one of the binary class label(true or fake) is most likely the final output. A feed-forward neural network will be a good choice to be used as a predictor. 
+\subsubsection{Decoder}
+As shown in the section, the chart parser is inspired from the works of Stern et al. and Gaddy et al.
 
-\begin{figure}[htpb]
-    \centering
-    \includegraphics[width=\textwidth,height=8cm,keepaspectratio=true]
-    {detailed-architecture-diagram.png}
-    \caption{
-        Detailed Architecture
-    }
-    \label{fig:detailed_architecture}
-\end{figure}
+\subsubsection{Objective function}
+max - margin, scoring . how does it work with CKY parsing and decoding
 
 \subsection{Experiments}
 
+The experiments are different for different pursuit of research questions. But the findings of one research is used in the subsequent researches. 
 
-Experiments : 4 experiments 
-Data wikipedia : sentence from wikipedia + negative examples through distortion
-Data fake news : kaggle - dataset or Ciampaglia dataset
-
-1) Training - 90 percent data wikipedia, Testing - 10 data from wikipedia
-2) 100 percent Data wikipedia, Data fake news
-3) 90 percent Data fake news, 10 percent data fake news
-4) Data from wikipedia and fake news, data fake news
-
-Since we use Wikipedia as a proxy for authentic information, each sentence in the Wikipedia is considered as true news. There is hardly any false news present. For training to be successful to build a good fake news detector, it should be ensured that more or less equal amount of data should be present for both true and fake news. The construction of false news is tricky and different natural language processing (NLP) methods will be used to generate false news. Spacy\footnote{https://www.spacy.io}, a python library for NLP tasks will be used for extracting parts of speech, named entity and dependency relations. Some techniques are 
+\subsubsection{For research question1:}
+The first research question address how effectively self-attention module can be utilized to maximize the optimal building of constituent parser. The following points cover the idea of experiments that will be conducted for this scenario:
 \begin{enumerate}
-\item Swap the words randomly in each and every sentence extracted from Wikipedia. The RNN models used will remember the sequence information and so a randomly shuffled sentence will be considered as a different sentence by the system. However, the syntax and semantics of the sentence created will be poor. This method is primitive but it will serve as a good baseline. 
-\item Replace the random words picked in a sentence with a random word from the corpus. This method would retain some of the words as it is and changing only few words will bring a subtle change in sentence. This is similar to random swapping but the syntactic structure of the sentence will be preserved to some extent.
-\item Replace all or randomly picked words in a sentence based on their parts of speech. In this method, all the words in the corpus will be tagged with a parts of speech label. This information will be used and randomly a word will be picked from the corpus which has the same parts of speech as the word to be replaced. This method will preserve the syntactic structure of the sentence better than the previous methods. 
-\item Replace the words in each sentence with their opposites extracted from WordNet\footnote{https://wordnet.princeton.edu/}. This method will not only preserve the syntax but also likely to have right semantics. The sentence created will more likely to have a meaning which is opposite of the original sentence. 
-\item Extract the dependency tree for each sentence and select an appropriate one from other sentences to replace it. The dependency relationship will contain information about which words are dependent on which other words. Replacing based on this similarity may create better examples.
+\item The first parameter that controls the self-attention module is the number of self-attention heads $(n_h)$. This helps the system to let the words to gather information from multiple locations in the same sentence. 
+\item The next parameter which influences the output is the number of identical layers $(n_l)$ that are stacked above each other. It helps the system to draw generalized or abstract or deep patterns from the primitive low level patterns already computed. 
+\item The internal dimension parameter for key, value and query attributes. This is used in conjunction with number of self-attention heads. In this approach, this is assigned with a fixed value 64 and the first parameter is changed. This particular value is taken from the research carried out by Kitaev et al. \parencite*{Kitaev2019}
 \end{enumerate}
 
-Total 80 experiments. 4 ways to create a model. 5 ways to create negative examples. and 4 ways of experiments
+The assumption is that the more the value the better the result will be. But after some point, the rate of returns will be diminishing. A range of values are fixed both the parameters and experiments will be conducted. The result metric will be computed and tabulated as show below:
 
-\subsection{Implementation}
+\begin{table}[h!]
+  \begin{center}
+    \begin{tabular}{c|c|c|c|c|c|c} 
+      $n_l/n_h$ & $1$ & $3$ & $5$ & $8$ & $10$\\
+      \hline
+      1 & & & & & & \\
+      \hline
+      3 & & & & & \\
+      \hline
+      5 & & & & & \\
+      \hline
+      8 & & & & & \\
+      \hline
+      10 & & & & & \\
+    \end{tabular}
+    \caption{Parameters range table for Research question 1}
+    \label{tab:research_question1_table1}
 
-Implementation: Tensorflow, spacy 
+  \end{center}
+\end{table}
 
-Recurrent neural networks will be used in this master thesis extensively since they perform well with sequential data. TensorFlow\footnote{https://www.tensorflow.org/} is a python library for building intensive numerical computation applications and deploy them in multiple platforms such as CPU and GPU. TensorFlow has built-in libraries to develop different neural network architectures. Wikipedia consists of a lot of articles; each article consists of a lot of sentences. Each sentence will be fed as input to the neural network.
----------------
-An advanced RNN architecture takes in either one or two inputs such as sentence in Wikipedia and context information. The context can be empty. The system processes the input and produces a binary output representing true or fake news. The outputs would contain a probability distribution of how likely it is true or fake news.
+Ideally all the variables should be changed and result metric should be computed and tabulated. The pair of $(n_l,n_h)$ values for which the resultant metric value is high, will be chosen as an ideal combination.But given the limiation on computation power and also the time, instead of choosing a classical Grid search which covers all the 25 combinations, random set of pairs will be chosen. In addition to that, Kitaev et al. from their research, chose value to be 8 after hyper tuning for both $n_l$ and $n_h$ respectively. Given these conditions, at the max, 5 experiments will be conducted which will be around the value 8.
 
-The inputs, in general, will be pre-processed to extract tokens, remove common words such as articles, prepositions and perform lemmatization which is converting the words to its root form. Low dimensional and dense word embeddings will be used to represent the inputs instead of one hot vectors. Already available word embeddings such as Word2vec \parencite{Mikolov2013} and GloVe\footnote{https://nlp.stanford.edu/projects/glove/} will be used to represent the inputs.
+\subsubsection{For research question2:}
 
-The dataset will be split and used for training, validation, and testing of the system. A general rule of thumb is to divide the dataset into 60-20-20 for training, validation, and testing respectively. But if the datasets are in order of millions then it is good enough to have approximately 10000 entries each for validation and testing. The validation dataset is used to try out different hyper-parameter configurations and select the optimal values for each. The hyper-parameters of the advanced neural network system that will be configured are number of layers, learning parameter, batch size, activation functions and epoch number(number of times the training dataset should be iterated).
+Second research question - what is the most efficient constituent parser that can be built only with training data
 
-% Background Knowledge: Wikidata or BabelNet (knowledge graphs), http://babelfy.org/ for entity resolution
+representation embeddings matrix - integer to vector
 
-The proposed methods involve modeling the content of Wikipedia in different ways such that the system can understand it better. These procedures are completely automatic in building the training examples and none of the features will be manually crafted. The different configurations of the system along with unique methods in constructing the training data is expected to understand Wikipedia better and the fake news detection can be carried out in a platform agnostic manner. 
+1) character embeddings - . Bidirectional LSTM character - outputs concatenate. Word vectors are formed on the fly 
+2) word embeddings - training
+3) character + word embeddings
 
-% ----------------------------------------------------------------------------
+highest value of result metric
+
+\subsubsection{For research question3:}
+
+Third research question - Usage of ELMo. what components of it is the best to be used 
+
+representation embeddings matrix - integer to vector
+
+1) only the first layer
+2) Second layer - syntactic relations are captured. 
+3) Third layer - semantic. must have context
+4) All layers combined with training
+
+result metric
+
+\pagebreak
 \section{Evaluation}
 
-The system will be evaluated as a fake news classifier. The test data should be different from the training or validation data which is used by the system. 
+Constituent parsing evaluation. The test data should be different from the training or validation data which is used by the system. 
 
 \subsection{Datasets}
 
-There are two comprehensive open datasets on fake news detection available.
-\begin{enumerate}
-\item  One of it is published in Kaggle\footnote{https://www.kaggle.com/mrisdal/fake-news} which consists of structured data of 13,000 rows and 20 columns. Some of the important information in this dataset are title, text and spam score. 
-\item The LIAR dataset is published by Wang \parencite{Wang2017} which is mined from politifact.com and it consists of 12,836 short statements. In addition to that, it also contains information about context, labels with 6 classes and justification for the label classification. 
-\end{enumerate}
+Tübingen dataset - write about history, coverage, versatility, who and what system have used it 
 
-The mentioned datasets might be too diverse to compare the performance of the system at the beginning. It might require training from the whole of Wikipedia. Research work from Ciampaglia et al. \parencite{Ciampaglia2015} used many simple datasets to evaluate network analysis techniques on a knowledge graph to build fake news classfier. The datasets are US politicians and their party affiliation, directors and their movies, US president and their spouses, US states and their capitals and world countries and their capitals. It also involves a dataset from Google Relation Extraction Corpus (GREC) which is about education degrees and institutional affiliations of people. These datasets will help to compare the performance of fake news classifier in specific domains of knowledge against their achieved results.
-
-In addition to that, the system can be evaluated based on how well it is able to understand Wikipedia. We use the presence and absence of a information in Wikipedia as a proxy for labeling that information as true or fake news. So, it is good to evaluate our system based on how well it is able to classify whether a given information is present in Wikipedia or not. This is done by inputting either random sentences or the sentences taken from Wikipedia and check whether it is present or not. \color{red}If the system performs very well in this test and fails to perform well with the mentioned standard datasets for fake news classification then it might help to gain insights on how good the coverage of news in Wikipedia is. \color{black}
 
 \subsection{Metrics}
 
-The baseline system involves only RNN and the improvements that will be added are RNN with LSTM blocks, bidirectional RNNs, and inclusion of context input along with sentence input. The following factors are used to compare the baseline with the improved system
+Tree score
+The following factors are used to compare the baseline with the improved system
 \begin{enumerate}
-\item How good the system is able to classify the non-Wikipedia news / fake news?
-\item How fast the model is build up?
+\item how well constituent parsing of test dataset works out
+\item F1 score
 \end{enumerate}
 
 The quality of the system can be measured by metrics such as Precision, Recall, F1 measure, and Accuracy. The F1 measure is preferred since it includes both false positive and false negatives. In this master thesis, the focus is mainly on improving the accuracy of the system and the speed of the system can be improved by using good hardware.
 
-\newpage
+\pagebreak
+\section{Implementation}
+
+Implementation: Tensorflow, spacy 
+
+CUDA drivers, GPU
+Implementation: Pytorch, Spacy
+Spacy and python libraries - pre-processing, there was some problem with the dataset and we removed it
+
+Code inspiration - share the github link
+Elmo - pre-trained dataset. download from a website - share it
+
+Docker implementation- overnight runs 
+
+%Recurrent neural networks will be used in this master thesis extensively since they perform well with sequential data. TensorFlow\footnote{https://www.tensorflow.org/} is a python library for building intensive numerical computation applications and deploy them in multiple platforms such as CPU and GPU. TensorFlow has built-in libraries to develop different neural network architectures. Wikipedia consists of a lot of articles; each article consists of a lot of sentences. Each sentence will be fed as input to the neural network.
+%---------------
+%An advanced RNN architecture takes in either one or two inputs such as sentence in Wikipedia and context information. The context can be empty. The system processes the input and produces a binary output representing true or fake news. The outputs would contain a probability distribution of how likely it is true or fake news.
+
+%The inputs, in general, will be pre-processed to extract tokens, remove common words such as articles, prepositions and perform lemmatization which is converting the words to its root form. Low dimensional and dense word embeddings will be used to represent the inputs instead of one hot vectors. Already available word embeddings such as Word2vec \parencite{Mikolov2013} and GloVe\footnote{https://nlp.stanford.edu/projects/glove/} will be used to represent the inputs.
+
+%The dataset will be split and used for training, validation, and testing of the system. A general rule of thumb is to divide the dataset into 60-20-20 for training, validation, and testing respectively. But if the datasets are in order of millions then it is good enough to have approximately 10000 entries each for validation and testing. The validation dataset is used to try out different hyper-parameter configurations and select the optimal values for each. The hyper-parameters of the advanced neural network system that will be configured are number of layers, learning parameter, batch size, activation functions and epoch number(number of times the training dataset should be iterated).
+
+% Background Knowledge: Wikidata or BabelNet (knowledge graphs), http://babelfy.org/ for entity resolution
+
+%The proposed methods involve modeling the content of Wikipedia in different ways such that the system can understand it better. These procedures are completely automatic in building the training examples and none of the features will be manually crafted. The different configurations of the system along with unique methods in constructing the training data is expected to understand Wikipedia better and the fake news detection can be carried out in a platform agnostic manner. 
 
 % ----------------------------------------------------------------------------
-\section{Organizational matters}
 
-\begin{tabbing}
-Duration of work: \hspace{1.1cm} \= \StartDate{} -- \EndDate{}\\
-\vspace{0.5ex}Candidate:	\> \myName{}\\
-\vspace{0.5ex}E-Mail:	\> \emailID{}\\
-\vspace{0.5ex}Student number: \> \matriculationID{}\\
-\vspace{0.5ex}Primary supervisor: \> \supervisor{}\\
-Supervisor: \> \supervisor{}\\
-Secondary supervisor: \> \secondSupervisor{}\\
-\end{tabbing}
 
+
+\pagebreak
+\section{Analysis}
+Research question by question
+
+Self - attention module - how does it capture context 
+\pagebreak
+\section{Conclusion}
 % ----------------------------------------------------------------------------
 
-\section{Time schedule}
+Self attention
+char encoding
+char encoding + word embeddings
 
-\begin{itemize}
-	\item Introduction and Literature: 01-May-2018 – 30-June-2018
-	\item Initial phase: 01-Aug-2018 – 15-Oct-2018
-	\begin{itemize}
-		\item Prototyping: 01-Aug-2018 – 30-Aug-2018
-		\item ML pipeline implementation: 01-Sep-2018 – 15-Sep-2018
-        \item Baseline implementation: 15-Sep-2018 – 30-Sep-2018
-        \item Testing and refining: 01-Oct-2018 – 15-Oct-2018
-	\end{itemize}
-	\item Development phase: 16-Oct-2018 – 30-Dec-2018
-	\begin{itemize}
-		\item RNN with different configuration: 16-Oct-2018 – 30-Oct-2018
-		\item Comprehend benchmark results: 16-Oct-2018 – 30-Oct-2018
-		\item Analyse and figure out improvements: 22-Oct-2018 – 30-Oct-2018
-        \item Improvisation using NLP techniques: 01-Nov-2018 – 30-Nov-2018
-        \item Attention mechanism implementation: 01-Dec-2018 – 30-Dec-2018
-        \item Comprehend benchmark results: 16-Dec-2018 – 30-Dec-2018
-	\end{itemize}
-	\item Final phase: 01-Jan-2019 – 01-Feb-2019
-	\begin{itemize}
-	 	\item Comprehend Benchamark results: 01-Jan-2019 – 07-Jan-2019
-		\item Revision: 08-Jan-2019 – 22-Jan-2019
-		\item Thesis report: 01-Jan-2019 – 30-Jan-2019
-	\end{itemize}
-\end{itemize}
+elmo embeddings
+ 
 
-A meeting with Lukas Schmelzeisen will happen approximately once in two weeks to discuss about the progress made and set the targets and milestones for subsequent weeks. fgdfg
+% ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
 \newpage
