@@ -6,6 +6,8 @@ import torch
 import torch.nn as nn
 import torch.nn.init as init
 
+import matplotlib.pyplot as plt
+
 use_cuda = torch.cuda.is_available()
 if use_cuda:
     torch_t = torch.cuda
@@ -612,6 +614,7 @@ class Encoder(nn.Module):
     def forward(self, xs, batch_idxs, extra_content_annotations=None):
         emb = self.embedding_container[0]
         res, timing_signal, batch_idxs = emb(xs, batch_idxs, extra_content_annotations=extra_content_annotations)
+        fig, axes = plt.subplots(3,5)
 
         for i, (attn, ff) in enumerate(self.stacks):
             if i >= self.num_layers_position_only:
@@ -619,7 +622,15 @@ class Encoder(nn.Module):
             else:
                 res, current_attns = attn(res, batch_idxs, qk_inp=timing_signal)
             res = ff(res, batch_idxs)
-
+            tmp = current_attns.cpu()
+            sent_num = 0
+            sent_len = batch_idxs.seq_lens_np[sent_num]
+            axes[i, 0].matshow(tmp[sent_num + 0,0:sent_len,0:sent_len], cmap='viridis')
+            axes[i, 1].matshow(tmp[sent_num + 1, 0:sent_len, 0:sent_len], cmap='viridis')
+            axes[i, 2].matshow(tmp[sent_num + 2, 0:sent_len, 0:sent_len], cmap='viridis')
+            axes[i, 3].matshow(tmp[sent_num + 3, 0:sent_len, 0:sent_len], cmap='viridis')
+            axes[i, 4].matshow(tmp[sent_num + 4, 0:sent_len, 0:sent_len], cmap='viridis')
+        plt.show()
         return res, batch_idxs
 
 # %%
