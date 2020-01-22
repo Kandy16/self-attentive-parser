@@ -8,6 +8,8 @@ import torch.nn.init as init
 
 import matplotlib.pyplot as plt
 
+import datetime
+
 use_cuda = torch.cuda.is_available()
 if use_cuda:
     torch_t = torch.cuda
@@ -614,24 +616,17 @@ class Encoder(nn.Module):
     def forward(self, xs, batch_idxs, extra_content_annotations=None):
         emb = self.embedding_container[0]
         res, timing_signal, batch_idxs = emb(xs, batch_idxs, extra_content_annotations=extra_content_annotations)
-        fig, axes = plt.subplots(3,5)
 
+        attention_list = []
         for i, (attn, ff) in enumerate(self.stacks):
             if i >= self.num_layers_position_only:
                 res, current_attns = attn(res, batch_idxs)
             else:
                 res, current_attns = attn(res, batch_idxs, qk_inp=timing_signal)
             res = ff(res, batch_idxs)
-            tmp = current_attns.cpu()
-            sent_num = 0
-            sent_len = batch_idxs.seq_lens_np[sent_num]
-            axes[i, 0].matshow(tmp[sent_num + 0,0:sent_len,0:sent_len], cmap='viridis')
-            axes[i, 1].matshow(tmp[sent_num + 1, 0:sent_len, 0:sent_len], cmap='viridis')
-            axes[i, 2].matshow(tmp[sent_num + 2, 0:sent_len, 0:sent_len], cmap='viridis')
-            axes[i, 3].matshow(tmp[sent_num + 3, 0:sent_len, 0:sent_len], cmap='viridis')
-            axes[i, 4].matshow(tmp[sent_num + 4, 0:sent_len, 0:sent_len], cmap='viridis')
-        plt.show()
-        return res, batch_idxs
+
+            attention_list.append(current_attns)
+        return res, attention_list
 
 # %%
 
@@ -1056,7 +1051,7 @@ class NKChartParser(nn.Module):
 
         if self.encoder is not None:
             annotations, _ = self.encoder(emb_idxs, batch_idxs, extra_content_annotations=extra_content_annotations)
-
+            #self.print_attention_graph(_, batch_idxs, word_idxs, self.word_vocab)
             if self.partitioned:
                 # Rearrange the annotations to ensure that the transition to
                 # fenceposts captures an even split between position and content.
@@ -1246,3 +1241,68 @@ class NKChartParser(nn.Module):
 
         tree = make_tree()[0]
         return tree, score
+
+    def print_attention_graph(self, attention_words, batch_idxs, word_idxs, word_vocab):
+        sent_num = 0
+        sent_len = batch_idxs.seq_lens_np[sent_num]
+        words = [''] # filling empty string. This needs to be there for the first item to be displayed
+        for i in range(1,sent_len - 1):
+            word_index =  word_idxs[i]
+            tmp_word = word_vocab.value(word_index)
+            words.append(tmp_word)
+        sent_len = sent_len - 2 # <start> and <stop> value is ignored
+
+        tmp_layers = 3
+        tmp_attention_heads = 5
+        soft_max = nn.Softmax(dim=-1)
+        for i in range(tmp_layers):
+            tmp = attention_words[i]
+            tmp = tmp.clone().cpu().detach()
+            tmp = tmp[sent_num, 1:sent_len+1, 1:sent_len+1]
+            tmp = soft_max(tmp)
+
+            fig = plt.figure(1)
+            fig.set_size_inches(18.5, 13.5)
+
+            ax = fig.add_subplot(111)
+
+            ax.matshow(tmp, cmap='viridis')
+            ax.set_xticks(range(sent_len), True)
+            ax.set_yticks(range(sent_len), True)
+
+            ax.set_xticklabels(words, {'fontsize': 20}, rotation=90)
+            ax.set_yticklabels(words, {'fontsize': 20})
+
+            for (i, j), z in np.ndenumerate(tmp):
+                ax.text(j, i, '{:0.3f}'.format(z), ha='center', va='center', fontsize=20)
+
+            plt.tight_layout()
+            #plt.show()
+            plt.savefig('images/' + str(datetime.datetime.now()) + '.png', dpi=100)
+            plt.close(fig)
+
+        # fig, axes = plt.subplots(tmp_layers, tmp_attention_heads)
+        # fig.set_size_inches(18.5, 13.5)
+        # for i in range(tmp_layers):
+        #     tmp = attention_words[i]
+        #     tmp = tmp.clone().cpu().detach()
+        #     for j in range(tmp_attention_heads):
+        #
+        #         axes[i, j].matshow(tmp[sent_num + j, 1:sent_len+1, 1:sent_len+1], cmap='viridis')
+        #
+        #         axes[i, j].set_xticks(range(sent_len), True)
+        #         axes[i, j].set_yticks(range(sent_len), True)
+        #
+        #         #if (i == 0):
+        #         #    axes[i, j].set_xticklabels(words, {'fontsize':10}, rotation=90)
+        #         #else:
+        #         #    axes[i, j].set_xticklabels([])
+        #         #if (j == 0):
+        #         #    axes[i, j].set_yticklabels(words, {'fontsize': 10})
+        #         #else:
+        #         #    axes[i, j].set_yticklabels([])
+        #         axes[i, j].set_xlabel('Layer - '+str(i+1)+', Head - '+str(j+1))
+        # plt.tight_layout()
+        # #plt.show()
+        # fig.savefig('images/'+str(datetime.datetime.now())+'.png', dpi=100)
+        # plt.close(fig)

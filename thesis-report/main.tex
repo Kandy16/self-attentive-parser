@@ -21,7 +21,7 @@
 \usepackage{array}
 \usepackage{booktabs}
 \usepackage{listings}
-
+\usepackage{float}
 
 \usepackage{color}
 \usepackage{graphicx}
@@ -372,7 +372,7 @@ Through this work, the research questions that would be addressed are:
 \item How well the self attention based modules of neural network are effective in capturing constituency grammar of german language? 
 \item How efficient the model can be improved by using only the tree dataset? This means no other external data directly or indirectly will be utilised. 
 \item How efficient the model can be improved using Transfer learning which involves pre-trained deep learning systems using external data such as German Wikipedia?
-\item What components of ELMo are useful for building an efficient model? ELMo uses combination of three layers of its output data by computing a weighted sum of each layer. The research also involves in figuring out which layer or what combination of layers output is pertinent to this particular task of developing consituent parser.
+%\item What components of ELMo are useful for building an efficient model? ELMo uses combination of three layers of its output data by computing a weighted sum of each layer. The research also involves in figuring out which layer or what combination of layers output is pertinent to this particular task of developing consituent parser.
 \end{enumerate}
 
 \subsection{Model}
@@ -463,6 +463,16 @@ The concatenated output fed through feed-forward to derive the patterns across m
 \subsubsection{Decoder}
 As shown in the section, the chart parser is inspired from the works of Stern et al. and Gaddy et al.
 
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
+    {cky-3.png}
+    \caption{
+        CKY parsing
+    }
+    \label{fig:CKY}
+\end{figure}
+
 \subsubsection{Objective function}
 max - margin, scoring . how does it work with CKY parsing and decoding
 
@@ -534,6 +544,16 @@ With character embeddings, the words which are not present in training dataset w
 \subsubsection{For research question3:}
 
 The third research question address the usage of Embeddings from Language Models (ELMo). And also what components or combination of them is helpful in building an efficient parser. ELMo are constructed using a multi-layer, character convolution based, bi-directional LSTM modules by training with a very large dataset atleast over a billion tokens. The representation are deep and have provided state of the art results in various application systems. As stated in the section (???), it outputs 3 layers and the following section shows the experiments to be conducted with ELMo:
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
+    {elmo.png}
+    \caption{
+        ELMo
+    }
+    \label{fig:CKY}
+\end{figure}
 
 \begin{enumerate}
 \item The first layer of ELMo does not involve any context and it is constructed by the concatenatation of character embeddings with a feed-forward network. This will be used as a base model for these experiments and it is expected to give least favourable result. This infact is much closer to using only character embeddings as specified in the previous research. But these are result of trainings from external, rich resources such as Wikipedia. The expectation of a relatively better result is still valid.
@@ -653,19 +673,30 @@ A docker\footnote{https://www.docker.com/} container image is a lightweight, sta
 \pagebreak
 \section{Analysis}
 
+This section reveals the results achieved for each and every research questions and also analyses the possible reasons for the outcomes.
+
+\begin{enumerate}
+\item How well the self attention based modules of neural network are effective in capturing constituency grammar of german language? 
+\item How efficient the model can be improved by using only the tree dataset? This means no other external data directly or indirectly will be utilised. 
+\item How efficient the model can be improved using Transfer learning which involves pre-trained deep learning systems using external data such as German Wikipedia?
+%\item What components of ELMo are useful for building an efficient model? ELMo uses combination of three layers of its output data by computing a weighted sum of each layer. The research also involves in figuring out which layer or what combination of layers output is pertinent to this particular task of developing consituent parser.
+\end{enumerate}
+
+
 \subsection{Research Question1:}
 
-\subsubsection{Optimal values for $n_l$ and $n_k$}
+In this section, how well the self attention modules are effective in capturing constituency grammar of German language is analysed. The values for number of layers $(n_l)$ and number of attention heads $(n_h)$ are changed and for each combination, the model is trained and checked against development dataset for four times in one epoch. Once when the development F1 score reached a saturation or started decreasing over a period of time then the program is stopped. Once when the training is completed, the model is made to predict the sentences in test dataset and compared against its actual output tree. 
 
-Epoch, Training accuracy vs Develop score
-* Coarse search - search for one value at every stage
+\subsubsection{Optimal values for $n_l$ and $n_h$}
+
+Since the number of possible combination of different values would lead to 100 and each training takes more than a day, training for all the combination will be time consuming. The methodology used is coarse-fine search to find the right combination. Initially the combination of values is wide spread covering the whole spectrum and the models are trained. Depending upon the results, the window of search is restricted but the granularity of search is increased. The following table shows the coarse search of parameter values and their results with the trained model:
 
 \begin{table}[h!]
   \begin{center}
-    \label{tab:table1}
+    \label{tab:coarse_search_for_layers_heads}
     \def\arraystretch{1.5}%  1 is the default, change whatever you need
     \begin{tabular}{c|c|c|c}
-      \textbf{$n_l$} & \textbf{$n_k$} & Dev F1 (\%) & Test F1 (\%) \\
+      \textbf{$n_l$} & \textbf{$n_h$} & Dev F1 (\%) & Test F1 (\%) \\
       \hline
       1 & 1 & 90.05 & 89.98\\
       3 & 3 & \textbf{92.47} & \textbf{92.44}\\
@@ -673,20 +704,21 @@ Epoch, Training accuracy vs Develop score
       8 & 8 & 87.95 & 87.82\\
       10 & 10 & 86.27 & 86.30\\
     \end{tabular}
-    \caption{Performance of models with different $n_l$ and $n_k$ values}
+    \caption{Performance of models with different $n_l$ and $n_h$ values}
   \end{center}
 \end{table}
 
-*Since $n_l$ values as 3 and 5 gave good results, do a fine search on each rows and in between
-*Enumerate all the values and tabulate
+A total of five searches and each one covering a new value for $n_l$ between 1 and 10 and they are equally spaced. From the table above, it is evident that the performance of parser were improving until 5 and then it started declining. From the results, when the values are increased further, it is reasonable to assume that the performance of parser will decline even more. 
+
+From the table, it is clear that $n_l$ values as 3 and 5 gave good results. A fine search is carried for values 3 to 5 and the results are published in the following table:
 
 \begin{table}[h!]
   \begin{center}
   \def\arraystretch{1.5}%  1 is the default, change whatever you need
 
-    \label{tab:table1}
+    \label{tab:fine_search_for_layers_heads}
     \begin{tabular}{c|c|c|c}
-      \textbf{$n_l$} & \textbf{$n_k$} & Dev F1 (\%) & Test F1 (\%) \\
+      \textbf{$n_l$} & \textbf{$n_h$} & Dev F1 (\%) & Test F1 (\%) \\
       \hline
       \multirow{5}{*}{3} & 1 & 91.80 & 91.78\\
 	  & 3 & 92.47 & 92.44\\
@@ -704,40 +736,67 @@ Epoch, Training accuracy vs Develop score
   \end{center}
 \end{table}
 
-*Note down that value 4 for $n_l$ is also tried out
+Instead of doing fine search, all the values are tried including even values for $n_h$. The value 4 is also tried for $n_l$ which is not tabulated. From the table, it is evident that the value 3 for $n_l$ and 5 for $n_h$ gives a maximum test F1 score of 93.68\%. This combination is tested multiple times and the results are quite consistent. This combination will be used for further researches. 
 
-\subsubsection{self-attention module - how does it capture context }
+\subsubsection{self-attention module - how well it captures context? }
 
-* Every self attention module captures some different
-* Every layer adds details on top of it and abstracts or fine tunes the understanding
-\begin{figure}[htpb]
+From the table \ref{tab:coarse_search_for_layers_heads}, it is surprising to know that one layer and one attention head captures essential pattern that it is able to achieve almost 90\% test accuracy. This shows that self attention heads are much effective in building a constituent parser. It captures the context of sentence much effectively which is used by high level layers including the scoring module.
+
+Self-attention matrix reveals how much each of the words are influenced by other words in the same sentence. The larger the value, the greater the influence that word has. The values need not sum up to 1, but for an understanding purpose, this relatively expose how does the influence is distributed. 
+
+The figure \ref{fig:self-attention-head-matrix} shows self-attention matrix of a four word sentence 'Hilfe für kriegstraumatisier-te Frauen'. In this, the word 'Hilfe' has relatively higher influence on the whole sentence. Each value is color coded; the higher the value then the brighter it is.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
+    {attention-head-matrix.png}
+    \caption{
+        Self-attention head matrix
+    }
+    \label{fig:self-attention-head-matrix}
+\end{figure}
+
+From the above experiments, $n_l$ and $n_h$ values as 3 and 5 gave best results. A total of 15 attention heads is being used in the model. Out of which, 5 attention heads act of input directly and independent of each other. The output of it is combined and passed to 5 attention heads and so on.  So, in the second layer of attention heads, the influence of influence of 5 attention heads is computed or learned instead of the words. This will help the system to learn abstract patterns or higher level of understanding of context. The final layer improves the understanding of context along the same lines.
+
+The figures \ref{fig:self-attention-matrix-small-sentence} and \ref{fig:self-attention-matrix-large-sentence} show the self-attention matrix of 15 heads arranged in 3 layers. The following are 
+
+\begin{itemize}
+\item Every self attention module captures some different. No duplicates. 
+\item Every layer adds details on top of it and abstracts or fine tunes the understanding
+\item Initial layers, weightage is on specific words where as as layers go up, weightage is shared
+\item Same is applicable for sentences which have more than 20 words
+\end{itemize}
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
     {self-attention-matrix-1.png}
     \caption{
-        Self attention matrix of small sentence
+        Self-attention matrix of small sentence
     }
-    \label{fig:ff}
+    \label{fig:self-attention-matrix-small-sentence}
 \end{figure}
 
-
-\begin{figure}[htpb]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
     {self-attention-matrix-2.png}
     \caption{
-        Self attention matrix of small sentence
+        Self-attention matrix of long sentence
     }
-    \label{fig:ff}
+    \label{fig:self-attention-matrix-large-sentence}
 \end{figure}
 
 \subsubsection{Tree analysis - what it captures and what it does not ?}
 
-\pagebreak
 \subsection{Research Question 2}
 
-*Character embeddings are better than word embeddings
-* Considering both is marginally better
+\begin{itemize}
+\item Character embeddings are better than word embeddings
+\item Considering both is marginally better
+\item <UNK> words will be more with word embeddings. Only one vector is referred in these cases. where as with character embeddings different vectors will be referred for different values
+\item character embeddings learn subword patterns much better than word embeddings
+\end{itemize}
 
 \begin{table}[h!]
   \begin{center}
@@ -755,7 +814,7 @@ Epoch, Training accuracy vs Develop score
 \end{table}
 
 \subsubsection{Distance analysis - meaning}
-
+pickup some words - compute the distance representation
 
 \subsubsection{Tree analysis - what it captures and what it does not ?}
 
@@ -763,8 +822,11 @@ Epoch, Training accuracy vs Develop score
 \pagebreak
 \subsection{Research Question 3}
 
-*Syntax layer performs betweer than Semantic layer
-* Combination of layers performed better
+\begin{itemize}
+\item *Syntax layer performs between than Other layers
+\item * Combination of layers performed better
+\end{itemize}
+
 
 \begin{table}[h!]
   \begin{center}
@@ -774,30 +836,43 @@ Epoch, Training accuracy vs Develop score
       ELMo based models & Dev F1 (\%) & Test F1 (\%) \\
       \hline
 	  First layer & 92.79 & 92.86\\
-      Syntax layer  & \textbf{95.43} & \textbf{95.49}\\
-      Semantic layer & 94.69 & 94.79\\
+      Second layer  & \textbf{95.43} & \textbf{95.49}\\
+      Third layer & 94.69 & 94.79\\
       Combination of all layers & \textbf{95.76} & \textbf{95.87}\\     
+      Word embeddings + Combination of all layers & \textbf{???} & \textbf{???}\\  
     \end{tabular}
     \caption{Performance of different ELMo based models}
   \end{center}
 \end{table}
 
+\begin{itemize}
+\item tensor([0.2156], device='cuda:0')
+\item tensor([0.7842], device='cuda:0')
+\item tensor([0.0002], device='cuda:0')
+\end{itemize}
+
 
 \subsubsection{Distance analysis - meaning}
-
+Select the same words and see how the distance is. 
 
 \subsubsection{Tree analysis - what it captures and what it does not ?}
 
 
 \pagebreak
-\section{Conclusion}
+\section{Conclusion and Future work}
 % ----------------------------------------------------------------------------
 
-Self attention - no. of identical layers and no. of attention heads
-char encoding
-char encoding + word embeddings
+\begin{itemize}
+\item Self attention - no. of identical layers and no. of attention heads
+\item char encoding
+\item char encoding + word embeddings
+\item elmo embeddings
+\end{itemize}
 
-elmo embeddings
+
+
+
+
  
 % ----------------------------------------------------------------------------
 

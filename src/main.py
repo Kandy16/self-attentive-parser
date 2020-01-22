@@ -387,6 +387,8 @@ def run_train(args, hparams):
 def run_test(args):
     print("Loading test trees from {}...".format(args.test_path))
     test_treebank = trees.load_trees(args.test_path)
+    #test_treebank = [tree for tree in test_treebank if len(list(tree.leaves())) == 4]
+
     print("Loaded {:,} test examples.".format(len(test_treebank)))
 
     print("Loading model from {}...".format(args.model_path_base))
@@ -601,6 +603,9 @@ def main():
     subparser.add_argument("--epochs", type=int)
     subparser.add_argument("--checks-per-epoch", type=int, default=4)
     subparser.add_argument("--print-vocabs", action="store_true")
+    #subparser.add_argument("--elmo-options-path", default="data/elmo_2x4096_512_2048cnn_2xhighway_options.json")
+    #subparser.add_argument("--elmo-weights-path", default="data/elmo_2x4096_512_2048cnn_2xhighway_weights.hdf5")
+    #subparser.add_argument("--elmo-dropout", type=float)
 
     subparser = subparsers.add_parser("test")
     subparser.set_defaults(callback=run_test)
@@ -610,6 +615,10 @@ def main():
     subparser.add_argument("--test-path", default="data/23.auto.clean")
     subparser.add_argument("--test-path-raw", type=str)
     subparser.add_argument("--eval-batch-size", type=int, default=100)
+    #subparser.add_argument("--elmo-options-path", default="data/elmo_2x4096_512_2048cnn_2xhighway_options.json")
+    #subparser.add_argument("--elmo-weights-path", default="data/elmo_2x4096_512_2048cnn_2xhighway_weights.hdf5")
+    #subparser.add_argument("--elmo-dropout", type=float)
+
 
     subparser = subparsers.add_parser("ensemble")
     subparser.set_defaults(callback=run_ensemble)
