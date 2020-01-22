@@ -38,7 +38,7 @@
 \newcommand{\emailID}{kandhasamy@uni-koblenz.de}
 \newcommand{\matriculationID}{216100855}
 
-\newcommand{\Title}{Deep Learning techniques applied to Constituency Parsing of German}
+\newcommand{\Title}{Deep Learning techniques applied to Constituency parsing of German}
 \newcommand{\StartDate}{01-Aug-2019}
 \newcommand{\EndDate}{31-Jan-2019}
 \newcommand{\subject}{Institute f\"{u}r ComputerVisualistik}
@@ -131,12 +131,12 @@ Marcus et al.\parencite{Marcus1993} prepared Penn Tree Bank dataset for english 
 Probabilistic context free grammars (PCFG) contains a probability score assigned to each production rule. These probabilities are assigned based on various methods and the simplest of it is considering the statistical properties of word combinations. They help to quantify the likelihood of different possibilities of parsing a sentence. Chart based CKY algorithm is a bottom up parsing methodology which uses these probability scores to make decision about what combination of constituents are very likely. It only takes cubic time complexity rather than exponential by using dynamic programming techniques. 
 
 The head word of a phrase gives a good representation of the phrase structure and meaning. 
-PCFG parsing methods gives only 73 percent F1 score. Lexicalization of PCFG will create more rules pertaining to specific cases and the probability scores can be trained for each production rule. This indeed improves accuracy of parsing using Charniak method. But it increases production rules exponentially which results in sparseness. Kelin and Manning found that lexicalized PCFG does not capture lexical selection between content words but just basic grammatical features like verb form, verbal auxiliary, finiteness etc. This kind of splitting can be done horizontally while binarizing the tree and vertically by parent annotation \parencite{Gaddy2018}. It achieved 85.7percent F1 score and does not lead to too many production rules but at the same time captures the essence of context. Untill now the rules of grammar was handwritten which were picked carefully by experts. Petrov and Klein came up with a unsupervised ML approach which use base categories and learns subcategorizing and splitting using treebank data. They used expectation maximization (EM) algorithm, like Forward-Backward for HMMs but constrained by tree structure. 
+PCFG parsing methods gives only 73\% F1 score. Lexicalization of PCFG will create more rules pertaining to specific cases and the probability scores can be trained for each production rule. This indeed improves accuracy of parsing using Charniak method. But it increases production rules exponentially which results in sparseness. Kelin and Manning found that lexicalized PCFG does not capture lexical selection between content words but just basic grammatical features like verb form, verbal auxiliary, finiteness etc. This kind of splitting can be done horizontally while binarizing the tree and vertically by parent annotation \parencite{Gaddy2018}. It achieved 85.7\% F1 score and does not lead to too many production rules but at the same time captures the essence of context. Untill now the rules of grammar was handwritten which were picked carefully by experts. Petrov and Klein came up with a unsupervised ML approach which use base categories and learns subcategorizing and splitting using treebank data. They used expectation maximization (EM) algorithm, like Forward-Backward for HMMs but constrained by tree structure. 
 
 On the other hand, neural networks have been raising and becoming a prominent architecture to build machine learning (ML) systems. They were giving state of the art results for many NLP applications. They are also used to develop a better alternative for representation of words or other features of text. 
 
 % Recursive neural network
-The constituent parsing of a given sentence involves outputting a tree which is fundamentally made of recursive structures of branches or merges of words or phrases. Socher et al. [\parencite*{RichardSocher2011}, \parencite*{Socher}, \parencite*{Sochera}] implemented a neural network based parsing which is specialized in learning recursive structures in a sentence and simultaneously learning compositional vectors for phrases. Their work achieved an accuracy of 90.4 F1 score and it is 20 percent faster than stanford factored parser. The system involves two bottom up parsing; the first parsing done by a base Probabilistic Context Free Grammar(PCFG) parser using CKY dynamic programming and select 200 best parses; the second pass is done by their best recursive neural network model with expensive matrix calculations on those 200 best results. 
+The constituent parsing of a given sentence involves outputting a tree which is fundamentally made of recursive structures of branches or merges of words or phrases. Socher et al. [\parencite*{RichardSocher2011}, \parencite*{Socher}, \parencite*{Sochera}] implemented a neural network based parsing which is specialized in learning recursive structures in a sentence and simultaneously learning compositional vectors for phrases. Their work achieved an accuracy of 90.4 F1 score and it is 20\% faster than stanford factored parser. The system involves two bottom up parsing; the first parsing done by a base Probabilistic Context Free Grammar(PCFG) parser using CKY dynamic programming and select 200 best parses; the second pass is done by their best recursive neural network model with expensive matrix calculations on those 200 best results. 
 
 %Encoder-Decoder artchitecture
 %Encoder - FeedForward neural network, CNN, RNN , Bi-RNN,
@@ -144,10 +144,10 @@ The constituent parsing of a given sentence involves outputting a tree which is 
 %\parencite*{Stern2017}
 %\parencite*{Gaddy2018}
 
-Stern et al. \parencite*{Stern2017} implemented a minimum span neural network based constituency parser and achieved an accuracy of 91.79 F1 score on Penn Treebank dataset. They used an encoder-decoder architecture where in the encoder converts the input into a different reprsentation with context information and the decoder uses this augmented information to build the tree and get trained to become better. Bi-directional LSTM modules were used to encode the words in a sentence. This encoding gives out two vectors for each word containing the sentential context from left and right direction. This encoded output is used by two independent scoring systems; one to label the span and the other to choose the split. Their research work involved experimenting the above computed encoded output with chart-based bottom up and greedy top down parsing. Surprisingly the results of using top down with run time complexity O(n2) is as good as using bottom up approach where in a global optimized tree is chosen with run time complexity O(n3). The bottom up parsing was making decisions at every stage with the already computed values for whole tree beneath; whereas the top down parsing can refer to only local information. These results credit the ability of Bidirectional LSTM modules in capturing a lot of complex relations among words in a sentence. By using rich and expressive word vector representations, the encoding and decoding architectures are made simpler. 
+Stern et al. \parencite*{Stern2017} implemented a minimum span neural network based constituency parser and achieved an accuracy of 91.79 F1 score on Penn Treebank dataset. They used an encoder-decoder architecture where in the encoder converts the input into a different reprsentation with context information and the decoder uses this augmented information to build the tree and get trained to become better. Bi-directional LSTM modules were used to encode the words in a sentence. This encoding gives out two vectors for each word containing the sentential context from left and right direction. This encoded output is used by two independent scoring systems; one to label the span and the other to choose the split. Their research work involved experimenting the above computed encoded output with chart-based bottom up and greedy top down parsing. Surprisingly the results of using top down with run time complexity $O(n^2)$ is as good as using bottom up approach where in a global optimized tree is chosen with run time complexity $O(n^3)$. The bottom up parsing was making decisions at every stage with the already computed values for whole tree beneath; whereas the top down parsing can refer to only local information. These results credit the ability of Bidirectional LSTM modules in capturing a lot of complex relations among words in a sentence. By using rich and expressive word vector representations, the encoding and decoding architectures are made simpler. 
 
 %Encoder - self attention module
-Kitaev et al. \parencite*{Kitaev2019} also implemented a encoder-decoder based neural network architecture for constituency parsing and they achieved state of the art accuracy of 95.13 F1 score on Penn Treebank dataset. Their parser also outperforms all the previous parsers on 8 of the 9 languages in SPMRL dataset. In this,, instead of LSTM modules, Attention modules \parencite*{Vaswani2017} are used. Attention modules are better in expressing how two sentences or inputs are relevant to each other by expressing them in a matrix with columns and rows as words/components of sentences/inputs of each. At the same time, attention modules can also be applied to a sentence itself to express which part of sentence is dependent on which other words. These capture the relationships of words in a sentence among themselves. Several self-attention modules are used in combination to encode the information and context in each sentence. The use of attention makes explicit the manner in which information is propagated between different locations in the sentence. A chart based decoder implemented by Stern et al. \parencite*{Stern2017} is used along with the modifications from Gaddy et al \parencite*{Gaddy2018}. They also found that positional information plays an very important role in parsing and inclusion of ELMo(Embeddings from Language Models) improved their accuracy by 3 percent. 
+Kitaev et al. \parencite*{Kitaev2019} also implemented a encoder-decoder based neural network architecture for constituency parsing and they achieved state of the art accuracy of 95.13 F1 score on Penn Treebank dataset. Their parser also outperforms all the previous parsers on 8 of the 9 languages in SPMRL dataset. In this, instead of LSTM modules, Attention modules \parencite*{Vaswani2017} are used. Attention modules are better in expressing how two sentences or inputs are relevant to each other by expressing them in a matrix with columns and rows as words/components of sentences/inputs of each. At the same time, attention modules can also be applied to a sentence itself to express which part of sentence is dependent on which other words. These capture the relationships of words in a sentence among themselves. Several self-attention modules are used in combination to encode the information and context in each sentence. The use of attention makes explicit the manner in which information is propagated between different locations in the sentence. A chart based decoder implemented by Stern et al. \parencite*{Stern2017} is used along with the modifications from Gaddy et al \parencite*{Gaddy2018}. They also found that positional information plays an very important role in parsing and inclusion of ELMo(Embeddings from Language Models) improved their accuracy by 3\%. 
 
 %Papers to write about:
 %Decoder - chartbased, greedy or beam search. top down and bottom up
@@ -461,7 +461,7 @@ The output of single attention head is concatenated as shown in the figure \ref{
 The concatenated output fed through feed-forward to derive the patterns across multiple attentions in a sentence. These are then fed to Layer Normalization block as shown in the figure \ref{fig:encoder_module}.
 
 \subsubsection{Decoder}
-As shown in the section, the chart parser is inspired from the works of Stern et al. and Gaddy et al.
+As shown in the section, the chart parser is inspired from the works of Stern et al. and Gaddy et al. But have to explain here combination of each and every word is a CFG rule and the score determines the probability of using it
 
 \begin{figure}[htpb]
     \centering
@@ -558,7 +558,7 @@ The third research question address the usage of Embeddings from Language Models
 \begin{enumerate}
 \item The first layer of ELMo does not involve any context and it is constructed by the concatenatation of character embeddings with a feed-forward network. This will be used as a base model for these experiments and it is expected to give least favourable result. This infact is much closer to using only character embeddings as specified in the previous research. But these are result of trainings from external, rich resources such as Wikipedia. The expectation of a relatively better result is still valid.
 \item The data of second layer of ELMo is the output of first bi-directional language model module. As specified in the section (???) it embodies the syntactic relations of the different words in a sentence. As constituent parsing also is a syntactic relation extraction, this layer output will be very useful. 
-\item The data of third layer of ELMo is the output of second bi-directional language model module. It embodies the deep, semantic relationship of words in sentence. It will be interesting to see how does this layer influences the parser as compared to the second layer.   
+\item The data of third layer of ELMo is the output of second bi-directional language model module. It embodies the deep, contextual relationship of words in sentence. It will be interesting to see how does this layer influences the parser as compared to the second layer.   
 \item Using all the combination of layers by training scalar weights which will be used as weighted average of outputs of all the layers. This will be specific to the constituent parsing task and at the same time expected to use the benefits of all three layers. 
 \end{enumerate}
 
@@ -675,14 +675,6 @@ A docker\footnote{https://www.docker.com/} container image is a lightweight, sta
 
 This section reveals the results achieved for each and every research questions and also analyses the possible reasons for the outcomes.
 
-\begin{enumerate}
-\item How well the self attention based modules of neural network are effective in capturing constituency grammar of german language? 
-\item How efficient the model can be improved by using only the tree dataset? This means no other external data directly or indirectly will be utilised. 
-\item How efficient the model can be improved using Transfer learning which involves pre-trained deep learning systems using external data such as German Wikipedia?
-%\item What components of ELMo are useful for building an efficient model? ELMo uses combination of three layers of its output data by computing a weighted sum of each layer. The research also involves in figuring out which layer or what combination of layers output is pertinent to this particular task of developing consituent parser.
-\end{enumerate}
-
-
 \subsection{Research Question1:}
 
 In this section, how well the self attention modules are effective in capturing constituency grammar of German language is analysed. The values for number of layers $(n_l)$ and number of attention heads $(n_h)$ are changed and for each combination, the model is trained and checked against development dataset for four times in one epoch. Once when the development F1 score reached a saturation or started decreasing over a period of time then the program is stopped. Once when the training is completed, the model is made to predict the sentences in test dataset and compared against its actual output tree. 
@@ -758,13 +750,13 @@ The figure \ref{fig:self-attention-head-matrix} shows self-attention matrix of a
 
 From the above experiments, $n_l$ and $n_h$ values as 3 and 5 gave best results. A total of 15 attention heads is being used in the model. Out of which, 5 attention heads act of input directly and independent of each other. The output of it is combined and passed to 5 attention heads and so on.  So, in the second layer of attention heads, the influence of influence of 5 attention heads is computed or learned instead of the words. This will help the system to learn abstract patterns or higher level of understanding of context. The final layer improves the understanding of context along the same lines.
 
-The figures \ref{fig:self-attention-matrix-small-sentence} and \ref{fig:self-attention-matrix-large-sentence} show the self-attention matrix of 15 heads arranged in 3 layers. The following are 
+The figures \ref{fig:self-attention-matrix-small-sentence} and \ref{fig:self-attention-matrix-large-sentence} show the self-attention matrix of 15 heads arranged in 3 layers. From the analysis of it with multiple sentences, the following are the findings:
 
 \begin{itemize}
-\item Every self attention module captures some different. No duplicates. 
-\item Every layer adds details on top of it and abstracts or fine tunes the understanding
-\item Initial layers, weightage is on specific words where as as layers go up, weightage is shared
-\item Same is applicable for sentences which have more than 20 words
+\item Every self attention module in the same layer captures different influences. There are hardly any strict similarities. There is a slight variation from other modules. This means that the system is able to capture different influences and segregrate them efficiently through training. This representation will be quite efficient as it is very clear for higher layers to act upon 
+\item  The influence is strong on fewer entities at the first layer. In the sentence 'Der Streit ist längst nicht entschieden', it is evident that the first layer contains distinct influences, the words 'der', 'Streit', 'ist', and 'längst' gets influences by predominantly by one word. Where as in the subsequent layers, the influence is shared among other entities to a certain degree. This shows the abstraction or higher level understanding of the influences of entities.
+
+\item The behaviors are the same for longer sentences. In the figure the sentence has 20 words and the same pattern is observed. Each self attention model observers differnt influences and as the layers go up, the distinction of influences is distributed across all entities.
 \end{itemize}
 
 \begin{figure}[H]
@@ -787,25 +779,22 @@ The figures \ref{fig:self-attention-matrix-small-sentence} and \ref{fig:self-att
     \label{fig:self-attention-matrix-large-sentence}
 \end{figure}
 
-\subsubsection{Tree analysis - what it captures and what it does not ?}
+%\subsubsection{Tree analysis - what it captures and what it does not ?}
 
 \subsection{Research Question 2}
 
-\begin{itemize}
-\item Character embeddings are better than word embeddings
-\item Considering both is marginally better
-\item <UNK> words will be more with word embeddings. Only one vector is referred in these cases. where as with character embeddings different vectors will be referred for different values
-\item character embeddings learn subword patterns much better than word embeddings
-\end{itemize}
+In the previous section, the role of self attention modules are analysed. In this how effective a model can implemented for constituent parser using only the dataset which is the sentence and the labelled syntax trees. The representation of sentence is subjected to changes and the model is trained separately. 
+
+At first, the input is represented using character embeddings whereas each character is referred by a vector and the word is summation of all the vectors that represent each character in the word. Secondly for each and word in a sentence is represented a unique vector. In the third experiment, both character embeddings and word embeddings are used together. They are added up to refer to a word in the sentence. The table \ref{tab:different_embeddings_model} reveals the model development and test F1 score as follows:
 
 \begin{table}[h!]
   \begin{center}
-    \label{tab:table1}
+    \label{tab:different_embeddings_model}
     \def\arraystretch{1.5}%  1 is the default, change whatever you need
     \begin{tabular}{c|c|c}
       Embeddings based models & Dev F1 (\%) & Test F1 (\%) \\
       \hline
-      Character embeddings & 93.60 & 93.68\\
+      Character embeddings & \textbf{93.60} & \textbf{93.68}\\
       Word embeddings  & 91.22 & 91.16\\
       Character + Word embeddings & \textbf{94.17} & \textbf{94.10}\\
     \end{tabular}
@@ -813,24 +802,28 @@ The figures \ref{fig:self-attention-matrix-small-sentence} and \ref{fig:self-att
   \end{center}
 \end{table}
 
-\subsubsection{Distance analysis - meaning}
-pickup some words - compute the distance representation
 
-\subsubsection{Tree analysis - what it captures and what it does not ?}
-
-
-\pagebreak
-\subsection{Research Question 3}
-
+From the table, it is quite evident that embeddings play a important role in improving the accuracy and some important understanding are as follows:
 \begin{itemize}
-\item *Syntax layer performs between than Other layers
-\item * Combination of layers performed better
+\item Character embeddings are better than word embeddings. By using the former, the F1 score is improved by 2.5\% on the test dataset. This validates the consensus that character embeddings performs better in most NLP applications than using word embeddings. (Try to add citations???)
+\item Involving both character and word embeddings to represent input performs better than using them individually. A performance improvement of 0.42\% F1 score on test dataset is achieved. Although it is very marginal, this level of improvement beyond 90\% is important
+\item It is observed that 4.8\% of words in test dataset does not appear in training dataset. In case of word embeddings all unknown words are represented using a unique <UNK> vector where as in character embeddings all unknown words can be represented with different vectors since all characters are covered in training dataset itself
+\item Also character embeddings are capable of learning sub-word patterns since the granularity of representation is much stronger than word embeddings. Inorder to add credibility to it, it is made sure that words that appear only in test dataset but not in training dataset is replaced with <UNK> token and so even in character embeddings there will be only one unique vector to represent all unknown words. Even with this arrangement, the character embeddings performed better in the same way than word embeddings. This adds validity that character embeddings representation offers opportunity to the system to learn better. 
 \end{itemize}
 
+%\subsubsection{Distance analysis - meaning}
+%pickup some words - compute the distance representation
+
+%\subsubsection{Tree analysis - what it captures and what it does not ?}
+
+\subsection{Research Question 3}
+So far the best possible model for a constituential parser that could be developed using only the training dataset is tried out. In this section, with the use of pre-trained model using external data, how efficient a constituent parser can be built.
+
+For this, ELMo modules which are built from German Wikipedia with more than 1 billion tokens are used to represent the input instead of character or word embeddings. This ELMo uses 2 layers of bi-directional LSTM on character convoluted input. The input layer which is the first layer is composed of a function of character embeddings network. The second layer is the first bi-directional LSTM network output and the third layer is built on top of previous. The following table shows the performance of constituent parsing when these layer inputs are used separately and combined together:
 
 \begin{table}[h!]
   \begin{center}
-    \label{tab:table1}
+    \label{tab:different-elmo-models}
     \def\arraystretch{1.5}%  1 is the default, change whatever you need
     \begin{tabular}{c|c|c}
       ELMo based models & Dev F1 (\%) & Test F1 (\%) \\
@@ -839,24 +832,40 @@ pickup some words - compute the distance representation
       Second layer  & \textbf{95.43} & \textbf{95.49}\\
       Third layer & 94.69 & 94.79\\
       Combination of all layers & \textbf{95.76} & \textbf{95.87}\\     
-      Word embeddings + Combination of all layers & \textbf{???} & \textbf{???}\\  
     \end{tabular}
     \caption{Performance of different ELMo based models}
   \end{center}
 \end{table}
 
+From the table, it is clear that layered outputs influence the model much effectively and is analysed as follows:
 \begin{itemize}
-\item tensor([0.2156], device='cuda:0')
-\item tensor([0.7842], device='cuda:0')
-\item tensor([0.0002], device='cuda:0')
+\item The first layer which does not embody the context gives a least performance. The second layer which embodies the syntactic relationship of words helps the model to achieve 95.49\% F1 score. This is 1.39\% more than the previous best which is given by using character and word embeddings. The third layer which embodies the deep contextual relationship of words gives lesser F1 score by 0.7\%. This gives a clarity that constituency parser which predicts the syntactic structure of a sentence performs better with a layer output which embodies syntactic relations than other layered outputs. 
+\item It is interesting that combination of all layers performed better than using only syntactic layer by 0.38\%. In this, a scalar matrix influences what proportion of layered output has to be used. This is achieved by computing a weighted average of layered output influenced by scalar matrix. This scalar matrix is fine tuned by the training of model to achieve the maximum objective score. 
 \end{itemize}
 
+The figure \ref{fig:elmo-layers-relevance} reveals the influence of layers when all of them used. As expected nearly 80\% of second layer output is used. Usage of only third layer gives a better F1 score than using only the first layer as given in the table \ref{tab:different-elmo-models} . But what is surprising is that it uses only 0.02\% of third layer which means it has almost no influence. What can be assumed from this is that all the relation required is given by the second layer itself and so the third layer information is redundant in this case. 
+%\begin{itemize}
+%\item tensor([0.2156], device='cuda:0')
+%\item tensor([0.7842], device='cuda:0')
+%\item tensor([0.0002], device='cuda:0')
+%\end{itemize}
 
-\subsubsection{Distance analysis - meaning}
-Select the same words and see how the distance is. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
+    {elmo-layers-relevance.png}
+    \caption{
+        Importance of ELMo layers in Constituent parsing
+    }
+    \label{fig:elmo-layers-relevance}
+\end{figure}
 
-\subsubsection{Tree analysis - what it captures and what it does not ?}
 
+
+%\subsubsection{Distance analysis - meaning}
+%Select the same words and see how the distance is. 
+
+%\subsubsection{Tree analysis - what it captures and what it does not ?}
 
 \pagebreak
 \section{Conclusion and Future work}
@@ -867,6 +876,7 @@ Select the same words and see how the distance is.
 \item char encoding
 \item char encoding + word embeddings
 \item elmo embeddings
+\item Apply BERT
 \end{itemize}
 
 
