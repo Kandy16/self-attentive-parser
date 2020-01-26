@@ -1,4 +1,5 @@
 \documentclass[a4paper, 11pt]{article}
+%\documentclass[english,m,master,binding,twoside,palatino,nogermanabstract]{thesis}
 \usepackage{a4wide}
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
@@ -39,38 +40,172 @@
 \newcommand{\matriculationID}{216100855}
 
 \newcommand{\Title}{Deep Learning techniques applied to Constituency parsing of German}
-\newcommand{\StartDate}{01-Aug-2019}
-\newcommand{\EndDate}{31-Jan-2019}
-\newcommand{\subject}{Institute f\"{u}r ComputerVisualistik}
-%\newcommand{\expert}{Prof. Dr. Karin Harbusch}%inkl. Titel
 \newcommand{\supervisor}{Prof. Dr. Karin Harbusch} %inkl. Titel
 \newcommand{\secondSupervisor}{Denis Memmesheimer} %inkl. Titel
-\newcommand{\type}{Master Thesis}
+
+
 \begin{document}
-% ---------------------------------------------
-%	Title
-% ---------------------------------------------
-Universit\"{a}t Koblenz - Landau \hfill \today
 
-Department f\"{u}r Informatik,
+\thispagestyle{empty}
 
-\subject{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title page %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\supervisor{}
+\begin{titlepage}
+\enlargethispage{3em}
 
-\secondSupervisor{}
+\begin{minipage}{0.45\textwidth}
+  \begin{flushleft} \small
+    \includegraphics[width=68mm]{Uni-Logo}
+    \hspace*{16mm}Fachbereich 4: Informatik
+  \end{flushleft}
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\textwidth}
+  \begin{flushright} \small
+  %\includegraphics[bb=0 -120 706 298,height=40mm]{cvlogo.png} \\
+   \includegraphics[width=40mm, height=10mm]{cvlogo.png}
+     {\ }
+  \end{flushright}
+\end{minipage}
 
+\hspace*{10mm}
+\begin{minipage}[b]{0.8\textwidth}
+  \begin{flushleft}
+  \vspace{2cm}  
+ 
 \begin{center}
-	\large{\bf \type{}  \myName{}}
 
-	\vspace*{0.5cm}
+\Huge{\bf \Title} \\
+\vspace{4em}
 
-	\large{\bf \Title}
+%%% UNTERTITEL
+\LARGE{
+	Master's Thesis
+} % end of \Large
+
+\hspace*{10mm}
+\normalsize{
+	in partial fulfillment of the requirements for the degree of \\
+	 Master of Science (M.Sc.) in Web Science
+}
+\vspace{2em}
+
+\small{Submitted by} \\
+\Large{
+  \myName
+}
+\vspace{6em}
+
 \end{center}
 
-\setlength{\parskip}{1.5ex plus0.5ex minus 0.5ex}
+  \footnotesize{
+      {\bf Betreuer:} 
+	  	\supervisor{}, Institut für Computervisualistik, Fachbereich Informatik, Universität Koblenz-Landau \\
+      {\bf Erstgutachter:}   % Formal vorgegeben: immer DP
+	  	\supervisor{}, Institut für Computervisualistik, Fachbereich Informatik, Universität Koblenz-Landau \\
+      {\bf Zweitgutachter:}  % Gutachter muss mindestens den akademischen Grad der Arbeit haben
+	  	\secondSupervisor{}, Institut für Computervisualistik, Fachbereich Informatik, Universität Koblenz-Landau \\
+    % hier Abgabemonat und -jahr eintragen
+    
+    \vspace{1em}
+    \begin{flushleft}
+    Koblenz, im Januar 2020
+    \end{flushleft}
+ }
 
+%First supervisor:\hspace{2mm} \supervisor{}, Institute for Computer Visualistics \\
+%Second supervisor:\hspace{2mm} \secondSupervisor{}, Institute for Computer Visualistics \\
+
+\end{flushleft}
+\end{minipage}
+
+\end{titlepage}
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Statements %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        \begin{flushleft}
+            \begin{Large}
+                Statement
+              \\[5mm]
+            \end{Large}
+              I hereby certify that this thesis has been composed by me and is based on my own work, that I did not use any further resources than specified \textendash{} in particular no references unmentioned in the reference section \textendash{} and that I did not submit this thesis to another examination before. The paper submission is identical to the submitted electronic version.
+            \\[.75cm]
+            \begin{center}
+            \begin{tabular}{l p{1cm} cc}
+              \empty & \empty & 
+                Yes
+              & 
+                No
+              \\[.5cm]
+                I agree to have this thesis published in the library.& \empty & $\square$ & $\square$\\[.5cm]
+                I agree to have this thesis published on the Web.& \empty & $\square$ & $\square$\\[.5cm]
+                The thesis text is available under a Creative Commons  & \empty & \empty & \empty\\
+                License (CC BY-SA 4.0). & \empty & $\square$ & $\square$\\[.5cm]
+                The source code is available under a GNU General Public & \empty & \empty & \empty\\
+                License (GPLv3). & \empty & $\square$ & $\square$\\[.5cm]
+                The collected data is available under a Creative Commons & \empty & \empty & \empty\\
+                License (CC BY-SA 4.0). & \empty & $\square$ & $\square$\\[.5cm]
+            \end{tabular}\\[2cm]
+            \end{center}
+            \begin{small}
+              \dotfill\\
+                (Place, Date)\hfill(Signature)
+            \end{small}
+            \cleardoublepage%
+          \repeat%
+        \end{flushleft}
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Note %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\vspace{2em}
+        \begin{flushleft}
+        	\begin{Large}
+                	Note
+              \\[5mm]
+        	\end{Large}
+            \begin{itemize}
+            	\item If you would like us to contact you for the graduation ceremony, 
+                \item[] please provide your personal E-mail address: \dotfill
+                \item If you would like us to send you an invite to join the WeST Alumni 
+                \item[] and Members group on LinkedIn, please provide your LinkedIn ID : \dotfill
+            \end{itemize}
+            \cleardoublepage%
+        \end{flushleft}
+\pagebreak      
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Acknowledgements %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \selectlanguage{english}
+  \begin{center}
+  \begin{large}
+  \bfseries{Acknowledgement}
+  \end{large}
+  \end{center}
+I would like to express my gratitude to my advisors Prof. Dr. Karin Harbusch and Denis Memmesheimer for their support throughout the course of my Master thesis. 
+
+My mother has been very supportive of me and all those weekly phone calls have helped me to put things in perspective. Thank you.
+    \selectlanguage{english}
+  \cleardoublepage%  
+\pagebreak        
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Abstract %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+
+Constituent parsing attempts to extract syntactic structure from a sentence. These parsing systems are helpful in many NLP applications such as grammar checking, question answering, and information extraction. This thesis work is about implementing a constituent parser for German language using neural networks. Over the past, recurrent neural networks have been used in building a parser and also many NLP applications. In this, self-attention neural network modules are used intensively to understand sentences effectively. With multi-layered self-attention networks, constituent parsing achieves 93.68\% F1 score. This is improved even further by using both character and word embeddings as a representation of the input. An F1 score of 94.10\% was the best achieved by constituent parser using only the dataset provided. With the help of external datasets such as German Wikipedia, pre-trained ELMo models are used along with self-attention networks achieving 95.87\% F1 score. 
+\end{abstract}
+\pagebreak
+
+\tableofcontents
+\pagebreak
+
+\listoffigures
+\pagebreak
+
+\listoftables
+\pagebreak
+
+\clearpage
 
 \section{Introduction}
 \frenchspacing
@@ -273,8 +408,22 @@ The overfitting in neural networks will cause the trained system to perform well
 \subsection{Convolution Neural networks}
 
 Convolution neural networks - convolutions, diagram
+\parencite{lecun-bengio-95a}
+
 Advantages of convolutions
-Character convolution networks
+Character convolution networks \parencite{Zhang2015}
+
+\begin{figure}[htpb!]
+    \centering
+    \includegraphics[width=\textwidth,height=6cm,keepaspectratio=true]
+    {cnn-1.png}
+    \caption{
+        CNN architecture \parencite{cnn-1}.
+    }
+    \label{fig:CNN architecture}
+\end{figure}
+
+
 
 \subsection{Recurrent Neural networks}
 
@@ -295,7 +444,7 @@ Recurrent neural networks (RNN) accept sequential inputs and are often able to e
     \includegraphics[width=\textwidth,height=6cm,keepaspectratio=true]
     {Recurrent_neural_network_unfold.png}
     \caption{
-        A basic example of RNN architecture \parencite{WikipediaEN_RNN_unfold}.
+        A basic example of RNN architecture \parencite{rnn-1}.
     }
     \label{fig:A basic RNN architecture}
 \end{figure}
@@ -322,6 +471,19 @@ To train a RNN, the network is unrolled for a given input sequence and the loss 
 
 While training RNNs, a common problem that especially occurs with long input sentences is that the error gradients might vanish (become too close to zero) or explode (become too large) which results in numerical instability during the backpropagation step. The gradient explosion can be handled by clipping a given gradient when it goes beyond the threshold. LSTM networks \parencite{Hochreiter1997} solve the vanishing gradient problem by introducing memory cells which are controlled by gating components. These gating components decide at each time step, what parts of the hidden state should be forgotten and what parts of new input should be included into the memory cells. These memory cells are involved in the computation of hidden states, which in turn are used to compute the output states. This technique has been shown to provide good results in practice, in capturing the dependency between words even though separated by a long distance.
 
+
+GRU \parencite{cho2014learning}
+
+\begin{figure}[htpb!]
+    \centering
+    \includegraphics[width=\textwidth,height=6cm,keepaspectratio=true]
+    {lstm-1.png}
+    \caption{
+        LSTM architecture \parencite{rnn-2}.
+    }
+    \label{fig:LSTM architecture}
+\end{figure}
+
 %\begin{align*} \label{lstm_equation}
 %s_j = R_{LSTM}(s_{j-1},x_j) = [c_j;h_j] \\
 %c_j = c_{j-1} \odot f + g \odot i \\
@@ -343,22 +505,133 @@ The mentioned approaches take only Wikipedia sentence as an input. This can be e
 
 \subsection{Data Representation}
 
-\subsubsection{One Hot}
-
 \subsubsection{Word embeddings, Char embeddings}
+
+one hot - disadvantages
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
+    {word2vec-gender-relation.png}
+    \caption{
+        ELMo
+    }
+    \label{fig:ELMO}
+\end{figure}
+
+word2vec skipgram
+
+Character embeddings
+* less space
+* any words can be built
+
+
+\parencite{mikolov2013linguistic}
 
 %Distributional characteristics of word embeddings
 
 \subsubsection{ELMo}
 
+Deep contextualized word embeddings
+
+\parencite{peters2018deep}
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
+    {elmo.png}
+    \caption{
+        ELMo
+    }
+    \label{fig:ELMO}
+\end{figure}
+
+ELMO advantages - context
 
 \subsection{Attention}
 
+Talk about translation in general
+How does this weightage help
+Accuracy improvements
+\parencite{bahdanau2014neural}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=6cm,keepaspectratio=true]
+    {attention-model-1.png}
+    \caption{
+        Attention model for translation
+    }
+    \label{fig:attention_model}
+\end{figure}
+
 \subsubsection{Self-attention}
+
+\parencite{Vaswani2017} - Attention is all you need
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=6cm,keepaspectratio=true]
+    {self-attention.png}
+    \caption{
+        Self Attention
+    }
+    \label{fig:Self attention head}
+\end{figure}
+
 
 \subsection{Parsing techniques}
 
-CKY Model
+Syntax structure can be modeled by context free grammars. 
+CKY Model - Bottom up parsing
+Cocke-Kasami-Younger algorithm - standard dynamic programming
+
+\parencite{YOUNGER1967189}
+
+Computational complexity
+ - Dynamic programming 
+	 - Avoid duplications
+  
+ 
+ Ambiquity
+  - PCFG 
+ 
+Chomsky Normal Form (CNF) - two kinds of right hand side
+ - Two Non Terminal and one terminal
+ Any CFG can be written in CNF
+ 
+ 
+Rules :
+1) Replace Non Terminal -> Terminal.  Note down the probablity score. 
+2) Keep on Looking for a Unary symbols and replace them for the same span and until no further replacement is possible
+3) Make a chart of n*n size, Enumerate all the span size between start and end of sentence. Make a split with size 2 and increase
+4) Look for the non-terminal combination in the production rule and replace it with non-terminal in the left hand. Besides this, compute the probability of such occurrence by multiplying the probability of the three non-terminals (two left and one right)
+5) Apply unary rule and add rules to the chart along with the score
+6) Remove the production with the same left handside, if there are many. Pick the one with the best score
+7) Keep on doing it until the span limit is covered. Take the production rule with S on the left hand side
+
+O(n3 *g)
+O(g3)
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=\textwidth,height=8cm,keepaspectratio=true]
+    {cky-parsing-chart-1.png}
+    \caption{
+        CKY chart
+    }
+    \label{fig:cky_parser_1}
+\end{figure}
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=\textwidth,height=8cm,keepaspectratio=true]
+    {cky-parsing-chart-2.png}
+    \caption{
+        CKY parsing
+    }
+    \label{fig:cky_parser_2}
+\end{figure}
 
 \pagebreak
 \section{Approach}  
@@ -463,18 +736,32 @@ The concatenated output fed through feed-forward to derive the patterns across m
 \subsubsection{Decoder}
 As shown in the section, the chart parser is inspired from the works of Stern et al. and Gaddy et al. But have to explain here combination of each and every word is a CFG rule and the score determines the probability of using it
 
+* Summation of scores at each one level
+*After the tree is decided, maximum score, predict the labels
+
+
+
 \begin{figure}[htpb]
     \centering
     \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
-    {cky-3.png}
+    {cky-parsing-chart-3.png}
     \caption{
-        CKY parsing
+        CKY parsing with scores
     }
     \label{fig:CKY}
 \end{figure}
 
 \subsubsection{Objective function}
 max - margin, scoring . how does it work with CKY parsing and decoding
+
+\begin{align*}
+s(T) = \sum_{(i,j,l) \epsilon T}s(i,j,l) \\
+s(i,j,l) = M_2relu(LayerNorm(M_1v + c_1)) + c_2 \\
+v = [\overrightarrow{y}_j - \overrightarrow{y}_i; \overleftarrow{y}_{j+1} - \overleftarrow{y}_{i+1}] \\
+\hat{T} = \underset{T}{\mathrm{argmin}}\ s(T) \\
+s(T^*)\ \geq s(T) + \Delta (T,T^*) \\
+max\left(0, \underset{T\neq{T^*}}{max}\left[(T) + \Delta(T,T^*)\right] - s(T^*)\right)
+\end{align*}
 
 \subsection{Experiments}
 
@@ -545,15 +832,6 @@ With character embeddings, the words which are not present in training dataset w
 
 The third research question address the usage of Embeddings from Language Models (ELMo). And also what components or combination of them is helpful in building an efficient parser. ELMo are constructed using a multi-layer, character convolution based, bi-directional LSTM modules by training with a very large dataset atleast over a billion tokens. The representation are deep and have provided state of the art results in various application systems. As stated in the section (???), it outputs 3 layers and the following section shows the experiments to be conducted with ELMo:
 
-\begin{figure}[htpb]
-    \centering
-    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
-    {elmo.png}
-    \caption{
-        ELMo
-    }
-    \label{fig:CKY}
-\end{figure}
 
 \begin{enumerate}
 \item The first layer of ELMo does not involve any context and it is constructed by the concatenatation of character embeddings with a feed-forward network. This will be used as a base model for these experiments and it is expected to give least favourable result. This infact is much closer to using only character embeddings as specified in the previous research. But these are result of trainings from external, rich resources such as Wikipedia. The expectation of a relatively better result is still valid.
@@ -816,6 +1094,7 @@ From the table, it is quite evident that embeddings play a important role in imp
 
 %\subsubsection{Tree analysis - what it captures and what it does not ?}
 
+\pagebreak
 \subsection{Research Question 3}
 So far the best possible model for a constituential parser that could be developed using only the training dataset is tried out. In this section, with the use of pre-trained model using external data, how efficient a constituent parser can be built.
 
@@ -870,14 +1149,17 @@ The figure \ref{fig:elmo-layers-relevance} reveals the influence of layers when 
 \pagebreak
 \section{Conclusion and Future work}
 % ----------------------------------------------------------------------------
+During this thesis work, considerable attempts are put to build a constituent parser using neural networks. Over the past, Recurrent neural networks have been used in building a parser and also many NLP applications. In this, self-attention neural network modules are used intensively to understand sentences effectively. This understanding is used by a CKY decoder to predict the syntactic structure in a sentence. 
 
-\begin{itemize}
-\item Self attention - no. of identical layers and no. of attention heads
-\item char encoding
-\item char encoding + word embeddings
-\item elmo embeddings
-\item Apply BERT
-\end{itemize}
+With multi-layered self-attention networks, constituent parsing achieves 93.68\% F1 score. Each of the self-attention heads learn distinct features and the heads in the higher layer learn abstract patterns. This is improved by using character and word embeddings as a representation of input. An F1 score of 94.10\% was the best achieved by constituent parser using only the dataset provided. 
+
+With the help of external dataset such as German Wikipedia, pre-trained ELMo models are used as representative of input. The second layer of ELMo model has the greatest influence and combining all the layers with weighted average achieves 95.87\% F1 score. So a self-attention module with ELMo based vectors as input representative achieves the maximum performance in building a constiutent parser. 
+
+The research work did not scope in analysis of the results along the lines of computational linguistics. With the help of experts, a linguistic analysis has to be carried out which will give a clarity on what parts of grammar identification needs to be improved. This information will help in building some of hypothesis on how to improve and experiments can be carried out. It will also give an understanding of what self-attention module is good or bad at capturing.
+
+Devlin et al. made efforts to build Bidirectional Encoder Representations from Transformers (BERT) \parencite{devlin2018bert} models which are the state of art techniques to represent text. This work achieved best results for 11 NLP tasks such as MultiNLI with 86.7\%, and SQuAD v1.1 to 93.2\% F1 score. Pre-existing BERT based representations can be used for the input used in constituent parsing and see whether performance is improved or not.
+
+
 
 
 
