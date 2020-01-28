@@ -177,15 +177,15 @@
 \pagebreak      
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Acknowledgements %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\selectlanguage{english}
-  \begin{center}
-  \begin{large}
-  \bfseries{Acknowledgement}
-  \end{large}
-  \end{center}
-I would like to express my gratitude to my advisors Prof. Dr. Karin Harbusch and Denis Memmesheimer for their support throughout the course of my Master thesis. 
+
+
+\vspace*{\fill}
+I would like to express my gratitude to my advisors Prof.Dr.Karin Harbusch and Denis Memmesheimer for their support throughout the course of my Master thesis. Thank you.
 
 My mother has been very supportive of me and all those weekly phone calls have helped me to put things in perspective. Thank you.
+\vspace*{\fill}
+
+
     \selectlanguage{english}
   \cleardoublepage%  
 \pagebreak        
@@ -217,7 +217,7 @@ Constituent parsing attempts to extract syntactic structure from a sentence. The
 % state an example
 Constituency or Syntactic parsing is the process of determining the syntactic structure of a sentence by analyzing its words based on underlying grammar. Constituency parsing is very important in natural language processing (NLP) because it plays a substantial role in mediating between linguistic expression and meaning \parencite*{Socher}. 
 
-Say for e.g. the sentence 'Hans ißt einen Apfel' along with parts of speech (POS) tags, the parse tree is as follows:
+Say for e.g. the sentence 'Hans isst einen Apfel' along with parts of speech (POS) tags, the parse tree is as follows:
 
 \begin{figure}[htpb]
     \centering
@@ -229,7 +229,7 @@ Say for e.g. the sentence 'Hans ißt einen Apfel' along with parts of speech (PO
     \label{fig:An example parser tree network}
 \end{figure}
 
-In this tree, the abbreviations S, D, N, V, NP, and VP refer to sentence, determinant, noun, verb, noun-phrase, and verb-phrase respectively. The words of the sentence are referred as leaf nodes of the tree: Hans, ißt, einen and Apfel. The parts of speech (POS) tags associated with the above words are noun(N), verb(V), determinant(D), and noun(N) respectively. These are referred by the immediate parent of each word. The rest of the nodes are formed out of parsing. From the diagram, it is clear that the sentence followed three rules:
+In this tree, the abbreviations S, D, N, V, NP, and VP refer to sentence, determinant, noun, verb, noun-phrase, and verb-phrase respectively. The words of the sentence are referred as leaf nodes of the tree: Hans, isst, einen and Apfel. The parts of speech (POS) tags associated with the above words are noun(N), verb(V), determinant(D), and noun(N) respectively. These are referred by the immediate parent of each word. The rest of the nodes are formed out of parsing. From the diagram, it is clear that the sentence followed three rules:
 
 \begin{align*}
 \textbf{S} \rightarrow \textbf{N} \, \textbf{VP} \\
@@ -246,7 +246,7 @@ Jurafsky et al. \parencite{Jurafsky2008} in their 'Speech and Language processin
 
 %Penn Treebank dataset and SPMRL dataset  in state of parser in paper 'constituent parsing with a self-attentive encoder'
 % Applying state of the art approach to a new dataset - %Tübingen data
-In this thesis, we will apply state of the art techniques to perform constituent parsing on German dataset released by University of Tübingen.
+In this thesis, we will apply state of the art techniques to perform constituent parsing for the German language.
 
 
 % ----------------------------------------------------------------------------
@@ -261,6 +261,8 @@ In the past, handwritten grammar played a central role in parsing. Context-free 
 %There were considerable efforts put in by the research community to prepare large, standard and open datasets such as Wallstreet journal Penn treebank and SPGML, which is used as a standard benchmark to compare the algorithms. These datasets fuelled the research faster. 
 
 Marcus et al.\parencite{Marcus1993} prepared Penn Tree Bank dataset for English language which consists of syntactic structures for sentences along with POS tags. It was revised multiple times and now it consists of more than 39,000 sentences with syntax trees and 7 million words with POS tags \parencite{Taylor2003}. This annotated information includes text from different sources such as IBM computer manuals, nursing notes, Wall Street Journal articles and transcribed telephone conversations. This served as a good corpus for building models to do parsing based on Machine Learning (ML). This leads to an empirical/data-driven approach to parsing than rule-based approach. Some of the advantages of a treebank are reusability of a lot of other subsystems such as POS taggers, parsers, and a standard way to evaluate multiple parsing systems. 
+
+Similarly, for the German language, Telljohann et al. \parencite{TubingenTreebank}, \parencite{Telljohann04thetuba} associated with University of Tübingen, prepared a syntactically annotated German newspaper corpus TüBa-D/Z treebank. The annotations are done manually and consist of 3,816 articles, 104,787 sentences, and 1,959,474 tokens. It mainly distinguishes four levels of syntactic constituency: lexical level, phrasal level, topological fields level, and clausal level. In addition to that, Brants et al. \parencite{Brants2002TheTT} also prepared a 35,000 syntactically annotated German newspaper sentences named TIGER treebank. It also contains different levels of annotation such as POS tags, phrase categories, and syntactic functions. These two data sources are very important in the field of NLP for the German language. 
 
 %CFG-PCFG- Chart based CKY algorithm 
 %Lexicalization of production rules
@@ -297,7 +299,7 @@ Kitaev et al. \parencite*{Kitaev2019} also implemented an encoder-decoder based 
 % ----------------------------------------------------------------------------
 \pagebreak
 \section{Background Study}
-In this thesis, we develop a neural network based constituent parser for german dataset released by Tübingen. The required information to understand different components of the proposed system is explained briefly in this section. 
+In this thesis, we develop a neural network based constituent parser for the German language. The required information to understand different components of the proposed system is explained briefly in this section. 
 
 \subsection{Neural networks and its components}
 
@@ -416,16 +418,25 @@ Convolution neural networks - convolutions, diagram
 Advantages of convolutions
 Character convolution networks \parencite{Zhang2015}
 
-\begin{figure}[htpb!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth,height=6cm,keepaspectratio=true]
     {cnn-1.png}
     \caption{
-        CNN architecture \parencite{cnn-1}.
+        CNN architecture \parencite{cnn-1}
     }
     \label{fig:CNN architecture}
 \end{figure}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=6cm,keepaspectratio=true]
+    {cnn-2.png}
+    \caption{
+        Character CNN architecture
+    }
+    \label{fig:CNN architecture}
+\end{figure}
 
 
 \subsection{Recurrent Neural networks}
@@ -487,18 +498,18 @@ GRU \parencite{cho2014learning}
     \label{fig:LSTM architecture}
 \end{figure}
 
-%\begin{align*} \label{lstm_equation}
-%s_j = R_{LSTM}(s_{j-1},x_j) = [c_j;h_j] \\
-%c_j = c_{j-1} \odot f + g \odot i \\
-%h_j = tanh(c_j) \odot o \\
-%i = \sigma(x_jW^{xi} + h_{j-1} W^{hi}) \\
-%f = \sigma(x_jW^{xf} + h_{j-1} W^{hf}) \\
-%o = \sigma(x_jW^{xo} + h_{j-1} W^{ho}) \\
-%g = \sigma(x_jW^{xg} + h_{j-1} W^{hg}) \\
-%y_j = O_{LSTM}(s_j) = h_j \\
-%s_j \in \mathbb{R}^{2.d_h},   x_i \in \mathbb{R}^{d_x},  c_j,h_j,i,f,o,g \in \mathbb{R}^d_h, \\
-%W^{xo} \in \mathbb{R}^{d_x*d_h},  W^{ho} \in \mathbb{R}^{d_h*d_h}
-%\end{align*}
+\begin{align*} \label{lstm_equation}
+s_j = R_{LSTM}(s_{j-1},x_j) = [c_j;h_j] \\
+c_j = c_{j-1} \odot f + g \odot i \\
+h_j = tanh(c_j) \odot o \\
+i = \sigma(x_jW^{xi} + h_{j-1} W^{hi}) \\
+f = \sigma(x_jW^{xf} + h_{j-1} W^{hf}) \\
+o = \sigma(x_jW^{xo} + h_{j-1} W^{ho}) \\
+g = \sigma(x_jW^{xg} + h_{j-1} W^{hg}) \\
+y_j = O_{LSTM}(s_j) = h_j \\
+s_j \in \mathbb{R}^{2.d_h},   x_i \in \mathbb{R}^{d_x},  c_j,h_j,i,f,o,g \in \mathbb{R}^d_h, \\
+W^{xo} \in \mathbb{R}^{d_x*d_h},  W^{ho} \in \mathbb{R}^{d_h*d_h}
+\end{align*}
 %Here the symbol $\odot$ denotes component wise product. The LSTM uses 3 gating components such as input gate (i), forgot gate (f) and output gate (o) respectively. They contain a sigmoid function to convert the values between 0 and 1 which is used to decide how much to keep. The memory cell state c\textsubscript{j} is obtained by controlling the previous memory cell state with forgot gate and the new input state (g) with input gate. The obtained memory cell state is controlled by output gate to get the hidden state h\textsubscript{j}.
 
 \subsection{Bidirectional}
@@ -583,42 +594,18 @@ Accuracy improvements
 \end{figure}
 
 
-\subsection{Parsing techniques}
+\subsection{CKY parsing}
 
-Syntax structure can be modeled by context free grammars. 
-CKY Model - Bottom up parsing
-Cocke-Kasami-Younger algorithm - standard dynamic programming
 
-\parencite{YOUNGER1967189}
+Syntax structure can be modeled by Context-Free Grammars (CFG). Parsing attempts to extract the syntactic structure in the form of a tree from a sentence using the production rules specified in CFG.  A naive top-down search will take one of the starting non-terminals and proceeds to explore the non-terminals, all the way up to terminals and try to match the words. It explores many options that never connect to the actual sentence. Whereas a naive bottom-up search will start with words and try to match the non-terminal, all the way up to the starting terminal. It explores many options that can never lead to a full parse. The amount of unsuccessful search depends on how much the grammar branches in each direction.
 
-Computational complexity
- - Dynamic programming 
-	 - Avoid duplications
-  
- 
- Ambiquity
-  - PCFG 
- 
-Chomsky Normal Form (CNF) - two kinds of right hand side
- - Two Non Terminal and one terminal
- Any CFG can be written in CNF
- 
- 
-Rules :
-1) Replace Non Terminal -> Terminal.  Note down the probablity score. 
-2) Keep on Looking for a Unary symbols and replace them for the same span and until no further replacement is possible
-3) Make a chart of n*n size, Enumerate all the span size between start and end of sentence. Make a split with size 2 and increase
-4) Look for the non-terminal combination in the production rule and replace it with non-terminal in the left hand. Besides this, compute the probability of such occurrence by multiplying the probability of the three non-terminals (two left and one right)
-5) Apply unary rule and add rules to the chart along with the score
-6) Remove the production with the same left handside, if there are many. Pick the one with the best score
-7) Keep on doing it until the span limit is covered. Take the production rule with S on the left hand side
+Cocke-Kasami-Younger (CKY) \parencite{YOUNGER1967189} is a bottom-up parsing and dynamic programming method that requires first normalizing the grammar. 
 
-O(n3 *g)
-O(g3)
+Two key issues that are dealt with by CKY parsing are computational complexity and ambiguity. The computational complexity is handled by using a chart that stores the previous recognition of production rules for word combination or sub-rule combinations and re-using it appropriately. 
 
-\begin{figure}[htpb]
+\begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth,height=8cm,keepaspectratio=true]
+    \includegraphics[width=\textwidth,height=8cm, keepaspectratio=true]
     {cky-parsing-chart-1.png}
     \caption{
         CKY chart
@@ -626,7 +613,20 @@ O(g3)
     \label{fig:cky_parser_1}
 \end{figure}
 
-\begin{figure}[htpb]
+The ambiguity is dealt with by using Probabilistic Context-Free Grammar (PCFG). The probability values assigned to each production rule are used by parsing when they are assigned to sub-rule combinations and the importance of usage is computed. This importance is compared against other relevant production rules that could be applied and the best score is chosen.
+
+The algorithm of CKY is explained briefly as follows: 
+\begin{enumerate}
+\item Convert the given grammar into  Chomsky Normal Form (CNF). This involves allowing only two kinds of right-hand sides in production rules such as either two non-terminals or one terminal. Any CFG can be written in CNF form.
+\item Create a chart with the number of layers equivalent to number of words in a sentence as shown in figure \ref{fig:cky_parser_1}. Each layer refers to the span of a sentence and so all possible combinations in a sentence will be explored
+\item In the first layer, each word is dealt with. Replace the words with appropriate non-terminal(s) with the probability score
+\item Look for unaries that can re-write non-terminals and if found then append those to appropriate cells in the chart. While adding recompute the new probability score by multiplying the appropriate production rule components (both left and right). This is continued until no possible replacement is available 
+\item Look for the duplication for each non-terminal in each cell. If found then the one with highest score is chosen and the rest are removed
+\item When a layer with larger span is involved, use the results computed from lower layer which is referring to smaller span. Consider all the possible cell pair combinations and for each cell pair, consider all the combinations of non-terminals from each cell. Say for e.g. for a span(0,2), the cell pairs {(0,0),(1,2)} and {(0,1),(2,2)} will be taken into account. Follow step 3 for the two non-terminals instead of words and also unary replacement steps. In each case compute the new probability score building from the previous cells. 
+\item Keep on doing it until the span limit is covered. Take the non-terminal S, which is the starting terminal, with the highest score. If none found then the sentence cannot be parsed for a given grammar
+\end{enumerate}
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth,height=8cm,keepaspectratio=true]
     {cky-parsing-chart-2.png}
@@ -636,10 +636,13 @@ O(g3)
     \label{fig:cky_parser_2}
 \end{figure}
 
+In figure \ref{fig:cky_parser_2}, the sentence 'Hans isst einen Apfel' is parsed against PCFG grammar on the left side using CKY parsing and the tree produced is shown in green color in the chart. 'Hans' can be replaced with non-terminal N as in production rule $N \rightarrow Hans$ and unary replacement     $NP \rightarrow N$. The probability score 0.15 is computed by multiplying 0.3 and 0.5 that are taken from production rule and non-terminal N respectively. Certain combinations are not at all possible and they are referred to as red color in the chart. 
+
+
 \pagebreak
 \section{Approach}  
 
-In this thesis work, deep learning techniques are used to develop constituent parser for german language. This section explains in detail the architecture used and the different components included in it. In this approach, the german dataset released by Tübingen is used to train the model effectively.
+In this thesis work, deep learning techniques are used to develop constituent parser for german language. This section explains in detail the architecture used and the different components included in it. 
 
 \subsection{Research Questions}
 
@@ -736,27 +739,14 @@ The output of single attention head is concatenated as shown in the figure \ref{
 
 The concatenated output fed through feed-forward to derive the patterns across multiple attentions in a sentence. These are then fed to Layer Normalization block as shown in figure \ref{fig:encoder_module}.
 
-\subsubsection{Objective function}
-max-margin, scoring. how does it work with CKY parsing and decoding
+\subsubsection{Decoder}
+The decoder of this parser is inspired by the works of Stern et al. \parencite{Stern2017} and Gaddy et al. \parencite{Gaddy2018}. The output of encoder is a matrix wherein each row vector of size 1024 neurons represents a word in a sentence. The quantification of how good a combination i and j is considered as a constituent with label l is computed by scoring modules. The combination of two entities i and j is represented by a vector  $v = [\overrightarrow{y}_j - \overrightarrow{y}_i; \overleftarrow{y}_{j+1} - \overleftarrow{y}_{i+1}]$. The vector of size 1024 for a word or entity is divided into two vectors of equal size to be used as a representative for left or right part of a constituent. The computed vector v for entities i and j  is transformed non-linearly with normalization into a space of size equal to the number of labels. The label information is obtained by going through all the training samples and used to predict the label as well as the scores associated with it. 
 
 \begin{align*}
-s(T) = \sum_{(i,j,l) \epsilon T}s(i,j,l) \\
-s(i,j,l) = M_2relu(LayerNorm(M_1v + c_1)) + c_2 \\
-v = [\overrightarrow{y}_j - \overrightarrow{y}_i; \overleftarrow{y}_{j+1} - \overleftarrow{y}_{i+1}] \\
-\hat{T} = \underset{T}{\mathrm{argmin}}\ s(T) \\
-s(T^*)\ \geq s(T) + \Delta (T,T^*) \\
-max\left(0, \underset{T\neq{T^*}}{max}\left[(T) + \Delta(T,T^*)\right] - s(T^*)\right)
+s(i,j,l) = M_2relu(LayerNorm(M_1v + c_1)) + c_2
 \end{align*}
 
-\subsubsection{Decoder}
-As shown in the section, the chart parser is inspired from the works of Stern et al. and Gaddy et al. But have to explain here combination of every word is a CFG rule and the score determines the probability of using it
-
-* Summation of scores at each one level
-*After the tree is decided, maximum score, predict the labels
-
-
-
-\begin{figure}[htpb]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
     {cky-parsing-chart-3.png}
@@ -766,7 +756,32 @@ As shown in the section, the chart parser is inspired from the works of Stern et
     \label{fig:CKY}
 \end{figure}
 
+The decoder uses CKY parsing to compute scores for all the combinations and also computes the best overall tree $\hat{T}$ as the sum of all best subtrees. There are no defined PCFG grammar and its components associated with it. In fact, every combination is a production rule, every label in a training set is a non-terminal, every word is a terminal and all non-terminals are starting terminals. The score for a combination is considered as probability value of a production rule. The best score for a combination $s_{best}$ is obtained by the sum of its label score and best split that can divide the combination recursively. For consecutive entities, it is based only on the label score.
 
+\begin{align*}
+s(T) = \sum_{(i,j,l) \epsilon T}s(i,j,l) \\
+\hat{T} = \underset{T}{\mathrm{argmax}}\ s(T) \\
+s_{best}(i,i+1) = \underset{l}{max}\ s(i,i+1,l) \\
+s_{best}(i,j) = \underset{l}{max}\ s(i,j,l) + \underset{k}{max}\ {\left[s_{best}(i,k) + s_{best}(k,j)\right]}
+\end{align*}
+
+\subsubsection{Training}
+
+A max-margin based objective function is used to ensure that training of constituent parser results in the right parser tree.
+
+\begin{align*}
+max\left(0, \underset{T\neq{T^*}}{max}\left[s(T) + \Delta(T,T^*)\right] - s(T^*)\right)
+\end{align*}
+
+Here $T^*$ is the golden tree and s(T) refers to all the possible trees except the golden tree. $\Delta$ used is a Hamming loss computed for golden and predicted tree. In this system, for every comparison of subtree with label failing between golden and predicted tree, a value 1 is summed.
+
+With this training approach, the score of a golden tree will be maintained higher than any other tree by a margin of $\Delta$.  
+
+\begin{align*}
+s(T^*)\ \geq s(T) + \Delta (T,T^*) \\
+\end{align*}
+
+Here, the parsing ability of the system is not only learned but also the PCFG grammar of German. While trying to maintain the score for a golden tree to be high, the scores for combinations are fine-tuned which is analogous to the probability values of that production rule.
 
 \subsection{Experiments}
 
@@ -850,9 +865,9 @@ All the above experiments will reveal how best ELMo can be used in building an e
 \section{Evaluation}
 
 This section covers how the system will be evaluated as a constituent parser. In this master thesis, the focus is mainly on improving the quality of the system and the speed of the system can be improved by using good hardware. Dataset and the metric are the two most important factors play a major role in achieving the evaluation. 
-\subsection{Datasets}
-Tübingen dataset - write about history, coverage, versatility, who and what system have used it 
-The test data should be different from the training or validation data that is used by the system. 
+\subsection{Dataset}
+
+The TüBa-D/Z treebank \parencite{TubingenTreebank} released by the University of Tübingen is used to train constituent parser. The dataset consists of 104,787 sentences that are divided randomly into training, development, and test dataset of size 84,787, 10,000, and 10,000 respectively. The development dataset is used to fine-tune the hyper-parameters of the model after getting trained with the training dataset. The test dataset is used to measure the quality of constituent parser at the end. 
 
 \subsection{Metrics}
 
