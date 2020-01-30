@@ -374,3 +374,226 @@ title = {Stylebook for the Tübingen Treebank of Written German (TüBa-D/Z)}
   author={Sabine Brants and Stefanie Dipper and Silvia Hansen and Wolfgang Lezius and George Barrett Smith},
   year={2002}
 }
+
+@article{Svozil1997,
+abstract = {Basic definitions concerning the multi-layer feed-forward neural networks are given. The back-propagation training algo-rithm is explained. Partial derivatives of the objective function with respect to the weight and threshold coefficients are de-rived. These derivatives are valuable for an adaptation process of the considered neural network. Training and generalisation of multi-layer feed-forward neural networks are discussed. Improvements of the standard back-propagation algorithm are re-viewed. Example of the use of multi-layer feed-forward neural networks for prediction of carbon-13 NMR chemical shifts of alkanes is given. Further applications of neural networks in chemistry are reviewed. Advantages and disadvantages of multi-layer feed-forward neural networks are discussed. 0 1997 Elsevier Science B.V.},
+author = {Svozil, Daniel and Kvasnieka, Vladimir and Pospichal, Jie},
+file = {::},
+journal = {Chemometrics and Intelligent Laboratory Systems},
+keywords = {Back-propagation network Contents,Neural networks},
+pages = {43--62},
+title = {{Chemometrics and intelligent laboratory systems Introduction to multi-layer feed-forward neural networks}},
+volume = {39},
+year = {1997}
+}
+
+@article{Goldberg2016,
+abstract = {Over the past few years, neural networks have re-emerged as powerful machine-learning models, yielding state-of-the-art results in fields such as image recognition and speech processing. More recently, neural network models started to be applied also to textual natural language signals, again with very promising results. This tutorial surveys neural network models from the perspective of natural language processing research, in an attempt to bring natural-language researchers up to speed with the neural techniques. The tutorial covers input encoding for natural language tasks, feed-forward networks, convolutional networks, recurrent networks and recursive networks, as well as the computation graph abstraction for automatic gradient computation.},
+author = {Goldberg, Yoav},
+file = {::},
+journal = {Journal of Artificial Intelligence Research},
+pages = {345--420},
+title = {{A Primer on Neural Network Models for Natural Language Processing}},
+volume = {57},
+year = {2016}
+}
+
+@incollection{Bottou2012,
+abstract = {Chapter 1 strongly advocates the stochastic back-propagation method to train neural networks. This is in fact an instance of a more general technique called stochastic gradient descent (SGD). This chapter provides background material, explains why SGD is a good learning algorithm when the training set is large, and provides useful recommendations.},
+address = {Berlin, Heidelberg},
+author = {Bottou, L{\'{e}}on},
+booktitle = {Neural Networks: Tricks of the Trade: Second Edition},
+doi = {10.1007/978-3-642-35289-8_25},
+editor = {{Montavon Gr{\'{e}}goire
+and Orr}, Genevi{\`{e}}ve B.
+and M{\"{u}}ller Klaus-Robert},
+isbn = {978-3-642-35289-8},
+pages = {421--436},
+publisher = {Springer Berlin Heidelberg},
+title = {{Stochastic Gradient Descent Tricks}},
+url = {https://doi.org/10.1007/978-3-642-35289-8{\_}25},
+year = {2012}
+}
+@incollection{LeCunYannA.andBottou2012,
+abstract = {The convergence of back-propagation learning is analyzed so as to explain common phenomenon observed by practitioners. Many undesirable behaviors of backprop can be avoided with tricks that are rarely exposed in serious technical publications. This paper gives some of those tricks, and offers explanations of why they work.},
+address = {Berlin, Heidelberg},
+author = {{LeCun Yann A.
+and Bottou}, L{\'{e}}on
+and Orr Genevieve B.
+and M{\"{u}}ller Klaus-Robert},
+booktitle = {Neural Networks: Tricks of the Trade: Second Edition},
+doi = {10.1007/978-3-642-35289-8_3},
+editor = {{Montavon Gr{\'{e}}goire
+and Orr}, Genevi{\`{e}}ve B.
+and M{\"{u}}ller Klaus-Robert},
+isbn = {978-3-642-35289-8},
+pages = {9--48},
+publisher = {Springer Berlin Heidelberg},
+title = {{Efficient BackProp}},
+url = {https://doi.org/10.1007/978-3-642-35289-8{\_}3},
+year = {2012}
+}
+
+@article{Sutskever2013,
+abstract = {Recently, pre-trained deep neural networks (DNNs) have outperformed traditional acoustic models based on Gaussian mixture models (GMMs) on a variety of large vocabulary speech recognition benchmarks. Deep neural nets have also achieved excellent results on various computer vision tasks using a random “dropout” procedure that drastically improves generalization error by randomly omitting a fraction of the hidden units in all layers. Since dropout helps avoid overﬁtting, it has also been successful on a small-scale phone recognition task using larger neural nets. However, training deep neural net acoustic models for large vocabulary speech recognition takes a very long time and dropout is likely to only increase training time. Neural networks with rectiﬁed linear unit (ReLU) non-linearities have been highly successful for computer vision tasks and proved faster to train than standard sigmoid units, sometimes also improving discriminative performance. In this work, we show on a 50-hour English Broadcast News task that modiﬁed deep neural networks using ReLUs trained with dropout during frame level training provide an 4.2{\%} relative improvement over a DNN trained with sigmoid units, and a 14.4{\%} relative improvement over a strong GMM/HMM system. We were able to obtain our results with minimal human hyper-parameter tuning using publicly available Bayesian optimization code},
+archivePrefix = {arXiv},
+arxivId = {arXiv:1301.3605v3},
+author = {Sutskever, Ilya and Martens, James and Dahl, George and Hinton, Geoffrey},
+doi = {10.1109/ICASSP.2013.6639346},
+eprint = {arXiv:1301.3605v3},
+file = {:home/kandy/koblenz-web-science/master-thesis/papers/1{\_}new/sutskever13.pdf:pdf},
+isbn = {9781479903566},
+issn = {15206149},
+journal = {ICASSP, IEEE International Conference on Acoustics, Speech and Signal Processing - Proceedings},
+keywords = {Bayesian optimization,LVCSR,acoustic modeling,broadcast news,deep learning,dropout,neural networks,rectified linear units},
+number = {2010},
+pages = {8609--8613},
+pmid = {303902},
+title = {{On the importance of initialization and momentum in deep learning}},
+year = {2013}
+}
+
+@article{Duchi2011,
+abstract = {We present a new family of subgradient methods that dynamically incorporate knowledge of the geometry of the data observed in earlier iterations to perform more informative gradient-based learning. Metaphorically, the adaptation allows us to find needles in haystacks in the form of very predictive but rarely seen features. Our paradigm stems from recent advances in stochastic optimization and online learning which employ proximal functions to control the gradient steps of the algorithm. We describe and analyze an apparatus for adaptively modifying the proximal function, which significantly simplifies setting a learning rate and results in regret guarantees that are provably as good as the best proximal function that can be chosen in hindsight. We give several efficient algorithms for empirical risk minimization problems with common and important regularization functions and domain constraints. We experimentally study our theoretical analysis and show that adaptive subgradient methods outperform state-of-the-art, yet non-adaptive, subgradient algorithms.},
+archivePrefix = {arXiv},
+arxivId = {arXiv:1103.4296v1},
+author = {Duchi, John and Hazan, Elad and Singer, Yoram},
+doi = {10.1109/CDC.2012.6426698},
+eprint = {arXiv:1103.4296v1},
+file = {:home/kandy/koblenz-web-science/master-thesis/papers/1{\_}new/duchi11a.pdf:pdf},
+isbn = {9780982252925},
+issn = {15324435},
+journal = {Journal of Machine Learning Research},
+keywords = {adaptivity,online learning,stochastic convex optimization,subgradient methods},
+pages = {2121--2159},
+pmid = {2868127},
+title = {{Adaptive Subgradient Methods for Online Learning and Stochastic Optimization}},
+url = {http://jmlr.org/papers/v12/duchi11a.html},
+volume = {12},
+year = {2011}
+}
+
+@article{Hinton2012,
+abstract = {When a large feedforward neural network is trained on a small training set, it typically performs poorly on held-out test data. This "overfitting" is greatly reduced by randomly omitting half of the feature detectors on each training case. This prevents complex co-adaptations in which a feature detector is only helpful in the context of several other specific feature detectors. Instead, each neuron learns to detect a feature that is generally helpful for producing the correct answer given the combinatorially large variety of internal contexts in which it must operate. Random "dropout" gives big improvements on many benchmark tasks and sets new records for speech and object recognition.},
+archivePrefix = {arXiv},
+arxivId = {1207.0580},
+author = {Hinton, Geoffrey E. and Srivastava, Nitish and Krizhevsky, Alex and Sutskever, Ilya and Salakhutdinov, Ruslan R.},
+doi = {arXiv:1207.0580},
+eprint = {1207.0580},
+file = {::},
+isbn = {9781467394673},
+issn = {9781467394673},
+pmid = {1000104337},
+title = {{Improving neural networks by preventing co-adaptation of feature detectors}},
+year = {2012}
+}
+
+@article{DBLP:journals/corr/abs-1301-3781,
+  author    = {Tomas Mikolov and
+               Kai Chen and
+               Greg Corrado and
+               Jeffrey Dean},
+  title     = {Efficient Estimation of Word Representations in Vector Space},
+  journal   = {CoRR},
+  volume    = {abs/1301.3781},
+  year      = {2013},
+  url       = {http://arxiv.org/abs/1301.3781},
+  archivePrefix = {arXiv},
+  eprint    = {1301.3781},
+  timestamp = {Wed, 07 Jun 2017 14:42:25 +0200},
+  biburl    = {https://dblp.org/rec/bib/journals/corr/abs-1301-3781},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@article{Bengio1997,
+author = {Bengio, Y},
+file = {::},
+title = {{Convolutional Networks for Images, Speech, and Time-Series Parsing View project Oracle Performance for Visual Captioning View project}},
+url = {https://www.researchgate.net/publication/2453996},
+year = {1997}
+}
+
+@article{Elman,
+abstract = {Time underlies many interesting human behaviors. Thus, the question of how to represent time in connectionist models is very important. One approach is to rep-resent time implicitly by its effects on processing rather than explicitly (as in a spatial representation). The current report develops a proposal along these lines first described by Jordan (1986) which involves the use of recurrent links in order to provide networks with a dynamic memory. In this approach, hidden unit pat-terns are fed back to themselves: the internal representations which develop thus reflect task demands in the context of prior internal states. A set of simula-tions is reported which range from relatively simple problems (temporal version of XOR) to discovering syntactic/semantic features for words. The networks are able to learn interesting internal representations which incorporate task demands with memory demands: indeed, in this approach the notion of memory is inextri-cably bound up with task processing. These representations reveal a rich struc-ture, which allows them to be highly context-dependent, while also expressing generalizations across classes of items. These representations suggest a method for representing lexical categories and the type/token distinction.},
+author = {Elman, Jeffrey L},
+doi = {10.1207/s15516709cog1402_1},
+file = {::},
+journal = {COGNITIVE SCIENCE},
+number = {1},
+pages = {179--21},
+title = {{Finding Structure in Time}},
+volume = {14}
+}
+
+@article{Werbos1990,
+abstract = {Basic backpropagation, which is a simple method now being widely$\backslash$nused in areas like pattern recognition and fault diagnosis, is reviewed.$\backslash$nThe basic equations for backpropagation through time, and applications$\backslash$nto areas like pattern recognition involving dynamic systems, systems$\backslash$nidentification, and control are discussed. Further extensions of this$\backslash$nmethod, to deal with systems other than neural networks, systems$\backslash$ninvolving simultaneous equations, or true recurrent networks, and other$\backslash$npractical issues arising with the method are described. Pseudocode is$\backslash$nprovided to clarify the algorithms. The chain rule for ordered$\backslash$nderivatives-the theorem which underlies backpropagation-is briefly$\backslash$ndiscussed. The focus is on designing a simpler version of$\backslash$nbackpropagation which can be translated into computer code and applied$\backslash$ndirectly by neutral network users},
+author = {Werbos, Paul J.},
+doi = {10.1109/5.58337},
+file = {::},
+isbn = {0018-9219},
+issn = {15582256},
+journal = {Proceedings of the IEEE},
+title = {{Backpropagation Through Time: What It Does and How to Do It}},
+year = {1990}
+}
+
+@article{Hochreiter1997,
+abstract = { Learning to store information over extended time intervals by recurrent backpropagation takes a very long time, mostly because of insufficient, decaying error backflow. We briefly review Hochreiter's (1991) analysis of this problem, then address it by introducing a novel, efficient, gradient based method called long short-term memory (LSTM). Truncating the gradient where this does not do harm, LSTM can learn to bridge minimal time lags in excess of 1000 discrete-time steps by enforcing constant error flow through constant error carousels within special units. Multiplicative gate units learn to open and close access to the constant error flow. LSTM is local in space and time; its computational complexity per time step and weight is O. 1. Our experiments with artificial data involve local, distributed, real-valued, and noisy pattern representations. In comparisons with real-time recurrent learning, back propagation through time, recurrent cascade correlation, Elman nets, and neural sequence chunking, LSTM leads to many more successful runs, and learns much faster. LSTM also solves complex, artificial long-time-lag tasks that have never been solved by previous recurrent network algorithms. },
+author = {Hochreiter, Sepp and Schmidhuber, J{\"{u}}rgen},
+doi = {10.1162/neco.1997.9.8.1735},
+journal = {Neural Computation},
+number = {8},
+pages = {1735--1780},
+title = {{Long Short-Term Memory}},
+url = {https://doi.org/10.1162/neco.1997.9.8.1735},
+volume = {9},
+year = {1997}
+}
+
+@article{Parikh2016,
+abstract = {We propose a simple neural architecture for natural language inference. Our approach uses attention to decompose the problem into subproblems that can be solved separately, thus making it trivially parallelizable. On the Stanford Natural Language Inference (SNLI) dataset, we obtain state-of-the-art results with almost an order of magnitude fewer parameters than previous work and without relying on any word-order information. Adding intra-sentence attention that takes a minimum amount of order into account yields further improvements.},
+archivePrefix = {arXiv},
+arxivId = {1606.01933},
+author = {Parikh, Ankur P. and T{\"{a}}ckstr{\"{o}}m, Oscar and Das, Dipanjan and Uszkoreit, Jakob},
+doi = {10.18653/v1/N16-1062},
+eprint = {1606.01933},
+file = {:home/kandy/koblenz-web-science/master-thesis/papers/attention-model/1606.01933.pdf:pdf},
+isbn = {9781941643914},
+issn = {0001-0782},
+title = {{A Decomposable Attention Model for Natural Language Inference}},
+url = {http://arxiv.org/abs/1606.01933},
+year = {2016}
+}
+@article{Yang2016,
+abstract = {We propose a hierarchical attention network for document classification. Our model has two distinctive characteristics: (i) it has a hierarchical structure that mirrors the hierarchical structure of documents; (ii) it has two levels of attention mechanisms applied at the word and sentence-level, enabling it to attend differentially to more and less important content when constructing the document representation. Experiments conducted on six large scale text classification tasks demonstrate that the proposed architecture outperform previous methods by a substantial margin. Visualization of the attention layers illustrates that the model selects qualitatively informative words and sentences.},
+archivePrefix = {arXiv},
+arxivId = {1606.02393},
+author = {Yang, Zichao and Yang, Diyi and Dyer, Chris and He, Xiaodong and Smola, Alex and Hovy, Eduard},
+doi = {10.18653/v1/N16-1174},
+eprint = {1606.02393},
+file = {:home/kandy/koblenz-web-science/master-thesis/papers/attention-model/N16-1174.pdf:pdf},
+isbn = {9781941643914},
+issn = {1606.02393},
+journal = {Proceedings of the 2016 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies},
+pages = {1480--1489},
+title = {{Hierarchical Attention Networks for Document Classification}},
+url = {http://aclweb.org/anthology/N16-1174},
+year = {2016}
+}
+
+@article{bidirectionalRNN,
+author = {Schuster, M. and Paliwal, K.K.},
+title = {Bidirectional Recurrent Neural Networks},
+year = {1997},
+issue_date = {November 1997},
+publisher = {IEEE Press},
+volume = {45},
+number = {11},
+issn = {1053-587X},
+url = {https://doi.org/10.1109/78.650093},
+doi = {10.1109/78.650093},
+journal = {Trans. Sig. Proc.},
+month = nov,
+pages = {2673–2681},
+numpages = {9}
+}
