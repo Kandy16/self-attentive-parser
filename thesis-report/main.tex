@@ -6,8 +6,12 @@
 \usepackage[utf8]{inputenc}
 \usepackage{times}
 \usepackage{ifthen}
-\usepackage[sorting=none,backend=bibtex]{biblatex}
+\usepackage{here}
+
+\usepackage[style=apa, backend=biber]{biblatex}
+\DeclareLanguageMapping{english}{american-apa}
 \addbibresource{bib.bib}
+
 \usepackage{graphicx}
 \graphicspath{{./images/}}
 \DeclareGraphicsExtensions{.pdf,.jpeg,.png,.svg}
@@ -23,26 +27,23 @@
 \usepackage{booktabs}
 \usepackage{listings}
 \usepackage{float}
-
 \usepackage{color}
 \usepackage{graphicx}
 \usepackage{blindtext}
 \usepackage{color}
-\topmargin 0cm \textheight 23cm \parindent0cm
 
 % ---------------------------------------------
 %	Commands definition
 % ---------------------------------------------
 \newcommand{\R}{\mathbb{R}}
-
 \newcommand{\myName}{Kandhasamy Rajasekaran}
 \newcommand{\emailID}{kandhasamy@uni-koblenz.de}
 \newcommand{\matriculationID}{216100855}
-
 \newcommand{\Title}{Deep Learning techniques applied to Constituency parsing of German}
 \newcommand{\supervisor}{Prof. Dr. Karin Harbusch} %inkl. Titel
 \newcommand{\secondSupervisor}{Denis Memmesheimer} %inkl. Titel
 
+\topmargin 0cm \textheight 23cm \parindent 0cm
 \setlength{\parindent}{2em}
 
 
@@ -154,7 +155,7 @@
                 (Place, Date)\hfill(Signature)
             \end{small}
             \cleardoublepage%
-          \repeat%
+          %\repeat%
         \end{flushleft}
 \pagebreak
 
@@ -194,8 +195,13 @@ My mother has been very supportive of me and all those weekly phone calls have h
 
 \begin{abstract}
 
-Constituent parsing attempts to extract syntactic structure from a sentence. These parsing systems are helpful in many NLP applications such as grammar checking, question answering, and information extraction. This thesis work is about implementing a constituent parser for German language using neural networks. Over the past, recurrent neural networks have been used in building a parser and also many NLP applications. In this, self-attention neural network modules are used intensively to understand sentences effectively. With multi-layered self-attention networks, constituent parsing achieves 93.68\% F1 score. This is improved even further by using both character and word embeddings as a representation of the input. An F1 score of 94.10\% was the best achieved by constituent parser using only the dataset provided. With the help of external datasets such as German Wikipedia, pre-trained ELMo models are used along with self-attention networks achieving 95.87\% F1 score. 
+Constituent parsing attempts to extract syntactic structure from a sentence. These parsing systems are helpful in many NLP applications such as grammar checking, question answering, and information extraction. This thesis work is about implementing a constituent parser for German language using neural networks. Over the past, recurrent neural networks have been used in building a parser and also many NLP applications. In this, self-attention neural network modules are used intensively to understand sentences effectively. With multi-layered self-attention networks, constituent parsing achieves 93.68\% F1 score. This is improved even further by using both character and word embeddings as a representation of the input. An F1 score of 94.10\% was the best achieved by constituent parser using only the dataset provided. With the help of external datasets such as German Wikipedia, pre-trained ELMo models are used along with self-attention networks achieving 95.87\% F1 score.
 \end{abstract}
+\vspace*{5em}  
+\begin{center}
+\textbf{Zusammenfassung} \\
+\end{center}
+Konstituenten-Parsing versucht, syntaktische Struktur aus einem Satz zu extrahieren. Diese Parsing-Systeme sind in vielen maschinellen Sprachverarbeitungsanwendungen hilfreich, wie z.B. bei der Grammatikprüfung, der Beantwortung von Fragen und der Informationsextraktion. In dieser Masterarbeit geht es um die Implementierung eines Konstituentenparsers für die deutsche Sprache mit Hilfe von neuronalen Netzen. In der Vergangenheit wurden wiederkehrende neuronale Netze beim Aufbau eines Parsers und auch bei vielen maschinellen Sprachverarbeitungsanwendungen verwendet. Dabei werden Module des neuronalen Netzes mit Selbstaufmerksamkeit intensiv genutzt, um Sätze effektiv zu verstehen. Bei mehrschichtigen Selbstaufmerksamkeitsnetzwerken erreicht das konstituierende Parsen 93,68\% F1-Scoret. Dies wird noch weiter verbessert, indem sowohl Zeichen- als auch Worteinbettungen als Darstellung des Inputs verwendet werden. Ein F1-Score von 94,10\% wurde am besten durch den Konstituenten-Parser erreicht, der nur den bereitgestellten Datensatz verwendet. Mit Hilfe externer Datensätze wie der deutschen Wikipedia werden vortrainierte ELMo-Modelle zusammen mit Selbstbeobachtungsnetzwerken verwendet, die einen F1-Score von 95,87\% erreichen.
 \pagebreak
 
 \tableofcontents
@@ -215,7 +221,7 @@ Constituent parsing attempts to extract syntactic structure from a sentence. The
 % Parsing - what is the purpose of doing it?
 % How and where is it useful in NLP and other applications
 % state an example
-Constituency or Syntactic parsing is the process of determining the syntactic structure of a sentence by analyzing its words based on underlying grammar. Constituency parsing is very important in natural language processing (NLP) because it plays a substantial role in mediating between linguistic expression and meaning \parencite*{Socher}. 
+Constituency or Syntactic parsing is the process of determining the syntactic structure of a sentence by analyzing its words based on underlying grammar. Constituency parsing is very important in natural language processing (NLP) because it plays a substantial role in mediating between linguistic expression and meaning \parencite{Socher}. 
 
 Say for e.g. the sentence 'Hans isst einen Apfel' along with parts of speech (POS) tags, the parse tree is as follows:
 
@@ -238,7 +244,7 @@ In this tree, the abbreviations S, D, N, V, NP, and VP refer to sentence, determ
 \end{align*}
 %Explanation about constituency parsing. How is it helpful
 
-Jurafsky et al. \parencite{Jurafsky2008} in their 'Speech and Language processing' book stated that the parse tree is useful in many applications related to NLP. They are directly useful in grammar checking in word processing systems; a sentence that cannot be parsed is supposed to have grammatical errors. Most of the time, it is also an important intermediate representation for the semantic analysis of a sentence. Thus it plays an important role in application such as relation extraction, semantic role labeling \parencite{Gildea:2002:NPP:1073083.1073124}, question answering and paraphrase detection \parencite{Callison-Burch2010}.
+Jurafsky et al. \parencite{Jurafsky2008} in their 'Speech and Language processing' book stated that the parse tree is useful in many applications related to NLP. They are directly useful in grammar checking in word processing systems; a sentence that cannot be parsed is supposed to have grammatical errors. Most of the time, it is also an important intermediate representation for the semantic analysis of a sentence. Thus it plays an important role in applications such as relation extraction, semantic role labeling \parencite{Gildea:2002:NPP:1073083.1073124}, question answering and paraphrase detection \parencite{Callison-Burch2010}.
 
 %A brief history of constituency parsing. 
   %Different languages - different parsing rules
@@ -260,17 +266,17 @@ In the past, handwritten grammar played a central role in parsing. Context-free 
 
 %There were considerable efforts put in by the research community to prepare large, standard and open datasets such as Wallstreet journal Penn treebank and SPGML, which is used as a standard benchmark to compare the algorithms. These datasets fuelled the research faster. 
 
-Marcus et al.\parencite{Marcus1993} prepared Penn Tree Bank dataset for the English language which consists of syntactic structures for sentences along with POS tags. It was revised multiple times and now it consists of more than 39,000 sentences with syntax trees and 7 million words with POS tags \parencite{Taylor2003}. This annotated information includes text from different sources such as IBM computer manuals, nursing notes, Wall Street Journal articles and transcribed telephone conversations. This served as a good corpus for building models to do parsing based on Machine Learning (ML). This leads to an empirical/data-driven approach to parsing than rule-based approach. Some of the advantages of a treebank are reusability of a lot of other subsystems such as POS taggers, parsers, and a standard way to evaluate multiple parsing systems. 
+Marcus et al.\parencite{Marcus1993} prepared the Penn Tree Bank dataset for the English language which consists of syntactic structures for sentences along with POS tags. It was revised multiple times and now it consists of more than 39,000 sentences with syntax trees and 7 million words with POS tags \parencite{Taylor2003}. This annotated information includes text from different sources such as IBM computer manuals, nursing notes, Wall Street Journal articles and transcribed telephone conversations. This served as a good corpus for building models to do parsing based on Machine Learning (ML). This leads to an empirical/data-driven approach to parsing than a rule-based approach. Some of the advantages of a treebank are reusability of a lot of other subsystems such as POS taggers, parsers, and a standard way to evaluate multiple parsing systems. 
 
-Similarly, for the German language, Telljohann et al. \parencite{TubingenTreebank}, \parencite{Telljohann04thetuba} associated with University of Tübingen, prepared a syntactically annotated German newspaper corpus TüBa-D/Z treebank. The annotations are done manually and consist of 3,816 articles, 104,787 sentences, and 1,959,474 tokens. It mainly distinguishes four levels of syntactic constituency: the lexical level, phrasal level, topological fields level, and clausal level. In addition to that, Brants et al. \parencite{Brants2002TheTT} also prepared a 35,000 syntactically annotated German newspaper sentences named TIGER treebank. It also contains different levels of annotation such as POS tags, phrase categories, and syntactic functions. These two data sources are very important in the field of NLP for the German language. 
+Similarly, for the German language, Telljohann et al. \parencite{TubingenTreebank}, \parencite{Telljohann04thetuba} associated with the University of Tübingen, prepared a syntactically annotated German newspaper corpus TüBa-D/Z treebank. The annotations are done manually and consist of 3,816 articles, 104,787 sentences, and 1,959,474 tokens. It mainly distinguishes four levels of syntactic constituency: the lexical level, phrasal level, topological fields level, and clausal level. In addition to that, Brants et al. \parencite{Brants2002TheTT} also prepared a 35,000 syntactically annotated German newspaper sentences named TIGER treebank. It also contains different levels of annotation such as POS tags, phrase categories, and syntactic functions. These two data sources are very important in the field of NLP for the German language. 
 
 %CFG-PCFG- Chart based CKY algorithm 
 %Lexicalization of production rules
 %Sudviding the categories - split based on closed grammar, horizontal markovization (binarization) and vertical markovization (parent categories), combination of latent models
 
-Probabilistic context-free grammars (PCFG) \parencite{4569603} contains a probability score assigned to each production rule. These probabilities are assigned based on various methods and the simplest of it is considering the statistical properties of word combinations. They help to quantify the likelihood of different possibilities of parsing a sentence. Chart based CKY \parencite{YOUNGER1967189} algorithm is a bottom-up parsing methodology that uses these probability scores to decide what combination of constituents is very likely. It only takes cubic time complexity rather than exponential by using dynamic programming techniques. 
+Probabilistic context-free grammars (PCFG) \parencite{4569603} contains a probability score assigned to each production rule. These probabilities are assigned based on various methods and the simplest of it is considering the statistical properties of word combinations. They help to quantify the likelihood of different possibilities of parsing a sentence. The Chart based CKY \parencite{YOUNGER1967189} algorithm is a bottom-up parsing methodology that uses these probability scores to decide what combination of constituents is very likely. It only takes cubic time complexity rather than exponential by using dynamic programming techniques. 
 
-The head word of a phrase gives a good representation of the phrase structure and meaning \parencite{Charniak_1997}. Lexicalization of PCFG \parencite{charniak2000} will create more rules of specific cases and the probability scores can be trained for each production rule. This indeed improves the accuracy of parsing, but it increases production rules exponentially which results in sparseness. Kelin and Manning \parencite{kleinunlexical} found that lexicalized PCFG does not capture lexical selection between content words but just basic grammatical features like verb form, verbal auxiliary, finiteness, etc. This kind of splitting can be done horizontally while binarizing the tree and vertically by parent annotation. It achieved 85.7\% F1 score and does not lead to too many production rules but at the same time captures the essence of context. Until now the rules of grammar were handwritten which were picked carefully by experts. Petrov and Klein \parencite{petrov2006} came up with an unsupervised ML approach that uses base categories and learns subcategorizing and splitting using treebank data. They used expectation maximization (EM) algorithm, like Forward-Backward for HMMs but constrained by a tree structure and achieved 90.2\% F1 score. 
+The head word of a phrase gives a good representation of the phrase structure and meaning \parencite{Charniak_1997}. The Lexicalization of PCFG \parencite{charniak2000} will create more rules of specific cases and the probability scores can be trained for each production rule. This indeed improves the accuracy of parsing, but it increases production rules exponentially which results in sparseness. Kelin and Manning \parencite{kleinunlexical} found that lexicalized PCFG does not capture lexical selection between content words but just basic grammatical features like verb form, verbal auxiliary, finiteness, etc. This kind of splitting can be done horizontally while binarizing the tree and vertically by parent annotation. It achieved 85.7\% F1 score and does not lead to too many production rules but at the same time captures the essence of context. Until now the rules of grammar were handwritten which were picked carefully by experts. Petrov and Klein \parencite{petrov2006} came up with an unsupervised ML approach that uses base categories and learns subcategorizing and splitting using treebank data. They used expectation maximization (EM) algorithm, like Forward-Backward for HMMs but constrained by a tree structure and achieved 90.2\% F1 score. 
 
 On the other hand, neural networks have been raising and becoming a prominent architecture to build machine learning (ML) systems. They were giving state of the art results for many NLP applications. They are also used to develop a better alternative for the representation of words or other features of text. 
 
@@ -357,7 +363,7 @@ Here $\mathbf{W^1, W^2, W^3}$,  and $\mathbf{b^1}$, $\mathbf{b^2}$ and $\mathbf{
 
 \subsubsection{Training a neural network}
 
-Training is an essential part of learning and like many supervised algorithms, a loss function is used to compute the error for the predicted output against the actual output. The gradient of the errors is calculated with respect to each weight and bias variable by propagating backward using the chain rule of differentiation. The values of the weights and bias are adjusted with respect to the gradient and a learning parameter. Typically a random batch of inputs is selected and a forward pass is carried out which involves multiplying weights, adding bias and applying an activation function to predict outputs. The average loss is computed for that batch and the parameters are adjusted accordingly. This optimization technique is called stochastic gradient descent \parencite{Bottou2012}. A number of extensions exists, such as Nesterov Momentum \parencite{Sutskever2013} or AdaGrad \parencite{Duchi2011}. Some loss functions that exist are hinge loss (binary and multiclass), log loss and categorical cross-entropy loss \parencite{Goldberg2016}. 
+Training is an essential part of learning and like many supervised algorithms, a loss function is used to compute the error for the predicted output against the actual output. The gradient of the errors is calculated with respect to each weight and bias variable by propagating backward using the chain rule of differentiation. The values of the weights and bias are adjusted with respect to the gradient and a learning parameter. Typically a random batch of inputs is selected and a forward pass is carried out which involves multiplying weights, adding bias and applying an activation function to predict outputs. The average loss is computed for that batch and the parameters are adjusted accordingly. This optimization technique is called stochastic gradient descent \parencite{Bottou2012}. A number of extensions exist, such as Nesterov Momentum \parencite{Sutskever2013} or AdaGrad \parencite{Duchi2011}. Some loss functions that exist are hinge loss (binary and multiclass), log loss and categorical cross-entropy loss \parencite{Goldberg2016}. 
 
 %\begin{align*}
 %L_{hinge(binary)}(\hat{y},y) = max(0,1-y.\hat{y})
@@ -377,7 +383,7 @@ The overfitting in neural networks will cause the trained system to perform well
 
 \subsubsection{Activation Functions}
 
-The activation functions help the neural network models to approximate any nonlinear function. Different activation functions pose different advantages. Some popular activation functions are sigmoid, hyperbolic tangent and rectifiers \parencite{Goldberg2016}:
+The activation functions help the neural network models to approximate any nonlinear function. Different activation functions have different advantages. Some popular activation functions are sigmoid, hyperbolic tangent and rectifiers \parencite{Goldberg2016}:
 
 \begin{enumerate}
 
@@ -422,13 +428,13 @@ Convolution neural networks \parencite{lecun-bengio-95a}evolved initially in the
 
 In figure \ref{fig:CNN architecture}, many 2-dimensional convolutional filters are slid over X and Y axes of an input which is a robot image. It outputs a 3-dimensional tensor whose dimensions are influenced by the number and dimensions of filters and length of stride. This output captures many local features of an image and each one is represented by a matrix. This is followed by a max-pooling layer which filters the features by allowing only the most dominant ones. This combination of convolution and pooling is applied many times and finally passed onto a feed-forward network with softmax at the end. 
 
-In the case of text data, convolutional filters are 1-dimensional and they are applied over a k-word sliding window. Convolution neural networks consider ordering to some extent based on the value of k which helps to capture local dependencies. In figure \ref{fig:Char CNN architecture}, the value of k is 2 and so it convolves consecutive words. 
+In the case of text data, convolutional filters are 1-dimensional and they are applied over a k-word sliding window. Convolution neural networks consider ordering to some extent based on the value of k which helps to capture local dependencies. In figure \ref{fig:Char CNN architecture}, words in a sentence is referred as $x_0, x_1, \dots, x_n$; the value of k is 2 and so it convolves consecutive words. It is then passed to neural network module and the outputs $y_0, y_1, \dots, y_n$ are obtained. Each vector $y_i$ embodies the context of $x_i$ and $x_{i+1}$. If each of the characters in a word is represented by a vector then a 2-dimensional convolutional filter can be used and this will be same as convolutions applied on a image.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth,height=6cm,keepaspectratio=true]
     {cnn-2.png}
     \caption{
-        Character CNN architecture
+        CNN architecture on words
     }
     \label{fig:Char CNN architecture}
 \end{figure}
@@ -508,89 +514,180 @@ A similar type of architecture with fewer elements is also effective in handling
 \subsection{Bidirectional RNN}
 A RNN computes the state of current word $\mathbf{x_{i}}$ only based on the words in the past, i.e. $\mathrm{\mathbf{x_1},\dots,\mathbf{x_{i-1}}}$. However, the following words $\mathrm{\mathbf{x_{i+1}},\dots,\mathbf{x_{n}}}$ will also be useful in computing the hidden state regarding the current word. The bidirectional RNN (biRNN) \parencite{bidirectionalRNN} solves the problem by having two different RNNs. The first RNN is fed with the input sequence $\mathrm{\mathbf{x_{1}},\dots,\mathbf{x_{n}}}$ and the second RNN is fed with input sequence in reverse. The hidden state representation $\mathbf{h_{i}}$ is then composed of both the forward and backward states. Each state representation consists of the token information along with sentential context from both directions which has shown better results than classical uni-directional RNNs in practice.
 
-%\subsection{Data Representation}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
+    {bi-directional-rnn-1.png}
+    \caption{
+        Bidirectional RNN
+    }
+    \label{fig:bi-directional-rnn-1.png}
+\end{figure}
 
-%\subsubsection{Word embeddings, Char embeddings}
+\subsection{Data Representation}
 
-%one hot - disadvantages
+The representation of data is a very important factor in improving the performance of any machine learning application. In the past, inputs are differentiated using sparse vectors called one-hot vectors. If there are $n$ inputs then there will be  $n$ one-hot vectors and each of its dimension will be $n$. The input $w_i$ will be represented by a vector whose elements will be 0 except that the value of $i^{th}$ element to be 1. Each input is orthogonal to all others and the larger the number of inputs the higher the dimensions of vectors. It also increases the sparsity of representation which is a disadvantage. 
 
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
-%    {word2vec-gender-relation.png}
-%    \caption{
-%        Word embeddings charcteristics
-%    }
-%    \label{fig:word_properties}
-%\end{figure}
+\subsubsection{Word embeddings}
 
-%word2vec skip-gram
+Instead of representing each word by a vector of dimension $n$ that is equal to the total number of words in a training dataset, a dense vector of dimension $d$ where $d << n$ is used. The difference here is that all the elements of vector can have any values whereas with one-hot vectors it is mostly 0 except one element with value 1. Unlike one-hot vectors, these dense vectors will be initialized randomly at the beginning and will be trained according to the application needs. These dense vectors are called as word embeddings. The dimensionality of these word embeddings typically ranges from 50 to few hundreds. 
 
-%Character embeddings
-%* less space
-%* any words can be built
+There are two advantages of using word embeddings and they are listed here:
+\begin{enumerate}
+\item Computation becomes efficient. It consumes less space and so the parameters that deal with will also get reduced. With the ability to have any values for each element, the representation becomes efficient
+\item Model training will make the dense vectors to have similar values for similar features. This will make the training efficient
+\end{enumerate}
+
+Many NLP applications were benefitted using word embeddings and they are initially made popular by few works. \parencite{10.5555/944919.944966}, \parencite{Schwenk2006}. 
+
+There are many unsupervised learning approaches to compute word embeddings and the most common ones are word2vec \parencite{mikolov2013efficient}, and Glove \parencite{pennington2014glove}. These pre-trained word embeddings can be used directly or word embeddings with random initialization can be learned while performing task specific training. 
+
+Mikolov et al. analyzed these dense vectors and figured out that they posses good syntactic and semantic word relationships \parencite{mikolov2013linguistic}. For instance the vector calculation $v_{madrid} - v_{spain} + v_{france}$ is closer to $v_{paris}$.  This shows that it captures the capital to city relationship effectively. Similarly man to woman, company to ceo, city to zip code, and compartive to superlative are captured very well. This shows that dense vectors inherently embodies relationship attributes. They are much more than mere numbers. The figure \ref{fig:word_properties} is an illustration of embeddings representing words such as man, woman etc. The relationship between man and woman, uncle and aunt, and king and queen are captured by similarity in the results of those vector calculations.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
+    {word2vec-gender-relation.png}
+    \caption{
+        Word embeddings charcteristics
+    }
+    \label{fig:word_properties}
+\end{figure}
 
 
-%\parencite{mikolov2013linguistic}
+The word embeddings can be built over character embeddings. The representation of words can be built using convolutional network over the words \parencite{dos2014deep}. Also the word vectors can be computed using final states of bi-directional RNN over the characters in a word \parencite{ling-etal-2015-finding}. Character embeddings compose syntactic relations as the character patterns within words are strongly related to their syntactic function \parencite{Goldberg2016}.Some advantages of character embeddings are the models are smaller in size since only one vector for each character and also it is possible to compute a vector for any word irrespective of its presence in training dataset. 
 
-%%Distributional characteristics of word embeddings
+\subsubsection{Embeddings from Language Models (ELMo)}
+Word sense is one of the meanings of a word. Words have different meanings depending on the context it is being used. The disadvantage of word embeddings are that it uses only one vector to represent all word 
+senses of a word.  Say for e.g., consider the sentences below:
+\begin{itemize}
+\item We went to see the $play$ Romeo and Juliet
+\item The children went out to $play$ in the park
+\end{itemize}
+Here the word $play$ means different in each of the sentences. But with word embeddings, during both the times same vector will be used to represent it. 
 
-%\subsubsection{ELMo}
+Peter et al. \parencite{peters2018deep} created a deep contextualized word representation which models:
+\begin{itemize}
+\item Complex characteristics of the word use
+\item how these uses vary across many context                   
+\end{itemize}
 
-%Deep contextualized word embeddings
+The representation is so powerful that it significantly improves six challenging NLP applications such as question answering, textual entailment, and sentiment analysis. The figure \ref{fig:ELMO} shows the architecture of model which produces ELMo based representations. This involves training for a longer period of time on a very large corpus.
 
-%\parencite{peters2018deep}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
+    {elmo-1.png}
+    \caption{
+        ELMo
+    }
+    \label{fig:ELMO}
+\end{figure}
 
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
-%    {elmo.png}
-%    \caption{
-%        ELMo
-%    }
-%    \label{fig:ELMO}
-%\end{figure}
+Character embeddings with convolution filters or bidirectional RNNs are used to represent words as shown in the left side of above figure. These representations are passed through a two layered bidirectional RNNs and the outputs for a word $w_i$ are $h^{LM}_{w_{i},1}$ and $h^{LM}_{w_{i},2}$. Since it involves RNN, the vectors for word $w_i$ will be dependent on the previous words. The training for producing ELMo embeddings is based on an unsupervised language modeling task. In this, for a sentence,  when $w_i$ is passed as input, the system predicts the next word $w^p_{i+1}$ given the previous words. In the next state, the actual word $w_{i+1}$ is passed as input and now the system predicts next word. In the case of ELMo, these predicts happen at the final layer which is at $h^{LM}_{w_{i},2}$. This models the behavior of conditional probability given by $P(w_i|w_ {i-1},w_{i-2},...w_1)$.
 
-%ELMO advantages - context
+The embeddings for words are obtained by considering all three layers. For every task, for every word, the system is trained to extract embeddings from all three layers using a weighted average of them. The following equation shows how to extract embeddings:
+\begin{align*} 
+{ELMo}^{task}_k = \gamma^{task} \sum_{j=0}^{2} s^{task}_j h^{LM}_{k,j}
+\end{align*}
 
-%\subsection{Attention}
+In this $\gamma^{task}$ is the scalar that scales all vectors and $s^{task}_j$ is the scalar weight for each layer representation with $s^{task}_j \epsilon [0,1]$ and $\sum_{j=0}^{2} s^{task}_j = 1$. 
+
+The following table captures the difference between the outputs of GloVe and ELMo for the word 'play'. The nearest neighbor is calculated using eucledian distance and for Glove they are playing, game, games etc which is quite general. Whereas for ELMo, it is quite specific and very context rich. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
+    {elmo-2.png}
+    \caption{
+        ELMo analysis \parencite{GerElmo}
+    }
+    \label{fig:ELMO2}
+\end{figure}
+\subsection{Attention}
 
 %Talk about translation in general
 %How does this weightage help
 %Accuracy improvements
-%\parencite{bahdanau2014neural}
+\parencite{bahdanau2014neural}
 
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=\textwidth,height=8cm,keepaspectratio=true]
-%    {attention-model-1.png}
-%    \caption{
-%        Attention model for translation
-%    }
-%    \label{fig:attention_model}
-%\end{figure}
+Attention models were first introduced in machine translation system \parencite{bahdanau2014neural}. Machine translation system were implemented using only sequence to sequence architectures which predominantly uses RNN networks \parencite{sutskever2014sequence}. 
 
-%Attention mechanism in neural networks is used to take two inputs and convert them into one common representation. This is done by configuring the level of attention that needs to be given to different parts of each input and combine them to form a single output. Most often the inputs will be matrices and the output will be a vector. Bidirectional RNNs can be used to convert both input and context information into matrices. The fixed output vector is then fed into a deep feed-forward neural network to predict a class. Attention mechanism with RNN gives state of the art results in many NLP applications such as Natural Language Inference \parencite{Parikh2016}, Machine Translation \parencite{bahdanau2014neural} and Document classification \parencite{Yang2016}.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
+    {machine-translation-1.png}
+    \caption{
+        RNN network for machine translation \parencite{GerElmo}
+    }
+    \label{fig:machine-translation-1}
+\end{figure}
 
-%\subsection{Self-attention}
+Attention mechanism in neural networks is used to take two inputs and convert them into one common representation. This is done by configuring the level of attention that needs to be given to different parts of each input and combine them to form a single output. Most often the inputs will be matrices and the output will be a vector. Bidirectional RNNs can be used to convert both input and context information into matrices. The fixed output vector is then fed into a deep feed-forward neural network to predict a class. Attention mechanism with RNN gives state of the art results in many NLP applications such as Natural Language Inference \parencite{Parikh2016}, Machine Translation \parencite{bahdanau2014neural} and Document classification \parencite{Yang2016}.
 
-%\parencite{Vaswani2017} - Attention is all you need
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
+    {attention-networks-1.png}
+    \caption{
+        Attention network for machine translation \parencite{GerElmo}
+    }
+    \label{fig:attention-networks-1}
+\end{figure}
 
-%\begin{figure}[H]
-%    \centering
-%    \includegraphics[width=\textwidth,height=6cm,keepaspectratio=true]
-%    {self-attention.png}
-%    \caption{
-%        Self Attention
-%    }
-%    \label{fig:Self attention head}
-%\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
+    {attention-matrix-1.png}
+    \caption{
+        Attention matrix 
+    }
+    \label{fig:attention-matrix-1}
+\end{figure}
+
+
+\subsection{Self-attention}
+
+
+\parencite{Vaswani2017} - Attention is all you need
+
+Each word or position representation is transformed into 3 vectors such as key $(k_t)$,  value $(v_t)$ and query $(q_t)$ with lesser dimensions $(d_k)$. This is done by using separate trainable parameters for word and position representation as well as for the above three entities. For example, the parameters for key transformation for both word and position representation are $W^{c}_K$ and $W^{p}_K$ respectively.
+
+The attention of a word i to a word j in a sentence is then calculated as 
+$ p(i\rightarrow{}j) \propto exp(\dfrac{q^{(c)}_i.k^{(c)}_j}{sqrt(d_k)}) $. In words, it is essentially a normalized dot product of respective query and key vectors. The weighted average of all values to form a average vector $\hat{v}_i = \sum_k p(i\rightarrow{}k)v_k$ represents the new value vector for word i which includes all the attention that it has on all the words in the sentence. 
+
+The following set of equations reveal overall functionality of single attention head in mathematical terms. The query, key and value vectors are computed by respective weight parameters against the word representation. The output of this is a vector for each and every word. A matrix containing all the vectors concatenated represents the overall sentence and they are shown as $Q_p$, $K_p$, and $V_p$ respectively. The softmax function models the probability distribution of the dot product of query and key matrix. The dot product with value matrix computes the weighted average and it is transformed by $W^{(c)}_O$ matrix to align with other output dimensions.
+\begin{align*}
+q^{(c)}_t = W^{(c)}_Q c_t, k^{(c)}_t = W^{(c)}_K c_t, v^{(c)}_t = W^{(c)}_V c_t \\
+SingleHead(C) = \left[softmax\left(\dfrac{Q_cK^T_c}{\sqrt{d_k}}\right) V_c\right] W^{(c)}_O \\
+where\ Q_c = C{}W^{(c)}_Q; K_c = C{}W^{(c)}_K; V_c = C{}W^{(c)}_V  
+\end{align*}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=6cm,keepaspectratio=true]
+    {self-attention.png}
+    \caption{
+        Self-attention module
+    }
+    \label{fig:Self attention head}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
+    {self-attention-matrix-3.png}
+    \caption{
+       Self-attention matrix 
+    }
+    \label{fig:self-attention-matrix-3}
+\end{figure}
 
 
 \subsection{CKY parsing}
 
 
-Syntax structure can be modeled by Context-Free Grammars (CFG). Parsing attempts to extract the syntactic structure in the form of a tree from a sentence using the production rules specified in CFG.  A naive top-down search will take one of the starting non-terminals and proceeds to explore the non-terminals, all the way up to terminals and try to match the words. It explores many options that never connect to the actual sentence. Whereas a naive bottom-up search will start with words and try to match the non-terminal, all the way up to the starting terminal. It explores many options that can never lead to a full parse. The amount of unsuccessful search depends on how much the grammar branches in each direction.
+Syntax structure can be modeled by Context-Free Grammars (CFG). Parsing attempts to extract the syntactic structure in the form of a tree from a sentence using the production rules specified in CFG.  A naive top-down search will take one of the starting non-terminals and proceeds to explore the non-terminals, all the way up to terminals and try to match the words. It explores many options that never connect to the actual sentence. Whereas a naive bottom-up search will start with words and try to match the non-terminal, all the way up to the starting terminal. It explores many options that can never lead to a full parse. The number of unsuccessful search depends on how much the grammar branches in each direction.
 
 Cocke-Kasami-Younger (CKY) \parencite{YOUNGER1967189} is a bottom-up parsing and dynamic programming method that requires first normalizing the grammar. 
 
@@ -1071,7 +1168,7 @@ The figures \ref{fig:self-attention-matrix-small-sentence} and \ref{fig:self-att
 
 In the previous section, the role of self-attention modules is analyzed. In this how effective a model can be implemented for constituent parser using only the dataset which is the sentence and the labeled syntax trees. The representation of the sentence is subjected to changes and the model is trained separately. 
 
-At first, the input is represented using character embeddings whereas each character is referred by a vector and the word is summation of all the vectors that represent each character in the word. Secondly for each and word in a sentence is represented a unique vector. In the third experiment, both character embeddings and word embeddings are used together. They are added up to refer to a word in the sentence. The table below reveals the model development and test F1 score as follows:
+At first, the input is represented using character embeddings whereas each character is referred by a vector and the word is summation of all the vectors that represent each character in the word. Secondly for each word in a sentence is represented a unique vector. In the third experiment, both character embeddings and word embeddings are used together. They are added up to refer to a word in the sentence. The table below reveals the model development and test F1 score as follows:
 
 \begin{table}[h!]
   \begin{center}
@@ -1091,7 +1188,7 @@ At first, the input is represented using character embeddings whereas each chara
 
 From the table, it is quite evident that embeddings play an important role in improving the accuracy and some important understanding are as follows:
 \begin{itemize}
-\item Character embeddings are better than word embeddings. By using the former, the F1 score is improved by 2.5\% on the test dataset. This validates the consensus that character embeddings perform better in most NLP applications than using word embeddings. (Try to add citations???)
+\item Character embeddings are better than word embeddings. By using the former, the F1 score is improved by 2.5\% on the test dataset. %This validates the consensus that character embeddings perform better in most NLP applications than using word embeddings. (Try to add citations???)
 \item Involving both character and word embeddings to represent input performs better than using them individually. A performance improvement of 0.42\% F1 score on test dataset is achieved. Although it is very marginal, this level of improvement beyond 90\% is important
 \item It is observed that 4.8\% of words in test dataset do not appear in training dataset. In case of word embeddings all unknown words are represented using a unique <UNK> vector whereas in character embeddings all unknown words can be represented with different vectors since all characters are covered in training dataset itself
 \item Also character embeddings are capable of learning sub-word patterns since the granularity of representation is much stronger than word embeddings. To add credibility to it, it is made sure that words that appear only in test dataset but not in training dataset are replaced with <UNK> token and so even in character embeddings there will be only one unique vector to represent all unknown words. Even with this arrangement, the character embeddings performed better in the same way than word embeddings. This adds validity that character embeddings representation offers an opportunity for the system to learn better. 
@@ -1139,7 +1236,7 @@ The figure \ref{fig:elmo-layers-relevance} reveals the influence of layers when 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
+    \includegraphics[width=\textwidth,height=8cm,keepaspectratio=true]
     {elmo-layers-relevance.png}
     \caption{
         Importance of ELMo layers in Constituent parsing
@@ -1147,7 +1244,21 @@ The figure \ref{fig:elmo-layers-relevance} reveals the influence of layers when 
     \label{fig:elmo-layers-relevance}
 \end{figure}
 
+\subsection{Primitive Tree analysis}
 
+The model that gave best F1 score (95.87\%) is taken and their predicted syntax trees are compared against golden trees. All the noun and verb labels in the golden test dataset are compared against predicted labels and the accuracy is listed below:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=8cm,keepaspectratio=true]
+    {noun-verb-accuracy.png}
+    \caption{
+        Noun and Verb prediction accuracy 
+    }
+    \label{fig:noun-verb-accuracy}
+\end{figure}
+
+The model achieved an accuracy of 89.8\% and 99.0\% for noun and verb labels respectively. 
 
 %\subsubsection{Distance analysis - meaning}
 %Select the same words and see how the distance is. 
@@ -1167,27 +1278,9 @@ With the help of external datasets such as German Wikipedia, pre-trained ELMo mo
 The research work did not scope in the analysis of results along the lines of computational linguistics. With the help of experts, linguistic analysis has to be carried out which will give clarity on what parts of grammar identification needs to be improved. This information will help in building some of the hypotheses on how to improve and experiments can be carried out. It will also give an understanding of what self-attention module is good or bad at capturing.
 
 Devlin et al. made efforts to build Bidirectional Encoder Representations from Transformers (BERT) \parencite{devlin2018bert} models which are the state of art techniques to represent text. This work achieved the best results for 11 NLP tasks such as MultiNLI with 86.7\%, and SQuAD v1.1 to 93.2\% F1 score. Pre-existing BERT based representations can be used for the input used in constituent parsing and see whether performance is improved or not.
-
-
 % ----------------------------------------------------------------------------
 
 % ----------------------------------------------------------------------------
 \newpage
 \printbibliography
-%\bibliography{bib.bib}
-
-
-
-
-
 \end{document}
-
-
-
-
-
-
-
-
-
-
