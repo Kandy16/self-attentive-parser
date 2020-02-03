@@ -238,9 +238,9 @@ Say for e.g. the sentence 'Hans isst einen Apfel' along with parts of speech (PO
 In this tree, the abbreviations S, D, N, V, NP, and VP refer to sentence, determinant, noun, verb, noun-phrase, and verb-phrase respectively. The words of the sentence are referred as leaf nodes of the tree: Hans, isst, einen and Apfel. The parts of speech (POS) tags associated with the above words are noun(N), verb(V), determinant(D), and noun(N) respectively. These are referred by the immediate parent of each word. The rest of the nodes are formed out of parsing. From the diagram, it is clear that the sentence followed three rules:
 
 \begin{align*}
-\textbf{S} \rightarrow \textbf{N} \, \textbf{VP} \\
-\textbf{VP} \rightarrow \textbf{V} \, \textbf{NP} \\
-\textbf{NP} \rightarrow \textbf{D} \, \textbf{N} 
+\textbf{S} \rightarrow \textbf{N}\  \, \textbf{VP} \\
+\textbf{VP} \rightarrow \textbf{V}\  \, \textbf{NP} \\
+\textbf{NP} \rightarrow \textbf{D}\  \, \textbf{N} 
 \end{align*}
 %Explanation about constituency parsing. How is it helpful
 
@@ -257,7 +257,7 @@ In this thesis, we will apply state of the art techniques to perform constituent
 
 % ----------------------------------------------------------------------------
 \pagebreak
-\section{Related work}
+\section{Related Work}
 
 % FIND PAPERS FOR FOLLOWING
 % Handwritten rules for parsing 
@@ -266,9 +266,9 @@ In the past, handwritten grammar played a central role in parsing. Context-free 
 
 %There were considerable efforts put in by the research community to prepare large, standard and open datasets such as Wallstreet journal Penn treebank and SPGML, which is used as a standard benchmark to compare the algorithms. These datasets fuelled the research faster. 
 
-Marcus et al.\parencite{Marcus1993} prepared the Penn Tree Bank dataset for the English language which consists of syntactic structures for sentences along with POS tags. It was revised multiple times and now it consists of more than 39,000 sentences with syntax trees and 7 million words with POS tags \parencite{Taylor2003}. This annotated information includes text from different sources such as IBM computer manuals, nursing notes, Wall Street Journal articles and transcribed telephone conversations. This served as a good corpus for building models to do parsing based on Machine Learning (ML). This leads to an empirical/data-driven approach to parsing than a rule-based approach. Some of the advantages of a treebank are reusability of a lot of other subsystems such as POS taggers, parsers, and a standard way to evaluate multiple parsing systems. 
+Marcus et al.\parencite{Marcus1993} prepared the Penn Treebank dataset for the English language which consists of syntactic structures for sentences along with POS tags. It was revised multiple times and now it consists of more than 39,000 sentences with syntax trees and 7 million words with POS tags \parencite{Taylor2003}. This annotated information includes text from different sources such as IBM computer manuals, nursing notes, Wall Street Journal articles, and transcribed telephone conversations. This served as a good corpus for building models to do parsing based on Machine Learning (ML). This leads to an empirical/data-driven approach to parsing than a rule-based approach. Some of the advantages of using treebanks are reusability of a lot of other subsystems such as POS taggers, parsers, and a standard way to evaluate multiple parsing systems. 
 
-Similarly, for the German language, Telljohann et al. \parencite{TubingenTreebank}, \parencite{Telljohann04thetuba} associated with the University of Tübingen, prepared a syntactically annotated German newspaper corpus TüBa-D/Z treebank. The annotations are done manually and consist of 3,816 articles, 104,787 sentences, and 1,959,474 tokens. It mainly distinguishes four levels of syntactic constituency: the lexical level, phrasal level, topological fields level, and clausal level. In addition to that, Brants et al. \parencite{Brants2002TheTT} also prepared a 35,000 syntactically annotated German newspaper sentences named TIGER treebank. It also contains different levels of annotation such as POS tags, phrase categories, and syntactic functions. These two data sources are very important in the field of NLP for the German language. 
+Similarly, for the German language, Telljohann et al. associated with the University of Tübingen, prepared a syntactically annotated German newspaper corpus TüBa-D/Z treebank \parencite{TubingenTreebank}, \parencite{Telljohann04thetuba}. These annotations are done manually and consist of 3,816 articles, 104,787 sentences, and 1,959,474 tokens. It mainly distinguishes four levels of syntactic constituency: the lexical level, phrasal level, topological fields level, and clausal level. In addition to that, Brants et al. also prepared a 35,000 syntactically annotated German newspaper sentences named TIGER treebank \parencite{Brants2002TheTT}. It also contains different levels of annotation such as POS tags, phrase categories, and syntactic functions. These two data sources are very important in the field of NLP for the German language. 
 
 %CFG-PCFG- Chart based CKY algorithm 
 %Lexicalization of production rules
@@ -276,12 +276,12 @@ Similarly, for the German language, Telljohann et al. \parencite{TubingenTreeban
 
 Probabilistic context-free grammars (PCFG) \parencite{4569603} contains a probability score assigned to each production rule. These probabilities are assigned based on various methods and the simplest of it is considering the statistical properties of word combinations. They help to quantify the likelihood of different possibilities of parsing a sentence. The Chart based CKY \parencite{YOUNGER1967189} algorithm is a bottom-up parsing methodology that uses these probability scores to decide what combination of constituents is very likely. It only takes cubic time complexity rather than exponential by using dynamic programming techniques. 
 
-The head word of a phrase gives a good representation of the phrase structure and meaning \parencite{Charniak_1997}. The Lexicalization of PCFG \parencite{charniak2000} will create more rules of specific cases and the probability scores can be trained for each production rule. This indeed improves the accuracy of parsing, but it increases production rules exponentially which results in sparseness. Kelin and Manning \parencite{kleinunlexical} found that lexicalized PCFG does not capture lexical selection between content words but just basic grammatical features like verb form, verbal auxiliary, finiteness, etc. This kind of splitting can be done horizontally while binarizing the tree and vertically by parent annotation. It achieved 85.7\% F1 score and does not lead to too many production rules but at the same time captures the essence of context. Until now the rules of grammar were handwritten which were picked carefully by experts. Petrov and Klein \parencite{petrov2006} came up with an unsupervised ML approach that uses base categories and learns subcategorizing and splitting using treebank data. They used expectation maximization (EM) algorithm, like Forward-Backward for HMMs but constrained by a tree structure and achieved 90.2\% F1 score. 
+The head word of a phrase gives a good representation of the phrase structure and meaning \parencite{Charniak_1997}. The Lexicalization of PCFG \parencite{charniak2000} will create more rules of specific cases and the probability scores can be trained for each production rule. This indeed improves the accuracy of parsing, but it increases production rules exponentially which results in sparseness. Kelin and Manning \parencite{kleinunlexical} found that lexicalized PCFG does not capture lexical selection between content words but just basic grammatical features like verb form, verbal auxiliary, finiteness, etc. This kind of splitting can be done horizontally while binarizing the tree and vertically by parent annotation. This alternative method achieved 85.7\% F1 score, but at the same time, does not lead to too many production rules. Until now the rules of grammar were handwritten which were picked carefully by experts. Petrov and Klein \parencite{petrov2006} came up with an unsupervised ML approach that uses base categories and learns subcategorizing and splitting using treebank data. They used expectation maximization (EM) algorithm, like Forward-Backward for HMMs but constrained by a tree structure and achieved 90.2\% F1 score. 
 
-On the other hand, neural networks have been raising and becoming a prominent architecture to build machine learning (ML) systems. They were giving state of the art results for many NLP applications. They are also used to develop a better alternative for the representation of words or other features of text. 
+Neural networks have been raising and becoming a prominent architecture to build machine learning (ML) systems. They were giving state of the art results for many NLP applications. They are also used to develop a better alternative for the representation of words or other features of text. 
 
 % Recursive neural network
-The constituent parsing of a given sentence involves outputting a tree which is fundamentally made of recursive structures of branches or merges of words or phrases. Socher et al. [\parencite*{RichardSocher2011}, \parencite*{Socher}, \parencite*{Sochera}] implemented a neural network-based parsing which is specialized in learning recursive structures in a sentence and simultaneously learning compositional vectors for phrases. Their work achieved an accuracy of 90.4\% F1 score and it is 20\% faster than Stanford factored parser. The system involves two bottom-up parsing; the first parsing done by a base Probabilistic Context-Free Grammar(PCFG) parser using CKY dynamic programming and select 200 best parses; the second pass is done by their best recursive neural network model with expensive matrix calculations on those 200 best results. 
+The constituent parsing of a given sentence involves outputting a tree which is fundamentally made of recursive structures of branches or merges of words or phrases. Socher et al. [\parencite*{RichardSocher2011}, \parencite*{Socher}, \parencite*{Sochera}] implemented a neural network-based parsing which is specialized in learning recursive structures in a sentence and simultaneously learning compositional vectors for phrases. Their work achieved an accuracy of 90.4\% F1 score for the Penn Treebank and it is 20\% faster than Stanford factored parser. The system involves two bottom-up parsing; the first parsing done by a base Probabilistic Context-Free Grammar(PCFG) parser using CKY dynamic programming and select 200 best parses; the second pass is done by their best recursive neural network model with expensive matrix calculations on those 200 best results. 
 
 %Encoder-Decoder artchitecture
 %Encoder - FeedForward neural network, CNN, RNN , Bi-RNN,
@@ -289,10 +289,10 @@ The constituent parsing of a given sentence involves outputting a tree which is 
 %\parencite*{Stern2017}
 %\parencite*{Gaddy2018}
 
-Stern et al. \parencite*{Stern2017} implemented a minimum span neural network-based constituency parser and achieved an accuracy of 91.79\% F1 score on Penn Treebank dataset. They used an encoder-decoder architecture where the encoder converts the input into a different representation with context information and the decoder uses this augmented information to build the tree and get trained to become better. Bi-directional RNN with LSTM \parencite{schuster1997} modules were used to encode the words in a sentence. This encoding gives out two vectors for each word containing the sentential context from the left and right direction. This encoded output is used by two independent scoring systems; one to label the span and the other to choose the split. Their research work involved experimenting with the above computed encoded output with chart-based bottom-up and greedy top-down parsing. Surprisingly the results of using top-down with run time complexity $O(n^2)$ is as good as using a bottom-up approach wherein a global optimized tree is chosen with run time complexity $O(n^3)$. The bottom-up parsing was making decisions at every stage with the already computed values for the whole tree beneath; whereas the top-down parsing can refer to only local information. These results credit the ability of bi-directional RNN modules in capturing a lot of complex relations among words in a sentence. By using rich and expressive word vector representations, the encoding and decoding architectures are made simpler. 
+Stern et al. \parencite*{Stern2017} implemented a minimum span neural network-based constituency parser and achieved an accuracy of 91.79\% F1 score on the Penn Treebank dataset. They used an encoder-decoder architecture where the encoder converts the input into a different representation with context information and the decoder uses this augmented information to build a tree and get trained to become better. Bidirectional RNN with LSTM \parencite{schuster1997} modules were used to encode the words in a sentence. This encoding gives out two vectors for each word containing the sentential context from the left and right direction. This encoded output is used by two independent scoring systems; one to label the span and the other to choose the split. Their research work involved experimenting with the above computed encoded output with chart-based bottom-up and greedy top-down parsing. Surprisingly the results of using top-down with run time complexity $O(n^2)$ is as good as using a bottom-up approach wherein a global optimized tree is chosen with run time complexity $O(n^3)$. The bottom-up parsing was making decisions at every stage with the already computed values for the whole tree beneath; whereas the top-down parsing can refer to only local information. These results credit the ability of bidirectional RNN modules in capturing a lot of complex relations among words in a sentence. By using an encoder that produces rich and expressive word vector representations, the decoding architecture is made simpler. 
 
 %Encoder - self-attention module
-Kitaev et al. \parencite*{Kitaev2019} also implemented an encoder-decoder based neural network architecture for constituency parsing and they achieved state of the art accuracy of 95.13\% F1 score on Penn Treebank dataset. Their parser also outperforms all the previous parsers on 8 of the 9 languages in SPMRL dataset which includes German. In this, instead of LSTM modules, attention modules \parencite*{Vaswani2017} are used. Attention modules are better in expressing how two sentences or inputs are relevant to each other by expressing them in a matrix with columns and rows as words/components of sentences/inputs of each. At the same time, attention modules can also be applied to a sentence itself to express which part of the sentence is dependent on which other words. These capture the relationships of words in a sentence among themselves. Several self-attention modules are used in combination to encode the information and context in each sentence. The use of attention makes explicit how information is propagated between different locations in the sentence. A chart-based decoder implemented by Stern et al. \parencite*{Stern2017} is used along with the modifications from Gaddy et al \parencite*{Gaddy2018}. They also found that positional information plays a very important role in parsing and inclusion of ELMo(Embeddings from Language Models) improved their accuracy by 3\%. 
+Kitaev et al. \parencite*{Kitaev2019} also implemented an encoder-decoder based neural network architecture for constituency parsing and they achieved 95.13\% F1 score on the Penn Treebank dataset. Their parser also outperforms all the previous parsers on 8 of the 9 languages in SPMRL dataset which includes German. In this, instead of LSTM modules, attention modules \parencite*{Vaswani2017} are used. Attention modules are better in expressing how two sentences or inputs are relevant to each other by expressing them in a matrix with each row/column as a word of a sentence. At the same time, attention modules can also be applied to a sentence itself to express which part of the sentence is dependent on which other words. These matrices capture the relationships of words in a sentence among themselves. Several self-attention modules are used in combination to encode the information and context in each sentence. The use of attention makes explicit how information is propagated between different locations in the sentence. A chart-based decoder implemented by Stern et al. \parencite*{Stern2017} is used along with the modifications from Gaddy et al. \parencite*{Gaddy2018}. They also found that positional information plays a very important role in parsing and inclusion of ELMo(Embeddings from Language Models) \parencite{peters2018deep} improved their accuracy by 3\%. 
 
 %Papers to write about:
 %Decoder - chart-based, greedy or beam search. top-down and bottom-up
@@ -307,7 +307,7 @@ Kitaev et al. \parencite*{Kitaev2019} also implemented an encoder-decoder based 
 \section{Background Study}
  In this thesis, we develop a neural network based constituent parser for the German language. The required information to understand the different components of the proposed system is explained briefly in this section. 
 
-\subsection{Neural networks and its components}
+\subsection{Neural Networks and its Components}
 
 Recently, neural networks have become the most popular approach for building machine learning systems. Neural networks compose many interconnected, fundamental, functional units called neurons. They are loosely inspired from the field of neuroscience. There are different ways by which these neurons can be networked with each other. That defines its ability to learn. 
 
@@ -321,11 +321,11 @@ Recently, neural networks have become the most popular approach for building mac
     \label{fig:single_neuron}
 \end{figure}
 
-Each neuron in the network takes in multiple scalar inputs and gives out a scalar output. It uses parameters (weights and bias) to perform linear transformation of the input and most often applies non-linear function subsequently.
+As shown in figure \ref{fig:single_neuron}, each neuron in the network takes in multiple scalar inputs and gives out a scalar output. It uses parameters (weights W and bias B) to perform linear transformation of the input and most often applies non-linear function subsequently.
 
 The important components of any machine learning approach are model, data, loss function, and optimizer. The model defines the architecture of system, data helps the model to get trained, loss function helps the system to understand how has it performed during its learning, and optimizer helps the system to fine-tune its parameters of model to get better results.
 
-\subsubsection{Feed-forward network}
+\subsubsection{Feed-forward Network}
 
 There are different architectures of neural networks that vary mostly in how the neurons are connected and how the weights are managed. Feed-forward neural network \parencite{Svozil1997} is a basic neural network architecture which arranges neurons in layers that reflect the flow of information. They are used to perform supervised machine learning wherein label data regarding classification is mandatory. These networks should contain an input layer that takes in data and an output layer which represents prediction of classification. It can have one or many hidden layers and each neuron in one layer is connected with every other neuron in the subsequent layer as given in Figure \ref{fig:Feed forward neural network}
 
@@ -361,29 +361,9 @@ W^3 \in \mathbb{R}^{d_2 \times d_\mathrm{out}}, b^3 \in \mathbb{R}^{d_{out}}
 
 Here $\mathbf{W^1, W^2, W^3}$,  and $\mathbf{b^1}$, $\mathbf{b^2}$ and $\mathbf{b^3}$ are matrices and bias vectors for first, second and third linear transforms, respectively. The functions $g^1$, $g^2$ and $g^3$ are activation functions and they are almost always non-linear. With respect to figure~\ref{fig:Feed forward neural network}, the values of $d_\mathrm{in}$, $d_{1}$, $d_{2}$ and $d_\mathrm{out}$ are 3, 4, 3, and 2, respectively. 
 
-\subsubsection{Training a neural network}
+\subsubsection{Activation Function}
 
-Training is an essential part of learning and like many supervised algorithms, a loss function is used to compute the error for the predicted output against the actual output. The gradient of the errors is calculated with respect to each weight and bias variable by propagating backward using the chain rule of differentiation. The values of the weights and bias are adjusted with respect to the gradient and a learning parameter. Typically a random batch of inputs is selected and a forward pass is carried out which involves multiplying weights, adding bias and applying an activation function to predict outputs. The average loss is computed for that batch and the parameters are adjusted accordingly. This optimization technique is called stochastic gradient descent \parencite{Bottou2012}. A number of extensions exist, such as Nesterov Momentum \parencite{Sutskever2013} or AdaGrad \parencite{Duchi2011}. Some loss functions that exist are hinge loss (binary and multiclass), log loss and categorical cross-entropy loss \parencite{Goldberg2016}. 
-
-%\begin{align*}
-%L_{hinge(binary)}(\hat{y},y) = max(0,1-y.\hat{y})
-%\end{align*}
-
-The categorical cross-entropy loss is used when predicted output refers to a probability distribution. This is typically achieved by using a softmax activation function in the output layer. Let $y = y^{1}, y^{2}, \dots, y^{n}$ be representing the target multinomial distribution over the labels $1,2,\dots,n$ and let $ \hat{y} = \hat{y}_{1},\hat{y}_{2},\dots,\hat{y}_{n}$ be the network's output which is transformed by a softmax function. The categorical cross-entropy loss measures the difference between the true label distribution $y$ and the predicted label distribution $\hat{y}$. 
-\begin{align*}
-L_\mathrm{cross-entropy}(\hat{y},y) = -\sum_iy_i \cdot \log(\hat{y_i})
-\end{align*}
-
-For hard classification, $y$ is a one-hot vector representing the true class. Here $t$ is the correct class assignment. Training will attempt to set the correct class $t$ to 1 which inturn will decrease the other class assignment to 0.
-\begin{align*}
-L_{\mathrm{cross-entropy(hard classification)}}(\hat{y},y) = -\log(\hat{y_t})
-\end{align*}
-
-The overfitting in neural networks will cause the trained system to perform well only for trained data but not on the test data. This can be minimized by using regularization techniques such as $L_2$ regularization and dropout \parencite{Hinton2012}. $L_2$ regularization works by adding a penalty term equal to sum of the squares of all the parameters in the network to the loss function which is being minimized. Dropout, instead, works by randomly ignoring half of the neurons in every layer and corrects the error only using the parameters of another half of neurons. This helps to prevent the network from relying on only specific weights.
-
-\subsubsection{Activation Functions}
-
-The activation functions help the neural network models to approximate any nonlinear function. Different activation functions have different advantages. Some popular activation functions are sigmoid, hyperbolic tangent and rectifiers \parencite{Goldberg2016}:
+The activation functions help the neural network models to approximate any non-linear function. Different activation functions have different advantages. Some popular activation functions are sigmoid, hyperbolic tangent, and rectifiers \parencite{Goldberg2016}:
 
 \begin{enumerate}
 
@@ -404,17 +384,39 @@ The activation functions help the neural network models to approximate any nonli
 
 \end{enumerate}
 
-The sigmoid activation function is not used in internal layers of neural networks since other functions have been giving better results empirically. The rectifier activation function is commonly used since it performs faster and better than sigmoid and hyperbolic tangent functions. Instead of an activation function, the function in output layer $g^3$ can be a transformation function such as softmax to convert values to represent a discrete probability distribution. Each of the converted values will be between $0$ and $1$ and sum of all of them will be $1$.
+The sigmoid activation function is not used in internal layers of neural networks since other functions have been giving better results empirically. The rectifier activation function is commonly used since it performs faster and better than sigmoid and hyperbolic tangent functions. 
+
+Instead of an activation function, the function in output layer $g^3$ can be a transformation function such as softmax to convert values to represent a discrete probability distribution. Each of the converted values will be between $0$ and $1$ and sum of all of them will be $1$.
 
 \begin{align*}
 y = \begin{bmatrix} y_1 & y_2 & \dots & y_k \end{bmatrix} \\
 s_i = \mathrm{softmax(y_i)} = \frac{e^{y_i}}{(\sum_{j=1}^ke^{y_j})}
 \end{align*}
 
-\subsection{Convolution Neural networks}
+\subsubsection{Training Neural Networks}
+
+Training is an essential part of learning and like many supervised algorithms, a loss function is used to compute the error for the predicted output against the actual output. The gradient of the errors is calculated with respect to each weight and bias variable by propagating backward using the chain rule of differentiation. The values of the weights and bias are adjusted with respect to the gradient and a learning parameter. Typically a random batch of inputs is selected and a forward pass is carried out which involves multiplying weights, adding bias and applying an activation function to predict outputs. The average loss is computed for that batch and the parameters are adjusted accordingly. This optimization technique is called stochastic gradient descent \parencite{Bottou2012}. A number of extensions exist, such as Nesterov Momentum \parencite{Sutskever2013} or AdaGrad \parencite{Duchi2011}. Some loss functions that exist are hinge loss (binary and multiclass), log loss and categorical cross-entropy loss \parencite{Goldberg2016}. 
+
+%\begin{align*}
+%L_{hinge(binary)}(\hat{y},y) = max(0,1-y.\hat{y})
+%\end{align*}
+
+The categorical cross-entropy loss is used when predicted output refers to a probability distribution. This is typically achieved by using a softmax activation function in the output layer. Let $y = y^{1}, y^{2}, \dots, y^{n}$ be representing the target multinomial distribution over the labels $1,2,\dots,n$ and let $ \hat{y} = \hat{y}_{1},\hat{y}_{2},\dots,\hat{y}_{n}$ be the network's output which is transformed by a softmax function. The categorical cross-entropy loss measures the difference between the true label distribution $y$ and the predicted label distribution $\hat{y}$. 
+\begin{align*}
+L_\mathrm{cross-entropy}(\hat{y},y) = -\sum_iy_i \cdot \log(\hat{y_i})
+\end{align*}
+
+For hard classification, $y$ is a one-hot vector representing the true class. Here $t$ is the correct class assignment. Training will attempt to set the correct class $t$ to 1 which inturn will decrease the other class assignment to 0.
+\begin{align*}
+L_{\mathrm{cross-entropy(hard classification)}}(\hat{y},y) = -\log(\hat{y_t})
+\end{align*}
+
+Training the neural network for a longer duration, will cause the trained system to perform well only for trained data but not on the test data. This is called as overfitting. This can be minimized by using regularization techniques such as $L_2$ regularization and dropout \parencite{Hinton2012}. $L_2$ regularization works by adding a penalty term equal to sum of the squares of all the parameters in the network to the loss function which is being minimized. Dropout, instead, works by randomly ignoring half of the neurons in every layer and corrects the error only using the parameters of another half of neurons. This helps to prevent the network from relying on only specific weights.
+
+\subsection{Convolution Neural Networks (CNN)}
 
 Feed-forward networks do not take into account the order of input and so they are not good at representing text data. According to it, words $w_i$ and $w_j$ are independent and do not influence each other. 
-Convolution neural networks \parencite{lecun-bengio-95a}evolved initially in the vision community where they showed tremendous success in object detection regardless of position in an image. For an image, convolutions are 2-dimensional matrix whereas for text it is implemented by a 1-dimensional vector. These are slid over the input taking into account of their spatial dependencies, resulting in capturing the local important characteristics irrespective of its location in the input. These are then fed into a pooling layer which combines all these characteristics computed from different convolutions either by taking maximum or average of them.
+Convolution neural networks \parencite{lecun-bengio-95a} evolved initially in the vision community where they showed tremendous success in object detection regardless of position in an image. For an image, convolutions are 2-dimensional matrix whereas for text it is implemented by a 1-dimensional vector. These are slid over the input taking into account of their spatial dependencies, resulting in capturing the local important characteristics irrespective of its location in the input. These are then fed into a pooling layer which combines all these characteristics computed from different convolutions either by taking maximum or average of them.
 
 \begin{figure}[H]
     \centering
@@ -440,7 +442,7 @@ In the case of text data, convolutional filters are 1-dimensional and they are a
 \end{figure}
 
 
-\subsection{Recurrent Neural networks}
+\subsection{Recurrent Neural Networks (RNN)}
 
 % Relation with conditional probabilities
 
@@ -480,9 +482,9 @@ Here the functions $g^{1}$ and $g^{2}$ are non-linear activation functions; $\ma
 
 To train a RNN, the network is unrolled for a given input sequence and the loss function is used to compute the gradient of error with respect to parameters involved in every time step by propagating backward through time. After that, the parameters are adjusted to reduce the error in prediction \parencite{Werbos1990}. 
 
-\subsection{LSTM}
+\subsection{Neural networks with memory}
 
-While training RNNs, a common problem that especially occurs with long input sentences is that the error gradients might vanish (become too close to zero) or explode (become too large) which results in numerical instability during the backpropagation step. The gradient explosion can be handled by clipping a given gradient when it goes beyond the threshold. LSTM networks \parencite{Hochreiter1997} solve the vanishing gradient problem by introducing memory cells that are controlled by gating components. These gating components decide at each time step, what parts of the hidden state should be forgotten and what parts of new input should be included in the memory cells. These memory cells are involved in the computation of hidden states, which in turn are used to compute the output states. This technique has been shown to provide good results in practice, in capturing the dependency between words even though separated by a long distance.
+While training RNNs, a common problem that especially occurs with long input sentences is that the error gradients might vanish (become too close to zero) or explode (become too large) which results in numerical instability during the backpropagation step. The gradient explosion can be handled by clipping a given gradient when it goes beyond the threshold. Long short-term memory (LSTM) networks \parencite{Hochreiter1997} solve the vanishing gradient problem by introducing memory cells that are controlled by gating components. These gating components decide at each time step, what parts of the hidden state should be forgotten and what parts of new input should be included in the memory cells. These memory cells are involved in the computation of hidden states, which in turn are used to compute the output states. This technique has been shown to provide good results in practice, in capturing the dependency between words even though separated by a long distance.
 
 \begin{figure}[htpb!]
     \centering
@@ -507,14 +509,14 @@ s_j \in \mathbb{R}^{2.d_h},   x_i \in \mathbb{R}^{d_x},  c_j,h_j,i,f,o,g \in \ma
 W^{xo} \in \mathbb{R}^{d_x*d_h},  W^{ho} \in \mathbb{R}^{d_h*d_h}
 \end{align*}
 
-Here the symbol $\odot$ denotes component-wise product. The LSTM uses 3 gating components such as input gate (i), forgot gate (f) and output gate (o) respectively. They contain a sigmoid function to convert the values between 0 and 1 which is used to decide how much to keep. The memory cell state c\textsubscript{j} is obtained by controlling the previous memory cell state with forgot gate and the new input state (g) with input gate. The obtained memory cell state is controlled by the output gate to get the hidden state h\textsubscript{j}.
+Here the symbol $\odot$ denotes component-wise product. The LSTM network uses 3 gating components such as input gate (i), forgot gate (f), and output gate (o) respectively. They contain a sigmoid function to convert the values between 0 and 1 which is used to decide how much to keep. The memory cell state c\textsubscript{j} is obtained by controlling the previous memory cell state with forgot gate and the new input state (g) with input gate. The obtained memory cell state is controlled by the output gate to get the hidden state h\textsubscript{j}.
 
 A similar type of architecture with fewer elements is also effective in handling long-range dependencies is Gated Recurrent Unit (GRU) \parencite{cho2014learning}.
 
 \subsection{Bidirectional RNN}
 A RNN computes the state of current word $\mathbf{x_{i}}$ only based on the words in the past, i.e. $\mathrm{\mathbf{x_1},\dots,\mathbf{x_{i-1}}}$. However, the following words $\mathrm{\mathbf{x_{i+1}},\dots,\mathbf{x_{n}}}$ will also be useful in computing the hidden state regarding the current word. The bidirectional RNN (biRNN) \parencite{bidirectionalRNN} solves the problem by having two different RNNs. The first RNN is fed with the input sequence $\mathrm{\mathbf{x_{1}},\dots,\mathbf{x_{n}}}$ and the second RNN is fed with input sequence in reverse. The hidden state representation $\mathbf{h_{i}}$ is then composed of both the forward and backward states. Each state representation consists of the token information along with sentential context from both directions which has shown better results than classical uni-directional RNNs in practice.
 
-In the figure \ref{fig:bi-directional-rnn-1.png}, the inputs $x_0,x_1,\dots,x_n$  are passed through two RNNs; one process it from left to right with hidden state $s_i$ and the other from right to left with hidden state as $s^{'}_i$. The outputs of each of them are concatenated with other at every time step to form $y_0,y_1,\dots,y_n$.
+In the figure \ref{fig:bi-directional-rnn-1.png}, the inputs $x_0,x_1,\dots,x_n$  are passed through two RNNs; one process it from left to right with hidden state $s_i$ and the other from right to left with hidden state $s^{'}_i$. The outputs of each of them are concatenated with other at every time step to form $y_0,y_1,\dots,y_n$.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
@@ -529,9 +531,9 @@ In the figure \ref{fig:bi-directional-rnn-1.png}, the inputs $x_0,x_1,\dots,x_n$
 
 The representation of data is a very important factor in improving the performance of any machine learning application. In the past, inputs are differentiated using sparse vectors called one-hot vectors. If there are $n$ inputs then there will be  $n$ one-hot vectors and each of its dimensions will be $n$. The input $w_i$ will be represented by a vector whose elements will be 0 except that the value of $i^{th}$ element to be 1. Each input is orthogonal to all others and the larger the number of inputs the higher the dimensions of vectors. It also increases the sparsity of representation which is a disadvantage. 
 
-\subsubsection{Word embeddings}
+\subsubsection{Word Embeddings}
 
-Instead of representing each word by a vector of dimension $n$ that is equal to the total number of words in a training dataset, a dense vector of dimension $d$ where $d << n$ is used. The difference here is that all the elements of a vector can have any values whereas with one-hot vectors it is mostly 0 except one element with value 1. Unlike one-hot vectors, these dense vectors will be initialized randomly at the beginning and will be trained according to the application needs. These dense vectors are called as word embeddings. The dimensionality of these word embeddings typically ranges from 50 to a few hundred. 
+Instead of representing each word by a vector of dimension $n$ that is equal to the total number of words in a training dataset, a dense vector of dimension $d$ where $d << n$ is used. The difference here is that all the elements of a vector can have any value whereas with one-hot vectors it is mostly 0 except one element with value 1. Unlike one-hot vectors, these dense vectors will be initialized randomly at the beginning and will be trained according to the application needs. These dense vectors are called as word embeddings. The dimensionality of these word embeddings typically ranges from 50 to a few hundred. 
 
 There are two advantages of using word embeddings and they are listed here:
 \begin{enumerate}
@@ -543,7 +545,7 @@ Many NLP applications were benefitted using word embeddings and they are initial
 
 There are many unsupervised learning approaches to compute word embeddings and the most common ones are word2vec \parencite{mikolov2013efficient}, and Glove \parencite{pennington2014glove}. These pre-trained word embeddings can be used directly or word embeddings with random initialization can be learned while performing task-specific training. 
 
-Mikolov et al. analyzed these dense vectors and figured out that they possess good syntactic and semantic word relationships \parencite{mikolov2013linguistic}. For instance the vector calculation $v_{madrid} - v_{spain} + v_{france}$ is closer to $v_{paris}$.  This shows that it captures the capital to city relationship effectively. Similarly, man to woman, company to CEO, city to zip code, and comparative to superlative are captured very well. This shows that dense vectors inherently embody relationship attributes. They are much more than mere numbers. The figure \ref{fig:word_properties} is an illustration of embeddings representing words such as man, woman, etc. The relationship between man and woman, uncle and aunt, and king and queen are captured by similarity in the results of those vector calculations.
+Mikolov et al. analyzed these dense vectors and figured out that they possess good syntactic and semantic word relationships \parencite{mikolov2013linguistic}. For instance the vector calculation $v_{madrid} - v_{spain} + v_{france}$ is closer to $v_{paris}$.  This shows that it captures the capital to city relationship effectively. Similarly, man to woman, company to CEO, city to zip code, and comparative to superlative relations are captured very well. This shows that dense vectors inherently embody relationship attributes. They are much more than mere numbers. The figure \ref{fig:word_properties} is an illustration of embeddings representing words such as man, woman, etc. The relationship between man and woman, uncle and aunt, and king and queen show similarity in their vector calculations.
 
 \begin{figure}[H]
     \centering
@@ -559,7 +561,7 @@ Mikolov et al. analyzed these dense vectors and figured out that they possess go
 The word embeddings can be built over character embeddings. The representation of words can be built using a convolutional network over the words \parencite{dos2014deep}. Also, the word vectors can be computed using final states of bi-directional RNN over the characters in a word \parencite{ling-etal-2015-finding}. Character embeddings compose syntactic relations as the character patterns within words are strongly related to their syntactic function \parencite{Goldberg2016}. Some advantages of character embeddings are the models are smaller in size since only one vector for each character and also it is possible to compute a vector for any word irrespective of its presence in training dataset. 
 
 \subsubsection{Embeddings from Language Models (ELMo)}
-Word sense is one of the meanings of a word. Words have different meanings depending on the context it is being used. The disadvantage of word embeddings is that it uses only one vector to represent all word senses of a word.  Say for e.g., consider the sentences below:
+In linguistics, a word sense is one of the meanings of a word. Words have different meanings depending on the context it is being used. The disadvantage of word embeddings is that it uses only one vector to represent all word senses of a word.  Say e.g., consider the sentences below:
 \begin{itemize}
 \item We went to see the $play$ Romeo and Juliet
 \item The children went out to $play$ in the park
@@ -584,9 +586,9 @@ The representation is so powerful that it significantly improves six challenging
     \label{fig:ELMO}
 \end{figure}
 
-Character embeddings with convolution filters or bidirectional RNNs are used to represent words as shown on the left side of the above figure. These representations are passed through a two-layered bidirectional RNNs and the outputs for a word $w_i$ are $h^{LM}_{w_{i},1}$ and $h^{LM}_{w_{i},2}$. Since it involves RNN, the vectors for word $w_i$ will be dependent on the previous words. The training for producing ELMo embeddings is based on an unsupervised language modeling task. In this, for a sentence,  when $w_i$ is passed as input, the system predicts the next word $w^p_{i+1}$ given the previous words. In the next state, the actual word $w_{i+1}$ is passed as input and now the system predicts the next word. In the case of ELMo, these predictions happen at the final layer which is at $h^{LM}_{w_{i},2}$. This models the behavior of conditional probability given by $P(w_i|w_ {i-1},w_{i-2},...w_1)$.
+Character embeddings with convolution filters or bidirectional RNNs are used to represent words as shown on the left side of the above figure. These representations are passed through a two-layered bidirectional RNNs and the outputs for a word $w_i$ are $h^{LM}_{w_{i},1}$ and $h^{LM}_{w_{i},2}$. Since it involves bidirectional RNN, the vectors for word $w_i$ will be dependent on the previous and next words. The training for producing ELMo embeddings is based on an unsupervised language modeling task. In this, for a sentence,  when $w_i$ is passed as input, the system predicts the next word $w^p_{i+1}$ given the previous words. In the next state, the actual word $w_{i+1}$ is passed as input and now the system predicts the next word. In the case of ELMo, these predictions happen at the final layer which is at $h^{LM}_{w_{i},2}$. This models the behavior of conditional probability given by $P(w_i|w_ {i-1},w_{i-2},...w_1)$.
 
-The embeddings for words are obtained by considering all three layers. For every task, for every word, the system is trained to extract embeddings from all three layers using a weighted average of them. The following equation shows how to extract embeddings:
+The embeddings for words are obtained by considering all three layers. For each task, for each word, the system is trained to extract embeddings from all three layers using a weighted average of them. The following equation shows how to extract embeddings:
 \begin{align*} 
 {ELMo}^{task}_k = \gamma^{task} \sum_{j=0}^{2} s^{task}_j h^{LM}_{k,j}
 \end{align*}
@@ -604,7 +606,8 @@ The following table captures the difference between the outputs of GloVe and ELM
     }
     \label{fig:ELMO2}
 \end{figure}
-\subsection{Attention networks}
+\pagebreak
+\subsection{Attention Networks}
 
 %Talk about translation in general
 %How does this weightage help
@@ -624,9 +627,9 @@ The following table captures the difference between the outputs of GloVe and ELM
 
 In figure \ref{fig:machine-translation-1}, the encoder of the machine translation system uses a RNN module that takes in a sentence 'Er isst' and outputs final hidden state $s_2$. The decoder part is nothing but a language modeling task conditioned on $s_2$. It uses RNN to predict the English sentence and outputs as 'He eats'. 
 
-For longer sentences, machine translation systems were giving poor results even with the use of LSTM or GRU models. These systems were attempting to covert sentences of any length to a fixed vector size. This has limitations to remember when the sentences get longer. 
+For longer sentences, machine translation systems were giving poor results even with the use of LSTM or GRU models. These systems were attempting to convert sentences of any length to a fixed vector size. This has limitations to remember when the sentences get longer. 
 
-Attention models were introduced in machine translation systems and they achieved better results \parencite{bahdanau2014neural}. The figure \ref{fig:attention-networks-1} is an illustration of their work. In this, a bidirectional RNN module is used to model the sentences. Each of the state output is passed to an attention module to output $context^{<t>}$. This context is used along with the previous hidden state $h_t$ and their predicted output e.g. 'He' to produce the next hidden state $h_t$ and output 'eats'. In this, instead of converting all the words of a sentence to a single fixed output vector, depending upon the length of a sentence, their respective state output is used effectively. 
+Attention models were introduced in machine translation systems and they achieved better results \parencite{bahdanau2014neural}. The figure \ref{fig:attention-networks-1} is an illustration of their work. In this method, a bidirectional RNN module is used to model the sentences. All the state outputs $a^1, a^2 \dots a^n$ are passed to an attention module to output $context^{<t>}$. This context is used along with the previous hidden state $h_{t-1}$ and their predicted output e.g. 'He' to produce the next hidden state $h_t$ and output e.g. 'eats'. In this, instead of converting all the words of a sentence to a single fixed output vector, depending upon the length of a sentence, their respective state output is used effectively. 
 
 \begin{figure}[H]
     \centering
@@ -638,11 +641,12 @@ Attention models were introduced in machine translation systems and they achieve
     \label{fig:attention-networks-1}
 \end{figure}
 
-In this method, the attention module uses all the state outputs of the encoder to produce a context vector. This is achieved by computing weights which quantify how much each of the words is attended to or influences the translation at every time step t.  The figure \ref{fig:attention-networks-2} reveals how the training of attention weights is achieved. It uses a simple feed-forward neural network whose input involves the decoder previous hidden state and a respective encoder state output to compute the attention weight that is relevant to be applied on that particular state output to produce the next decode hidden state. The outputted weights are passed through softmax to scale their influence between 0 to 1.
+
+In this method, the attention module uses all the state outputs of the encoder to produce a context vector. This is achieved by computing weights which quantify how much each of the words is attended to or influences the translation at every time step t.  The figure \ref{fig:attention-networks-2} reveals how the training of attention weights is achieved. It uses a simple feed-forward neural network whose input involves the decoder previous hidden state $h_{t-1}$and a respective encoder state output $a_{t'}$ to compute the attention weight $\alpha^{<t,t'>}$. This is then used to produce the next decode hidden state $h_t$. 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth,height=10cm,keepaspectratio=true]
+    \includegraphics[width=\textwidth,height=6cm,keepaspectratio=true]
     {attention-networks-2.png}
     \caption{
         Attention module in machine translation 
@@ -650,10 +654,10 @@ In this method, the attention module uses all the state outputs of the encoder t
     \label{fig:attention-networks-2}
 \end{figure}
 
-After computing all the attention weights for all state outputs of an encoder for a time step t, the resultant context vector is computed by the weighted average of all state outputs of the encoder.
+After computing all the attention weights for all state outputs of an encoder for a time step t, they are passed through softmax to scale their influence between 0 and 1. The resultant context vector is computed by the weighted average of all state outputs of the encoder.
 
 \begin{align*}
-context^{<t>} = \sum_{t'} \alpha^{<t,t'>} a^{<t'>}
+context^{<t>} = \sum_{t'} \alpha^{<t,t'>} a^{t'}
 \end{align*} 
  
 The attention weights also give a good idea of what words in a sentence influences what parts of translation output. This throws light in analyzing effectively how the system is performing for different inputs. In the figure \ref{fig:attention-matrix-1}, it is revealed that the words 'Er' and 'issue' influences 'He' and 'eats' separately and the translation is completed by outputting '<eos>' which is influenced by 'isst'.
@@ -670,13 +674,13 @@ The attention weights also give a good idea of what words in a sentence influenc
 
 Attention mechanism with RNN gives state of the art results in many NLP applications such as Natural Language Inference \parencite{Parikh2016}, Machine Translation \parencite{bahdanau2014neural} and Document classification \parencite{Yang2016}.
 
-\subsection{Self-attention networks}
+\subsection{Self-attention Networks}
 
 Attention modules showed great capabilities in effectively using the encoder outputs to achieve decoder functionalities efficiently. It uses trainable attention weights that helps the system to adapt its focus on parts of encoder depending upon the intermediate outputs of decoder. 
 
 The Transformer model architecture \parencite{Vaswani2017} showed that attention modules capture the context of input effectively and when used to represent input, achieves better results in many NLP application systems such as machine translation, and English constituency parsing.
 
-Instead of using a bidirectional RNNs to encode input sentences they used attention modules on input sentences to compute influential weights against the same. This encodes the sentence very effectively by outputting vectors for each word which has the sentential context as shown in figure \ref{fig:self-attention-matrix-3}.
+Instead of using bidirectional RNNs to encode input sentences they used attention modules on input sentences to compute influential weights against the same. This encodes the sentence very effectively by outputting vectors for each word which has the sentential context as shown in figure \ref{fig:self-attention-matrix-3}.
 
 \begin{figure}[H]
     \centering
@@ -688,8 +692,8 @@ Instead of using a bidirectional RNNs to encode input sentences they used attent
     \label{fig:self-attention-matrix-3}
 \end{figure}
 
-The figure \ref{fig:single_attention_head} shows how each word $w_i$ is transformed into 3 vectors such as key $(k_i)$,  value $(v_i)$ and query $(q_i)$ with lesser dimensions than $w_i$. The attention of a word i to a word j in a sentence is then calculated as 
-$ p(i\rightarrow{}j) \propto exp(\dfrac{q^{(c)}_i.k^{(c)}_j}{sqrt(d_k)}) $. The weighted average of all values to form a average vector $v_{i\_avg} = \sum_{k}p(i\rightarrow{}k)v_k$ represents the new value vector for word i which includes all the attention that it has on all the words in the sentence. 
+The figure \ref{fig:single self attention head} shows how each word $w_i$ is transformed into 3 vectors such as key $(k_i)$,  value $(v_i)$ and query $(q_i)$ with lesser dimensions than $w_i$. The attention of a word i to a word j in a sentence is then calculated as 
+$ p(i\rightarrow{}j) \propto exp(\dfrac{q^{(c)}_i.k^{(c)}_j}{sqrt(d_k)}) $. The weighted average of all values to form a average vector $v_{i\_avg} = \sum_{k}p(i\rightarrow{}k)v_k$ represents the new value vector for word $w_i$ which includes all the attention that it has on all the words in the sentence. 
 
 \begin{figure}[H]
     \centering
@@ -698,18 +702,18 @@ $ p(i\rightarrow{}j) \propto exp(\dfrac{q^{(c)}_i.k^{(c)}_j}{sqrt(d_k)}) $. The 
     \caption{
         Self-attention module
     }
-    \label{fig:Self attention head}
+    \label{fig:single self attention head}
 \end{figure}
 
 
-\subsection{CKY parsing}
+\subsection{CKY Parsing}
 
 
-Syntax structure can be modeled by Context-Free Grammars (CFG). Parsing attempts to extract the syntactic structure in the form of a tree from a sentence using the production rules specified in CFG.  A naive top-down search will take one of the starting non-terminals and proceeds to explore the non-terminals, all the way up to terminals and try to match the words. It explores many options that never connect to the actual sentence. Whereas a naive bottom-up search will start with words and try to match the non-terminal, all the way up to the starting terminal. It explores many options that can never lead to a full parse. The number of unsuccessful searches depends on how much the grammar branches in each direction.
+Syntax structure can be modeled by Context-Free Grammars (CFG). Parsing attempts to extract the syntactic structure, in the form of a tree from a sentence, using the production rules specified in CFG.  A naive top-down search will take one of the starting non-terminals and proceeds to explore the non-terminals, all the way up to terminals and try to match the words. It explores many options that never connect to the actual sentence. Whereas a naive bottom-up search will start with words and try to match the non-terminal, all the way up to the starting terminal. It explores many options that can never lead to a full parse. The number of unsuccessful searches depends on how much the grammar branches in each direction.
 
 Cocke-Kasami-Younger (CKY) \parencite{YOUNGER1967189} is a bottom-up parsing and dynamic programming method that requires first normalizing the grammar. 
 
-Two key issues that are dealt with by CKY parsing are computational complexity and ambiguity. The computational complexity is handled by using a chart that stores the previous recognition of production rules for word combination or sub-rule combinations and re-using it appropriately. 
+Two key issues that CKY parsing are dealt with are computational complexity and ambiguity. The computational complexity is handled by using a chart that stores the previous recognition of production rules for word combination or sub-rule combinations and re-using it appropriately. 
 
 \begin{figure}[H]
     \centering
@@ -721,16 +725,16 @@ Two key issues that are dealt with by CKY parsing are computational complexity a
     \label{fig:cky_parser_1}
 \end{figure}
 
-The ambiguity is dealt with by using Probabilistic Context-Free Grammar (PCFG). The probability values assigned to each production rule are used by parsing when they are assigned to sub-rule combinations and the importance of usage is computed. This importance is compared against other relevant production rules that could be applied and the best score is chosen.
+The ambiguity is dealt with by using Probabilistic Context-Free Grammar (PCFG). The probability values assigned to each production rule are used while parsing when the production rule replaces word combinations or sub-rule combinations and the importance of usage is computed. This importance is compared against other relevant production rules that could be applied and the best score is chosen.
 
 The algorithm of CKY is explained briefly as follows: 
 \begin{enumerate}
-\item Convert the given grammar into  Chomsky Normal Form (CNF). This involves allowing only two kinds of right-hand sides in production rules such as either two non-terminals or one terminal. Any CFG can be written in CNF form.
+\item Convert the given grammar into  Chomsky Normal Form (CNF). This involves allowing only two kinds of right-hand sides in production rules such as either two non-terminals or one terminal. Any CFG can be written in CNF form
 \item Create a chart with the number of layers equivalent to the number of words in a sentence as shown in figure \ref{fig:cky_parser_1}. Each layer refers to the span of a sentence and so all possible combinations in a sentence will be explored
 \item In the first layer, each word is dealt with. Replace the words with appropriate non-terminal(s) with the probability score
 \item Look for unaries that can re-write non-terminals and if found then append those to appropriate cells in the chart. While adding recompute the new probability score by multiplying the appropriate production rule components (both left and right). This is continued until no possible replacement is available 
-\item Look for the duplication for each non-terminal in each cell. If found then the one with the highest score is chosen and the rest are removed
-\item When a layer with larger span is involved, use the results computed from a lower layer which is referring to smaller span. Consider all the possible cell pair combinations and for each cell pair, consider all the combinations of non-terminals from each cell. Say for e.g. for a span(0,2), the cell pairs {(0,0),(1,2)} and {(0,1),(2,2)} will be taken into account as shown in the figure \ref{fig:cky_parser_1}. Follow step 3 for the two non-terminals instead of words and also unary replacement steps. In each case compute the new probability score building from the previous cells. 
+\item Look for the duplication of each non-terminal in each cell. If found then the one with the highest score is chosen and the rest are removed
+\item When a layer with larger span is involved, use the results computed from a lower layer which is referring to smaller span. Consider all the possible cell pair combinations and for each cell pair, consider all the combinations of non-terminals from each cell. Say for e.g. for a span (0,2), the cell pairs \{(0,0), (1,2)\} and \{(0,1), (2,2)\} will be taken into account as shown in the figure \ref{fig:cky_parser_1}. Follow step 3 for the two non-terminals instead of words and also unary replacement steps. In each case compute the new probability score building from the previous cells 
 \item Keep on doing it until the span limit is covered. Take the non-terminal S, which is the starting terminal, with the highest score. If none found then the sentence cannot be parsed for a given grammar
 \end{enumerate}
 
@@ -749,13 +753,13 @@ In figure \ref{fig:cky_parser_2}, the sentence 'Hans isst einen Apfel' is parsed
 \pagebreak
 \section{Approach}  
 
-In this thesis work, deep learning techniques are used to develop constituent parser for german language. This section explains in detail the architecture used and the different components included in it. 
+In this thesis work, deep learning techniques are used to develop constituent parser for the German language. This section explains in detail the architecture used and the different components included in it. 
 
 \subsection{Research Questions}
 
 Through this work, the research questions that would be addressed are:
 \begin{enumerate}
-\item How well the self-attention based modules of neural networks are effective in capturing constituency grammar of german language? 
+\item How well the self-attention based modules of neural networks are effective in capturing constituency grammar of the German language? 
 \item How efficient the model can be improved by using only the tree dataset? This means no other external data directly or indirectly will be utilized. 
 \item How efficient the model can be improved using Transfer learning which involves pre-trained deep learning systems using external data such as German Wikipedia?
 \end{enumerate}
@@ -846,7 +850,7 @@ The output of single attention head is concatenated as shown in the figure \ref{
 The concatenated output fed through feed-forward to derive the patterns across multiple attentions in a sentence. These are then fed to the Layer Normalization block as shown in figure \ref{fig:encoder_module}.
 
 \subsubsection{Decoder}
-The decoder of this parser is inspired by the works of Stern et al. \parencite{Stern2017} and Gaddy et al. \parencite{Gaddy2018}. The output of encoder is a matrix wherein each row vector of size 1024 neurons represents a word in a sentence. The quantification of how good a combination i and j is considered as a constituent with label l is computed by scoring modules. The combination of two entities i and j is represented by a vector  $v = [\overrightarrow{y}_j - \overrightarrow{y}_i; \overleftarrow{y}_{j+1} - \overleftarrow{y}_{i+1}]$. The vector of size 1024 for a word or entity is divided into two vectors of equal size to be used as a representative for the left or right part of a constituent. The computed vector v for entities i and j  is transformed non-linearly with normalization into a space of size equal to the number of labels. The label information is obtained by going through all the training samples and used to predict the label as well as the scores associated with it. 
+The decoder of this parser is inspired by the works of Stern et al. \parencite{Stern2017} and Gaddy et al. \parencite{Gaddy2018}. The output of encoder is a matrix wherein each row vector of size 1024 neurons represents a word in a sentence. The quantification of how good a combination i and j is considered as a constituent with label l is computed by scoring modules. The combination of two entities i and j is represented by a vector  $v = [\overrightarrow{y}_j - \overrightarrow{y}_i; \overleftarrow{y}_{j+1} - \overleftarrow{y}_{i+1}]$. The vector of size 1024 for a word or entity is divided into two vectors of equal size to be used as a representative for the left or right part of a constituent. The computed vector $v$ for entities i and j  is transformed non-linearly with normalization into a space of size equal to the number of labels. The label information is obtained by going through all the training samples and used to predict the label as well as the scores associated with it. 
 
 \begin{align*}
 s(i,j,l) = M_2relu(LayerNorm(M_1v + c_1)) + c_2
@@ -862,7 +866,7 @@ s(i,j,l) = M_2relu(LayerNorm(M_1v + c_1)) + c_2
     \label{fig:CKY}
 \end{figure}
 
-The decoder uses CKY parsing to compute scores for all the combinations and also computes the best overall tree $\hat{T}$ as the sum of all best subtrees. There are no defined PCFG grammar and its components associated with it. Every combination is a production rule, every label in a training set is a non-terminal, every word is a terminal and all non-terminals are starting terminals. The score for a combination is considered as probability value of a production rule. The best score for a combination $s_{best}$ is obtained by the sum of its label score and best split that can divide the combination recursively. For consecutive entities, it is based only on the label score.
+The decoder uses CKY parsing to compute scores for all the combinations and also computes the best overall tree $\hat{T}$ as the sum of all best subtrees. There are no defined PCFG grammar and its components associated with it. Every combination is a production rule, every label in a training set is a non-terminal, every word is a terminal and all non-terminals are starting terminals. The score for a combination is considered as probability value of a production rule. The best score for a combination $s_{best}(i,j)$ is obtained by the sum of its label score and best split that can divide the combination recursively. For consecutive entities, $s_{best}(i,i+1)$ is based only on the label score.
 
 \begin{align*}
 s(T) = \sum_{(i,j,l) \epsilon T}s(i,j,l) \\
@@ -887,7 +891,7 @@ With this training approach, the score of a golden tree will be maintained highe
 s(T^*)\ \geq s(T) + \Delta (T,T^*) \\
 \end{align*}
 
-Here, the parsing ability of the system is not only learned but also the PCFG grammar of German. While trying to maintain the score for a golden tree to be high, the scores for combinations are fine-tuned which is analogous to the probability values of that production rule.
+Here, the parsing ability of the system is not only learned but also the PCFG grammar of the German language. While trying to maintain the score for a golden tree to be high, the scores for combinations are fine-tuned which is analogous to the probability values of that production rule.
 
 \subsection{Experiments}
 
@@ -946,7 +950,7 @@ $
 Similar is the case for position representation as well. In this experiment, the representation of input is trained along with other parameters. So, with every batch, it is expected to learn effectively. The various representation of input to the system with only training data is explored as follows:
 
 \begin{enumerate}
-\item Character embeddings matrix represents each character used in the training set with a vector. To be on the safer side, a maximum range for the no.of characters is selected by analyzing the training dataset. The representation for each word will be constructed by using a bi-directional LSTM based RNN network. For each character in the word, the RNN is unrolled in sequence and the two last output vectors will be obtained by traversing left to right and vice-versa. Those two final vectors are merged to form the final vector to represent the word.
+\item Character embeddings matrix represents each character used in the training set with a vector. To be on the safer side, a maximum range for the number of characters is selected by analyzing the training dataset. The representation for each word will be constructed by using a bi-directional LSTM based RNN network. For each character in the word, the RNN is unrolled in sequence and the two last output vectors will be obtained by traversing left to right and vice-versa. Those two final vectors are merged to form the final vector to represent the word.
 \item Instead of characters, an embedding matrix is constructed where each vector represents a word directly. For all the words that do not exist, a unique vector labeled as <UNK> will be used. 
 \item The third alternative is using both the character and word embeddings matrix. The dimension of both the matrix will be fixed and the resultant vectors from those matrices are added together to represent a word. 
 \end{enumerate}
@@ -954,7 +958,7 @@ Similar is the case for position representation as well. In this experiment, the
 With character embeddings, the words which are not present in the training dataset will still be expected to be assigned with a reasonable appropriate vector. The character embeddings are expected to learn sub-word patterns and use them when constructing unknown words. For each word, the vector is constructed on the fly, whereas with word embeddings, the vectors are fixed. The word embeddings as stated by Mikolov et al. \parencite{mikolov2013linguistic} is expected to learn similarities. But using <UNK> vector will not be as effective as the former strategy. By combining both character and word embeddings, the benefits of both are expected to be utilized. 
 \subsubsection{Research Question 3}
 
-The third research question addresses the usage of Embeddings from Language Models (ELMo). In addition to that, what components or combination of them helps build an efficient parser. ELMo embeddings are constructed using a multi-layer, character convolution-based, bi-directional LSTM modules by training with a very large dataset at least over a billion tokens. The representations are deep and have provided state of the art results in various application systems. As stated in the section ???, it outputs 3 layers and the following section shows the experiments to be conducted with ELMo:
+The third research question addresses the usage of Embeddings from Language Models (ELMo). In addition to that, what components or combination of them helps build an efficient parser. ELMo embeddings are constructed using a multi-layer, character convolution-based, bi-directional LSTM modules by training with a very large dataset at least over a billion tokens. The representations are deep and have provided state of the art results in various application systems. ELMo consist of 3 layers and the following section shows the experiments to be conducted with ELMo:
 
 
 \begin{enumerate}
@@ -1025,7 +1029,7 @@ F1 measure takes in a balanced approach by involving both precision and recall. 
 \section{Implementation}
 
 This section covers the implementation details for building a constituent parser. All the programs required to build the parser using neural networks are written in python (3.7.4) \footnote{https://www.python.org/downloads/release/python-374/}. The model built is relatively complex and involves a lot of parameters. The training of these parameters approximately took one day using GeForce GTX 1050 Ti GPU. And so, it is important to have a good GPU configuration to run and train the model effectively. 
-\subsection{Dependency management}
+\subsection{Dependency Management}
 
 The main dependencies of the program are listed below:
 \begin{itemize}
@@ -1035,7 +1039,7 @@ The main dependencies of the program are listed below:
 \item AllenNLP (0.9.0) \footnote{https://allennlp.org/}, an open-source NLP research library, built on PyTorch. ELMo module, an important component of this project, is taken from AllenNLP libraries.  
 \end{itemize}
 
-\subsection{Source code}
+\subsection{Source Code}
 
 The source code\footnote{https://github.com/Kandy16/self-attentive-parser} is highly inspired and derived from the published GitHub code \footnote{https://github.com/nikitakit/self-attentive-parser} of Kitaev et al. \parencite*{Kitaev2019}. There have been modifications made on Encoder, and ELMo modules to suit the project needs. Their work did not focus on using ELMo modules for the German dataset. Also, the code is upgraded to use the latest version of dependencies, API support for an extension. The code includes a CLI support for configuring all the parameters.
 
@@ -1222,7 +1226,7 @@ From the table, it is clear that layered outputs influence the model much effect
 \item It is interesting that the combination of all layers performed better than using only the syntactic layer by 0.38\%. In this, a scalar matrix influences what proportion of layered output has to be used. This is achieved by computing a weighted average of layered output influenced by the scalar matrix. This scalar matrix is fine-tuned by the training of the model to achieve the maximum objective score. 
 \end{itemize}
 
-The figure \ref{fig:elmo-layers-relevance} reveals the influence of layers when all of them used. As expected nearly 80\% of second layer output is used. Usage of only third layer gives a better F1 score than using only the first layer. But what is surprising is that it uses only 0.02\% of the third layer which means it has almost no influence. What can be assumed from this is that all the relation required is given by the second layer itself and so the third layer information is redundant in this case. 
+The figure \ref{fig:elmo-layers-relevance} reveals the influence of layers when all of them used. As expected nearly 80\% of second layer output is used. Usage of only the third layer gives a better F1 score than using only the first layer. But what is surprising is that it uses only 0.02\% of the third layer which means it has almost no influence. What can be assumed from this is that all the relation required is given by the second layer itself and so the third layer information is redundant in this case. 
 
 \begin{figure}[H]
     \centering
@@ -1268,5 +1272,6 @@ Devlin et al. made efforts to build Bidirectional Encoder Representations from T
 \newpage
 \printbibliography
 \end{document}
+
 
 
