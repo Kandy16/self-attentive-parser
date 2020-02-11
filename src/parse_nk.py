@@ -878,6 +878,7 @@ class NKChartParser(nn.Module):
         tag_idxs = np.zeros(packed_len, dtype=int)
         word_idxs = np.zeros(packed_len, dtype=int)
         batch_idxs = np.zeros(packed_len, dtype=int)
+        unk_count = 0
         for snum, sentence in enumerate(sentences):
             for (tag, word) in [(START, START)] + sentence + [(STOP, STOP)]:
                 tag_idxs[i] = 0 if (not self.use_tags and self.f_tag is None) else self.tag_vocab.index_or_unk(tag, TAG_UNK)
@@ -885,11 +886,13 @@ class NKChartParser(nn.Module):
                     count = self.word_vocab.count(word)
                     if not count or (is_train and np.random.rand() < 1 / (1 + count)):
                         word = UNK
+                        unk_count += 1
                 word_idxs[i] = self.word_vocab.index(word)
                 batch_idxs[i] = snum
                 i += 1
         assert i == packed_len
 
+        print('No. of unknown words is ',unk_count,' out of ', packed_len, ' words!')
         batch_idxs = BatchIndices(batch_idxs)
 
         emb_idxs_map = {
@@ -1306,3 +1309,4 @@ class NKChartParser(nn.Module):
         # #plt.show()
         # fig.savefig('images/'+str(datetime.datetime.now())+'.png', dpi=100)
         # plt.close(fig)
+
